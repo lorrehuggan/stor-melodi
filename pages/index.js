@@ -2,15 +2,10 @@ import axios from 'axios';
 import Head from 'next/head';
 import Image from 'next/image';
 import '../styles/Home.module.scss';
-import {
-  TOKEN,
-  GENRE_ENDPOINT,
-  getAccessToken,
-  TOKEN_ENDPOINT,
-  basic,
-} from '../lib/spotify';
+import { GENRE_ENDPOINT, getAccessToken } from '../lib/spotify';
 
 export default function Home({ genres }) {
+  console.log(genres);
   return (
     <div>
       <Head>
@@ -27,20 +22,14 @@ export default function Home({ genres }) {
 }
 
 export async function getStaticProps() {
-  const token = axios(TOKEN_ENDPOINT, {
+  const token = await getAccessToken();
+  const genres = await axios(GENRE_ENDPOINT, {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${basic}`,
+      Authorization: `Bearer ${token}`,
     },
-    data: 'grant_type=client_credentials',
-    method: 'POST',
-  })
-    .then((tokenResponse) => tokenResponse.data.access_token)
-    .then((accessToken) => accessToken);
-
-  console.log(await token);
+  }).then((res) => res.data.genres);
 
   return {
-    props: {},
+    props: { genres },
   };
 }
