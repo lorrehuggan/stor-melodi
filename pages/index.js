@@ -1,11 +1,15 @@
 import axios from 'axios';
 import Head from 'next/head';
-import Image from 'next/image';
 import '../styles/Home.module.scss';
-import { GENRE_ENDPOINT, getAccessToken } from '../lib/spotify';
+import { GENRE_ENDPOINT, GET_ACCESS_TOKEN } from '../lib/spotify';
 
 export default function Home({ genres }) {
-  console.log(genres);
+  const renderAllGenres = () => {
+    return genres.map((genre) => {
+      return <p key={genre}>{genre}</p>;
+    });
+  };
+
   return (
     <div>
       <Head>
@@ -14,7 +18,7 @@ export default function Home({ genres }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main></main>
+      <main>{renderAllGenres()}</main>
 
       <footer></footer>
     </div>
@@ -22,8 +26,8 @@ export default function Home({ genres }) {
 }
 
 export async function getStaticProps() {
-  const token = await getAccessToken();
-  const genres = await axios(GENRE_ENDPOINT, {
+  let token = await GET_ACCESS_TOKEN();
+  let genres = await axios(GENRE_ENDPOINT, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
