@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Head from 'next/head';
 import Image from 'next/image';
 import '../styles/Home.module.scss';
@@ -26,24 +27,20 @@ export default function Home({ genres }) {
 }
 
 export async function getStaticProps() {
-  const token = await fetch(TOKEN_ENDPOINT, {
+  const token = axios(TOKEN_ENDPOINT, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: `Basic ${basic}`,
     },
     data: 'grant_type=client_credentials',
     method: 'POST',
-  }).then((response) => response.json());
-  console.log(token);
-  // console.log(getAccessToken());
-  const genres = await fetch(GENRE_ENDPOINT, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((response) => response.json());
+  })
+    .then((tokenResponse) => tokenResponse.data.access_token)
+    .then((accessToken) => accessToken);
+
+  console.log(await token);
 
   return {
-    props: { genres },
+    props: {},
   };
 }
