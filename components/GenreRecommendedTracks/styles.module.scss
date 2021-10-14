@@ -1,0 +1,23 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 0.5rem;
+}
+
+.card {
+  width: 504px;
+  height: 504px;
+  position: relative;
+}
+
+.info {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+}
+
+.image {
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 4px;
+}

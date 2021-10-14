@@ -5,6 +5,7 @@
   justify-content: $justify;
 }
 
-@mixin headerFont {
+@mixin headerFont($size) {
   font-family: 'Merriweather Sans', sans-serif;
+  font-size: $size;
 }

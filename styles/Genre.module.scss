@@ -1,0 +1,23 @@
+@import './mixin';
+
+.container {
+  @include flex(column, center, center);
+}
+
+.innerContainer {
+  @include flex(column, left, left);
+  width: 1024px;
+  margin-top: 2rem;
+}
+
+.gridContainer {
+  @include flex(column, center, center);
+  width: 1024px;
+  margin-top: 2rem;
+}
+
+.heading {
+  @include headerFont(4rem);
+  text-transform: uppercase;
+  font-weight: 900;
+}
