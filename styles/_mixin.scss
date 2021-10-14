@@ -8,4 +8,5 @@
 @mixin headerFont($size) {
   font-family: 'Merriweather Sans', sans-serif;
   font-size: $size;
+  letter-spacing: -2px;
 }

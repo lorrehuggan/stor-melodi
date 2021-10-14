@@ -3,20 +3,20 @@ import axios from 'axios';
 import {
   GENRE_ENDPOINT,
   GET_ACCESS_TOKEN,
-  RECOMMENDATIONS,
+  RECOMMENDATIONS_ENDPOINT,
 } from '../lib/spotify';
 import HeadTag from '../components/Head';
 import styles from '../styles/Genre.module.scss';
 import GenreRecommendedTracks from '../components/GenreRecommendedTracks';
 
 const Genre = ({ genre, tracks }) => {
-  //set album titles to tags
+  console.log(tracks);
+  //set album titles to meta tags
   let tags = [];
   tracks.map((track) => {
     return tags.push(track.album.name);
   });
 
-  //Head tag object
   const head = {
     title: genre,
     description: 'Best to place to find your next music experience',
@@ -32,7 +32,7 @@ const Genre = ({ genre, tracks }) => {
 
       <main className={styles.container}>
         <section className={styles.innerContainer}>
-          <h1 className={styles.heading}>{genre}</h1>
+          <h2 className={styles.heading}>{`Recommended ${genre}`}</h2>
         </section>
         <section className={styles.gridContainer}>
           <GenreRecommendedTracks tracks={tracks} />
@@ -66,7 +66,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   let token = await GET_ACCESS_TOKEN();
-  let data = await axios(RECOMMENDATIONS + params.genre, {
+  let data = await axios(RECOMMENDATIONS_ENDPOINT + params.genre, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -17,7 +17,7 @@
 }
 
 .heading {
-  @include headerFont(4rem);
+  @include headerFont(3rem);
   text-transform: uppercase;
   font-weight: 900;
 }

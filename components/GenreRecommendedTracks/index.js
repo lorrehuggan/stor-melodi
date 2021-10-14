@@ -7,15 +7,15 @@ const GenreRecommendedTracks = ({ tracks }) => {
     return tracks.map((track) => {
       return (
         <div key={track.id} className={styles.card}>
-          <div className={styles.info}>
+          {/* <div className={styles.info}>
             <p>{track.album.name}</p>
-          </div>
+          </div> */}
 
           <Image
             src={track.album.images[0].url}
             alt={track.album.name}
-            width={504}
-            height={504}
+            width={250}
+            height={250}
             className={styles.image}
           />
         </div>
