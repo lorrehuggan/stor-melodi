@@ -1,0 +1,37 @@
+@import '../../styles/mixin';
+
+.footer {
+  width: 100vw;
+  height: 10rem;
+  @include flex(row, center, center);
+}
+
+.gridContainer {
+  display: grid;
+  width: 1024px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid {
+  width: 100%;
+  height: 5rem;
+  @include flex(row, center, left);
+}
+
+.spotify {
+  margin-right: 0.5rem;
+  font-size: 2rem;
+  color: $spotify-green;
+}
+
+.message {
+}
+
+.icon {
+  margin-left: 1rem;
+  font-size: 2rem;
+}
+
+.gridRight {
+  @include flex(row, center, right);
+}

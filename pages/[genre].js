@@ -8,6 +8,7 @@ import {
 import HeadTag from '../components/Head';
 import styles from '../styles/Genre.module.scss';
 import GenreRecommendedTracks from '../components/GenreRecommendedTracks';
+import Footer from '../components/Footer';
 
 const Genre = ({ genre, tracks }) => {
   console.log(tracks);
@@ -22,6 +23,7 @@ const Genre = ({ genre, tracks }) => {
     description: 'Best to place to find your next music experience',
     tags: tags.toString(),
   };
+
   return (
     <div>
       <HeadTag
@@ -32,14 +34,15 @@ const Genre = ({ genre, tracks }) => {
 
       <main className={styles.container}>
         <section className={styles.innerContainer}>
-          <h2 className={styles.heading}>{`Recommended ${genre}`}</h2>
+          <h2 className={styles.heading}>{`Suggested ${genre}`}</h2>
+          <span className={styles.subTitle}>
+            A selection of curated {genre} albums
+          </span>
         </section>
         <section className={styles.gridContainer}>
           <GenreRecommendedTracks tracks={tracks} />
         </section>
       </main>
-
-      <footer></footer>
     </div>
   );
 };

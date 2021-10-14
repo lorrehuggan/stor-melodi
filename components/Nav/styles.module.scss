@@ -1,0 +1,17 @@
+@import '../../styles/mixin';
+
+.nav {
+  width: 100vw;
+  width: 100vw;
+  height: 8rem;
+  @include flex(row, center, center);
+}
+
+.container {
+  width: 1024px;
+  height: 5rem;
+  @include flex(row, center, space-between);
+}
+
+.innerContainer {
+}

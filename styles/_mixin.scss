@@ -1,3 +1,7 @@
+$spotify-green: #1ed760;
+$dark: #111;
+$light: #fff;
+
 @mixin flex($direction, $align, $justify) {
   display: flex;
   flex-direction: $direction;
