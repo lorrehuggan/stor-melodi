@@ -4,7 +4,6 @@ import Image from 'next/image';
 import styles from './styles.module.scss';
 
 const SmallCard = ({ tracks }) => {
-  console.log(tracks);
   const renderAllAlbums = () => {
     return tracks.map((track) => {
       return (

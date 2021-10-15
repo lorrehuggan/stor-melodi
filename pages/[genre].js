@@ -8,7 +8,6 @@ import {
 import HeadTag from '../components/Head';
 import styles from '../styles/Genre.module.scss';
 import GenreRecommendedTracks from '../components/GenreRecommendedTracks';
-import Footer from '../components/Footer';
 
 const Genre = ({ genre, tracks }) => {
   //set album titles to meta tags

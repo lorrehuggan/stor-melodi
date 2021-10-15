@@ -4,10 +4,13 @@ import HeadTag from '../../components/Head';
 import { ALBUM_ENDPOINT, GET_ACCESS_TOKEN } from '../../lib/spotify';
 import styles from './styles.module.scss';
 import Image from 'next/image';
+import Link from 'next/link';
+import { BsFillPlayCircleFill } from 'react-icons/bs';
 
 const Album = ({ album }) => {
+  console.log(album);
   let tags = [];
-  album.tracks.items.map((song) => {
+  album?.tracks.items.map((song) => {
     return tags.push(song.name);
   });
 
@@ -28,13 +31,20 @@ const Album = ({ album }) => {
   const renderTracks = () => {
     return album.tracks.items.map((song, idx) => {
       return (
-        <div key={album.id} className={styles.track}>
-          <span>{song.name}</span>
-          <span className={styles.ms}>
-            {MsToMinsAndSeconds(song.duration_ms)}
-          </span>
-          <div className={styles.meta}>
-            <p>{song.artists[0].name}</p>
+        <div key={song.id} className={styles.track}>
+          <Link href={song.external_urls.spotify} passHref target="_blank">
+            <div className={styles.play}>
+              <BsFillPlayCircleFill />
+            </div>
+          </Link>
+          <div>
+            <span>{song.name}</span>
+            <span className={styles.ms}>
+              {MsToMinsAndSeconds(song.duration_ms)}
+            </span>
+            <div className={styles.meta}>
+              <p>{song.artists[0].name}</p>
+            </div>
           </div>
         </div>
       );
@@ -52,15 +62,31 @@ const Album = ({ album }) => {
         <section className={styles.innerContainer}>
           <h4 className={styles.artistName}>{album.artists[0].name}</h4>
           <h2 className={styles.albumTitle}>{album.name}</h2>
-          <div className={styles.imageContainer}>
-            <Image
-              className={styles.image}
-              src={album.images[0].url}
-              alt={album.name}
-              height={640}
-              width={640}
-            />
-          </div>
+          <section className={styles.imageSection}>
+            <Link href={album.external_urls.spotify} passHref>
+              <div className={styles.imageContainer}>
+                <Image
+                  className={styles.image}
+                  src={album.images[0].url}
+                  alt={album.name}
+                  height={600}
+                  width={600}
+                />
+              </div>
+            </Link>
+            <div className={styles.blurredImageContainer}>
+              <div className={`${styles.gradient} ${styles.gradientTop}`} />
+              <div className={`${styles.gradient} ${styles.gradientBottom}`} />
+
+              <Image
+                className={styles.blurredImage}
+                src={album.images[0].url}
+                alt={album.name}
+                height={640}
+                width={1024}
+              />
+            </div>
+          </section>
         </section>
         <section className={styles.innerContainer}>
           <h4 className={styles.trackList}>Tracklist:</h4>
