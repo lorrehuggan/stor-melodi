@@ -14,4 +14,9 @@
 }
 
 .innerContainer {
+  .logo {
+    @include headerFont(3rem);
+    font-weight: 900;
+    color: $primary;
+  }
 }

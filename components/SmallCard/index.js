@@ -7,7 +7,7 @@ const SmallCard = ({ tracks }) => {
   const renderAllAlbums = () => {
     return tracks.map((track) => {
       return (
-        <Link key={track.id} href={`album/${track.album.id}`} passHref>
+        <Link key={track.id} href={`/album/${track.album.id}`} passHref>
           <div className={styles.card}>
             <div className={styles.imageContainer}>
               <Image

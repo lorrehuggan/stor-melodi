@@ -4,10 +4,10 @@ import {
   GENRE_ENDPOINT,
   GET_ACCESS_TOKEN,
   RECOMMENDATIONS_ENDPOINT,
-} from '../lib/spotify';
-import HeadTag from '../components/Head';
-import styles from '../styles/Genre.module.scss';
-import GenreRecommendedTracks from '../components/GenreRecommendedTracks';
+} from '../../lib/spotify';
+import HeadTag from '../../components/Head';
+import styles from './styles.module.scss';
+import GenreRecommendedTracks from '../../components/GenreRecommendedTracks';
 
 const Genre = ({ genre, tracks }) => {
   //set album titles to meta tags

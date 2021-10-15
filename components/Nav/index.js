@@ -5,7 +5,9 @@ const Nav = () => {
   return (
     <nav className={styles.nav}>
       <section className={styles.container}>
-        <div className={styles.innerContainer}>ALGO Tune</div>
+        <div className={styles.innerContainer}>
+          <span className={styles.logo}>Chune</span>
+        </div>
         <div className={styles.innerContainer}>Menu</div>
       </section>
     </nav>

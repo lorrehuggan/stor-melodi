@@ -1,7 +1,11 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeadTag from '../../components/Head';
-import { ALBUM_ENDPOINT, GET_ACCESS_TOKEN } from '../../lib/spotify';
+import {
+  ALBUM_ENDPOINT,
+  GET_ACCESS_TOKEN,
+  ARTIST_ENDPOINT,
+} from '../../lib/spotify';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,6 +13,7 @@ import { BsFillPlayCircleFill } from 'react-icons/bs';
 
 const Album = ({ album }) => {
   console.log(album);
+
   let tags = [];
   album?.tracks.items.map((song) => {
     return tags.push(song.name);
@@ -74,18 +79,22 @@ const Album = ({ album }) => {
                 />
               </div>
             </Link>
-            <div className={styles.blurredImageContainer}>
-              <div className={`${styles.gradient} ${styles.gradientTop}`} />
-              <div className={`${styles.gradient} ${styles.gradientBottom}`} />
+            <section className={styles.blurred}>
+              <div className={styles.blurredImageContainer}>
+                <div className={`${styles.gradient} ${styles.gradientTop}`} />
+                <div
+                  className={`${styles.gradient} ${styles.gradientBottom}`}
+                />
 
-              <Image
-                className={styles.blurredImage}
-                src={album.images[0].url}
-                alt={album.name}
-                height={640}
-                width={1024}
-              />
-            </div>
+                <Image
+                  className={styles.blurredImage}
+                  src={album.images[0].url}
+                  alt={album.name}
+                  height={640}
+                  width={1024}
+                />
+              </div>
+            </section>
           </section>
         </section>
         <section className={styles.innerContainer}>
