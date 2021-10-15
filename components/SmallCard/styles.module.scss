@@ -1,7 +1,9 @@
+@import '../../styles/mixin';
 .card {
-  width: 250px;
-  position: relative;
-  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.imageContainer {
   cursor: pointer;
   filter: grayscale(0.3);
   transform-origin: 0% 100%;
@@ -16,7 +18,7 @@
       0px 0px 20.5px rgba(0, 0, 0, 0.382), 0px 0px 38.4px rgba(0, 0, 0, 0.46),
       0px 0px 92px rgba(0, 0, 0, 0.64);
     filter: brightness(1.05) grayscale(0);
-    transform: translateY(-16px) rotate(3deg);
+    transform: translateY(-12px) rotate(1deg);
   }
 }
 
@@ -29,4 +31,27 @@
 .image {
   border-radius: 4px;
   object-fit: cover;
+}
+
+.albumInfo {
+  height: 5rem;
+  position: relative;
+  margin-top: 0.5rem;
+}
+
+.albumName {
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.5px;
+  color: $spotify-green;
+}
+
+.albumArtist {
+  font-weight: 100;
+  font-size: 1.125rem;
+  letter-spacing: 0.5px;
+  margin-top: 0.5rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }

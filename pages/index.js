@@ -24,7 +24,7 @@ export default function Home({ genres }) {
   };
 
   return (
-    <div>
+    <>
       <HeadTag
         title={head.title}
         description={head.description}
@@ -32,9 +32,7 @@ export default function Home({ genres }) {
       />
 
       <main>{renderAllGenres()}</main>
-
-      <footer></footer>
-    </div>
+    </>
   );
 }
 

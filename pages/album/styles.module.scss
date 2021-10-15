@@ -1,0 +1,65 @@
+@import '../../styles/mixin';
+
+.container {
+  @include flex(column, center, center);
+}
+
+.innerContainer {
+  @include flex(column, left, left);
+  width: 1024px;
+  margin-top: 2rem;
+}
+
+.artistName {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.albumTitle {
+  @include headerFont(4rem);
+  font-weight: 900;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.imageContainer {
+  width: 640px;
+  height: 640px;
+  margin-top: 2rem;
+  border-radius: 4px;
+}
+
+.track {
+  margin-bottom: 0.75rem;
+
+  p {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+  span {
+    font-size: 1rem;
+  }
+}
+
+.copyright {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+.trackList {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.ms {
+  margin-left: 0.25rem;
+}
+
+.meta {
+  color: rgb(167, 167, 167);
+}

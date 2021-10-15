@@ -11,7 +11,6 @@ import GenreRecommendedTracks from '../components/GenreRecommendedTracks';
 import Footer from '../components/Footer';
 
 const Genre = ({ genre, tracks }) => {
-  console.log(tracks);
   //set album titles to meta tags
   let tags = [];
   tracks.map((track) => {
@@ -25,7 +24,7 @@ const Genre = ({ genre, tracks }) => {
   };
 
   return (
-    <div>
+    <>
       <HeadTag
         title={head.title}
         description={head.description}
@@ -34,16 +33,16 @@ const Genre = ({ genre, tracks }) => {
 
       <main className={styles.container}>
         <section className={styles.innerContainer}>
-          <h2 className={styles.heading}>{`Suggested ${genre}`}</h2>
+          <h1 className={styles.heading}>{genre}</h1>
           <span className={styles.subTitle}>
-            A selection of curated {genre} albums
+            A curated selection of {genre} albums.
           </span>
         </section>
         <section className={styles.gridContainer}>
           <GenreRecommendedTracks tracks={tracks} />
         </section>
       </main>
-    </div>
+    </>
   );
 };
 
