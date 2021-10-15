@@ -15,7 +15,7 @@ export default function Home() {
         tags={head.tags}
       />
 
-      <main>Home</main>
+      <main></main>
     </>
   );
 }
