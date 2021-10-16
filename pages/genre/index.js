@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { GENRE_ENDPOINT, GET_ACCESS_TOKEN } from '../../lib/spotify';
 import HeadTag from '../../components/Head';
+import styles from './styles.module.scss';
+import Link from 'next/link';
+import Image from 'next/image';
+import Vinyl from '../../public/images/vinyl.jpg';
 
 export default function Genre({ genres }) {
   //set genres to meta tags
@@ -11,13 +15,17 @@ export default function Genre({ genres }) {
 
   const renderAllGenres = () => {
     return genres.map((genre) => {
-      return <p key={genre}>{genre}</p>;
+      return (
+        <Link key={genre} href={`/genre/${genre}`} passHref>
+          <div className={styles.genre}>{genre}</div>
+        </Link>
+      );
     });
   };
 
   //Head object place meta data here!
   const head = {
-    title: 'Spot-Le-Find',
+    title: 'Chune',
     description: 'Best to place to find your next music experience',
     tags: tags,
   };
@@ -30,7 +38,26 @@ export default function Genre({ genres }) {
         tags={head.tags}
       />
 
-      <main>{renderAllGenres()}</main>
+      <main className={styles.container}>
+        <section className={styles.innerContainer}>
+          <div className={styles.bannerContainer}>
+            <Image
+              src={Vinyl}
+              alt={'vinyl'}
+              width={1024}
+              height={400}
+              objectFit="cover"
+            />
+            <div className={styles.gradient} />
+
+            <div className={styles.headingContainer}>
+              <h2>Discover Albums Based On Genre</h2>
+            </div>
+          </div>
+
+          <div className={styles.grid}>{renderAllGenres()}</div>
+        </section>
+      </main>
     </>
   );
 }

@@ -25,7 +25,7 @@ const Genre = ({ genre, tracks }) => {
   return (
     <>
       <HeadTag
-        title={head.title}
+        title={head.title.toUpperCase()}
         description={head.description}
         tags={head.tags}
       />
@@ -67,11 +67,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   let token = await GET_ACCESS_TOKEN();
-  let data = await axios(RECOMMENDATIONS_ENDPOINT + params.genre, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((res) => res.data.tracks);
+  let data = await axios(
+    `${RECOMMENDATIONS_ENDPOINT}?seed_genres=${params.genre}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  ).then((res) => res.data.tracks);
 
   return {
     props: { genre: params.genre, tracks: data },

@@ -3,7 +3,7 @@ import HeadTag from '../components/Head';
 
 export default function Home() {
   const head = {
-    title: '',
+    title: 'Chune',
     description: '',
     tags: '',
   };

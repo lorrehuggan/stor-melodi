@@ -19,7 +19,11 @@ const SmallCard = ({ tracks }) => {
               />
             </div>
             <div className={styles.albumInfo}>
-              <p className={styles.albumName}>{track?.album.name}</p>
+              <p className={styles.albumName}>
+                {`${track?.album.name.substring(0, 37)} ${
+                  track?.album.name.length > 37 ? '...' : ''
+                }`}
+              </p>
               <p className={styles.albumArtist}>{track?.artists[0].name}</p>
             </div>
           </div>
