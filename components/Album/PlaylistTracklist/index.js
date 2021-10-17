@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BsFillPlayCircleFill } from 'react-icons/bs';
 import styles from './styles.module.scss';
 
-const PlaylistTracklist = ({ album, copyright }) => {
+const PlaylistTracklist = ({ album, copyright, type }) => {
   function MsToMinsAndSeconds(ms) {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
@@ -27,7 +27,22 @@ const PlaylistTracklist = ({ album, copyright }) => {
               {MsToMinsAndSeconds(song.track.duration_ms)}
             </span>
             <div className={styles.meta}>
-              <p>{song.track.artists[0].name}</p>
+              {song.track.artists.map((artist) => {
+                return (
+                  <Link
+                    key={artist.id}
+                    href={artist.external_urls.spotify}
+                    passHref
+                  >
+                    <a target="_blank">
+                      <p key={artist.id}>{`${artist.name}${
+                        song.track.artists.length > 1 ? ',' : ''
+                      }
+                      `}</p>
+                    </a>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -37,7 +52,7 @@ const PlaylistTracklist = ({ album, copyright }) => {
 
   return (
     <>
-      <h4 className={styles.trackList}>Tracklist:</h4>
+      <h4 className={styles.trackList}>{type}:</h4>
       <>{renderTracks()}</>
       <span className={styles.copyright}>{copyright}</span>
     </>

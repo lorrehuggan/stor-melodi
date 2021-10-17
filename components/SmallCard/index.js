@@ -11,20 +11,24 @@ const SmallCard = ({ tracks }) => {
           <div className={styles.card}>
             <div className={styles.imageContainer}>
               <Image
-                src={track.album.images[0].url}
+                src={track.album.images[0]?.url}
                 alt={track.album.name}
-                width={250}
-                height={250}
+                width={260}
+                height={260}
                 className={styles.image}
               />
             </div>
             <div className={styles.albumInfo}>
               <p className={styles.albumName}>
-                {`${track?.album.name.substring(0, 37)} ${
-                  track?.album.name.length > 37 ? '...' : ''
+                {`${track?.album.name.substring(0, 19)}${
+                  track?.album.name.length > 19 ? '...' : ''
                 }`}
               </p>
-              <p className={styles.albumArtist}>{track?.artists[0].name}</p>
+              <p className={styles.albumArtist}>
+                {`${track?.artists[0].name.substring(0, 19)}${
+                  track?.artists[0].name.length > 19 ? '...' : ''
+                }`}
+              </p>
             </div>
           </div>
         </Link>

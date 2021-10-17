@@ -5,7 +5,7 @@
 
 .imageContainer {
   cursor: pointer;
-  filter: grayscale(0.5);
+  filter: grayscale(0.2);
   transform-origin: 0% 100%;
   transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
     filter 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
@@ -29,7 +29,7 @@
 }
 
 .image {
-  border-radius: 4px;
+  border-radius: 8px;
   object-fit: cover;
 }
 
@@ -49,9 +49,7 @@
 .albumArtist {
   font-weight: 100;
   font-size: 1.125rem;
-  letter-spacing: 2px;
+  letter-spacing: 0px;
+  color: $grey;
   margin-top: 0.5rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
 }

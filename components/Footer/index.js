@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import { BsSpotify, BsTwitter, BsYoutube, BsInstagram } from 'react-icons/bs';
+import Link from 'next/link';
 
 const Footer = () => {
   const socialIcons = [
@@ -26,7 +27,9 @@ const Footer = () => {
           <span className={styles.spotify}>
             <BsSpotify />
           </span>
-          <span className={styles.message}>Powered By Spotify API</span>
+          <span className={styles.message}>
+            Powered By <Link href="https://www.spotify.com/">Spotify</Link>
+          </span>
         </div>
         <div className={`${styles.grid} ${styles.gridRight}`}>
           {socialLinks()}

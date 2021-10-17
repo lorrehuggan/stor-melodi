@@ -27,7 +27,21 @@ const AlbumTracklist = ({ album, copyright }) => {
               {MsToMinsAndSeconds(song.duration_ms)}
             </span>
             <div className={styles.meta}>
-              <p>{song.artists[0].name}</p>
+              {song.artists.map((artist) => {
+                return (
+                  <Link
+                    key={artist.id}
+                    href={artist.external_urls.spotify}
+                    passHref
+                  >
+                    <a target="_blank">
+                      <p key={artist.id}>{`${artist.name}${
+                        song.artists.length > 1 ? ',' : ''
+                      }`}</p>
+                    </a>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>

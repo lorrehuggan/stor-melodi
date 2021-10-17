@@ -1,4 +1,4 @@
-import '../styles/Home.module.scss';
+import styles from '../styles/styles.module.scss';
 import HeadTag from '../components/Head';
 
 export default function Home() {

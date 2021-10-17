@@ -38,5 +38,14 @@
 }
 
 .meta {
-  color: rgb(167, 167, 167);
+  color: $grey;
+  @include flex(row, center, left);
+  p {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    &:hover {
+      color: $primary;
+    }
+  }
 }

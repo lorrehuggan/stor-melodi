@@ -46,6 +46,7 @@ const Playlist = ({ playlist }) => {
             <PlaylistTracklist
               album={playlist}
               copyright={playlist.description}
+              type="Playlist"
             />
           </section>
         </section>

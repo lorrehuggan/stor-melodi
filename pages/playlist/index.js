@@ -10,11 +10,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Playlist = ({ playlists }) => {
-  console.log(playlists);
+  const tags = [];
+  playlists.map((playlist) => {
+    return tags.push(playlist.name);
+  });
+
   const head = {
-    title: '',
-    description: '',
-    tags: '',
+    title: 'Fresh Playlist',
+    description: 'Discover Fresh New Playlist',
+    tags: tags,
   };
   const renderPlaylists = () => {
     return playlists.map((playlist) => {
@@ -34,7 +38,7 @@ const Playlist = ({ playlists }) => {
   return (
     <>
       <HeadTag
-        title={head.tag}
+        title={head.title}
         description={head.description}
         tags={head.tags}
       />

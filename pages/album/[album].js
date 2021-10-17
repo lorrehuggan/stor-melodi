@@ -56,7 +56,11 @@ const Album = ({ album, artist }) => {
           />
         </section>
         <section className={styles.innerContainer}>
-          <AlbumTracklist album={album} copyright={album.copyrights[0].text} />
+          <AlbumTracklist
+            album={album}
+            copyright={album.copyrights[0]?.text}
+            type="Tracklist"
+          />
         </section>
       </section>
     </>

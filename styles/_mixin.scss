@@ -4,8 +4,11 @@ $primary: #d6241e;
 $primary-alt: #8a0500;
 $secondary: #097ad6;
 $secondary-alt: #0c528a;
+$warning: #e38c09;
+$warning-alt: #965d06;
 $dark: #111;
 $light: #fff;
+$grey: #9c9c9c;
 
 @mixin flex($direction, $align, $justify) {
   display: flex;
