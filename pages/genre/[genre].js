@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 import GenreRecommendedTracks from '../../components/GenreRecommendedTracks';
 
 const Genre = ({ genre, tracks }) => {
-  //set album titles to meta tags
+  //loop through album titles and add to meta tags
   let tags = [];
   tracks.map((track) => {
     return tags.push(track.album.name);
@@ -19,7 +19,7 @@ const Genre = ({ genre, tracks }) => {
   const head = {
     title: genre,
     description: 'Best to place to find your next music experience',
-    tags: tags.toString(),
+    tags: tags,
   };
 
   return (

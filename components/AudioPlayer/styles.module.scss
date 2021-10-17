@@ -1,0 +1,120 @@
+@import '../../styles/mixin';
+$barBg: $grey;
+$seek-before-width: 100px;
+$seek-before-color: rgb(63, 63, 63);
+$play-head: $primary;
+$play-head-select: $primary-alt;
+
+.audioPlayer {
+  @include flex(row, center, left);
+
+  .button {
+    @include flex(row, center, center);
+    background-color: transparent;
+    border: none;
+    color: $primary;
+    cursor: pointer;
+    font-size: 1.25rem;
+    margin-right: 0.5rem;
+  }
+  .currentTime {
+    font-size: 1.25rem;
+  }
+  .duration {
+    font-size: 1.25rem;
+  }
+  .rangeContainer {
+    @include flex(row, center, center);
+    margin: 0rem 0.5rem;
+    .range {
+      appearance: none;
+      background: $barBg;
+      border-radius: 8px;
+      position: relative;
+      width: 100%;
+      height: 8px;
+      outline: none;
+    }
+  }
+}
+//progress bar safari
+.rang::-webkit-slider-runnable-track {
+  background: $barBg;
+  border-radius: 8px;
+  position: relative;
+  width: 100%;
+  height: 8px;
+  outline: none;
+}
+
+//progress bar firefox
+.range::-moz-range-track {
+  background: $barBg;
+  border-radius: 8px;
+  position: relative;
+  width: 100%;
+  height: 8px;
+  outline: none;
+}
+
+.range::-moz-focus-outer {
+  border: none;
+}
+
+//chrome & safari
+.range::before {
+  content: '';
+  height: 8px;
+  width: $seek-before-width;
+  background-color: $seek-before-color;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+  border-radius: 8px 8px 8px 8px;
+}
+
+//firefox
+
+.range::-moz-range-progress {
+  background-color: $seek-before-color;
+  border-radius: 8px 8px 8px 8px;
+  height: 8px;
+}
+
+//playhead chrome & safari
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: none;
+  background-color: $play-head;
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+}
+
+.range:active::-webkit-slider-thumb {
+  transform: scale(1.2);
+  background-color: $play-head-select;
+}
+
+//playhead firefox
+
+.range::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: transparent;
+  background-color: $play-head;
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+}
+.range:active::-moz-range-thumb {
+  transform: scale(1.2);
+  background-color: $play-head-select;
+}

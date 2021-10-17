@@ -1,5 +1,6 @@
 import styles from '../styles/styles.module.scss';
 import HeadTag from '../components/Head';
+import AudioPlayer from '../components/AudioPlayer';
 
 export default function Home() {
   const head = {
@@ -15,7 +16,9 @@ export default function Home() {
         tags={head.tags}
       />
 
-      <main></main>
+      <main>
+        <AudioPlayer />
+      </main>
     </>
   );
 }

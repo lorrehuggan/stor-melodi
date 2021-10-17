@@ -25,7 +25,7 @@ export default function Genre({ genres }) {
 
   //Head object place meta data here!
   const head = {
-    title: 'Chune',
+    title: 'Genres',
     description: 'Best to place to find your next music experience',
     tags: tags,
   };

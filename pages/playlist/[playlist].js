@@ -12,12 +12,14 @@ import AlbumArt from '../../components/Album/AlbumArt';
 import PlaylistTracklist from '../../components/Album/PlaylistTracklist';
 
 const Playlist = ({ playlist }) => {
-  console.log(playlist);
-
+  let tags = [];
+  playlist.tracks.items.map((track) => {
+    return tags.push(track.track.name);
+  });
   const head = {
-    title: ``,
-    description: ``,
-    tags: ``,
+    title: playlist.name,
+    description: playlist.description,
+    tags: tags,
   };
   return (
     <>
