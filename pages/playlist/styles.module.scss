@@ -1,0 +1,44 @@
+@import '../../styles/mixin';
+
+.container {
+  @include flex(column, center, center);
+}
+
+.innerContainer {
+  @include flex(column, left, left);
+  width: 1024px;
+  margin-top: 2rem;
+}
+
+.heading {
+  @include headerFont(4rem);
+  font-weight: 900;
+  margin-bottom: 2rem;
+}
+
+.subTitle {
+  margin-top: 8rem;
+  font-size: 1.125rem;
+  letter-spacing: 0.5px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 1024px;
+  grid-gap: 8px;
+  margin-top: 2rem;
+}
+
+.grid {
+  cursor: pointer;
+  width: 100%;
+  height: 260px;
+  background-color: $primary;
+  position: relative;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  img {
+  }
+}

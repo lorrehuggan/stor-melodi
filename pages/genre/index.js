@@ -38,7 +38,7 @@ export default function Genre({ genres }) {
         tags={head.tags}
       />
 
-      <main className={styles.container}>
+      <section className={styles.container}>
         <section className={styles.innerContainer}>
           <div className={styles.bannerContainer}>
             <Image
@@ -51,13 +51,13 @@ export default function Genre({ genres }) {
             <div className={styles.gradient} />
 
             <div className={styles.headingContainer}>
-              <h2>Discover Albums Based On Genre</h2>
+              <h2>Love Music? Discover Something New </h2>
             </div>
           </div>
 
           <div className={styles.grid}>{renderAllGenres()}</div>
         </section>
-      </main>
+      </section>
     </>
   );
 }

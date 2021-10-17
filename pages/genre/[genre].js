@@ -30,7 +30,7 @@ const Genre = ({ genre, tracks }) => {
         tags={head.tags}
       />
 
-      <main className={styles.container}>
+      <section className={styles.container}>
         <section className={styles.innerContainer}>
           <h1 className={styles.heading}>{genre}</h1>
           <span className={styles.subTitle}>
@@ -40,7 +40,7 @@ const Genre = ({ genre, tracks }) => {
         <section className={styles.gridContainer}>
           <GenreRecommendedTracks tracks={tracks} />
         </section>
-      </main>
+      </section>
     </>
   );
 };
@@ -53,7 +53,9 @@ export async function getStaticPaths() {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.data.genres);
+  })
+    .then((res) => res.data.genres)
+    .catch((error) => console.log(error));
 
   const paths = genres.map((genre) => {
     return { params: { genre } };
@@ -74,7 +76,9 @@ export async function getStaticProps({ params }) {
         Authorization: `Bearer ${token}`,
       },
     }
-  ).then((res) => res.data.tracks);
+  )
+    .then((res) => res.data.tracks)
+    .catch((error) => console.log(error));
 
   return {
     props: { genre: params.genre, tracks: data },

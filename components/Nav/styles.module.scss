@@ -2,7 +2,6 @@
 
 .nav {
   width: 100vw;
-  width: 100vw;
   height: 8rem;
   @include flex(row, center, center);
 }
@@ -21,16 +20,22 @@
   }
   ul {
     height: 100%;
-    @include flex(column, left, center);
+    width: 100%;
+    @include flex(row, left, right);
     li {
       font-weight: 900;
       transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
       cursor: pointer;
       margin: 0.07rem 0rem;
+      margin-left: 0.5rem;
       text-align: right;
       &:hover {
         color: $primary;
       }
     }
   }
+}
+
+.links {
+  width: 50%;
 }

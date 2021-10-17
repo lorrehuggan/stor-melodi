@@ -9,13 +9,16 @@ const Nav = () => {
         <div className={styles.innerContainer}>
           <span className={styles.logo}>Chune</span>
         </div>
-        <div className={styles.innerContainer}>
+        <div className={`${styles.innerContainer} ${styles.links}`}>
           <ul>
             <Link href="/" passHref>
               <li>Home</li>
             </Link>
             <Link href="/genre" passHref>
               <li>Genres</li>
+            </Link>
+            <Link href="/playlist" passHref>
+              <li>Playlists</li>
             </Link>
             <Link href="/genre/hip-hop" passHref>
               <li>Hip-Hop</li>

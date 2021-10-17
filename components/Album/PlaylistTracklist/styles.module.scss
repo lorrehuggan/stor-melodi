@@ -1,0 +1,42 @@
+@import '../../../styles/mixin';
+
+.track {
+  margin-bottom: 0.75rem;
+  @include flex(row, center, left);
+  .play {
+    @include flex(row, center, center);
+    font-size: 2rem;
+    margin-right: 0.5rem;
+    color: $primary;
+    cursor: pointer;
+    transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    &:hover {
+      color: $primary-alt;
+    }
+  }
+  p {
+    font-size: 1.25rem;
+    margin-top: 0.125rem;
+  }
+  span {
+    font-size: 1rem;
+  }
+}
+
+.copyright {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+.trackList {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.ms {
+  margin-left: 0.25rem;
+}
+
+.meta {
+  color: rgb(167, 167, 167);
+}

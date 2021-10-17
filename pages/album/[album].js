@@ -7,10 +7,9 @@ import {
   ARTIST_ENDPOINT,
 } from '../../lib/spotify';
 import styles from './styles.module.scss';
-import Image from 'next/image';
-import Link from 'next/link';
-import { BsFillPlayCircleFill } from 'react-icons/bs';
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
+import AlbumHeading from '../../components/Album/AlbumHeading';
+import AlbumArt from '../../components/Album/AlbumArt';
+import AlbumTracklist from '../../components/Album/AlbumTracklist';
 
 const Album = ({ album, artist }) => {
   let tags = [];
@@ -32,29 +31,6 @@ const Album = ({ album, artist }) => {
       : minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
 
-  const renderTracks = () => {
-    return album?.tracks.items.map((song) => {
-      return (
-        <div key={song.id} className={styles.track}>
-          <Link href={song.external_urls.spotify} passHref>
-            <a className={styles.play} target="_blank">
-              <BsFillPlayCircleFill />
-            </a>
-          </Link>
-          <div>
-            <span>{song.name}</span>
-            <span className={styles.ms}>
-              {MsToMinsAndSeconds(song.duration_ms)}
-            </span>
-            <div className={styles.meta}>
-              <p>{song.artists[0].name}</p>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  };
-
   return (
     <>
       <HeadTag
@@ -62,60 +38,27 @@ const Album = ({ album, artist }) => {
         description={head.description}
         tags={head.tags}
       />
-      <main className={styles.container}>
+      <section className={styles.container}>
         <section className={styles.innerContainer}>
-          <section className={styles.heading}>
-            <div className={styles.avatar}>
-              <Link href={artist.external_urls.spotify} passHref>
-                <a target="_blank">
-                  <Image
-                    src={artist.images[1].url}
-                    alt={artist.name}
-                    width={100}
-                    height={100}
-                    objectFit="cover"
-                  />
-                </a>
-              </Link>
-            </div>
-            <div className={styles.headingText}>
-              <h4 className={styles.artistName}>{album.artists[0].name}</h4>
-              <h2 className={styles.albumTitle}>{album.name}</h2>
-            </div>
-          </section>
-          <section className={styles.imageSection}>
-            <Link href={album.external_urls.spotify} passHref>
-              <a target="_blank" className={styles.imageContainer}>
-                <Image
-                  className={styles.image}
-                  src={album.images[0].url}
-                  alt={album.name}
-                  height={600}
-                  width={600}
-                />
-              </a>
-            </Link>
-
-            <div className={styles.blurredImageContainer}>
-              <div className={`${styles.gradient} ${styles.gradientTop}`} />
-              <div className={`${styles.gradient} ${styles.gradientBottom}`} />
-
-              <Image
-                className={styles.blurredImage}
-                src={album.images[0].url}
-                alt={album.name}
-                height={640}
-                width={1024}
-              />
-            </div>
-          </section>
+          <AlbumHeading
+            artist={artist}
+            album={album}
+            name={album.artists[0].name}
+            title={album.name}
+            href={artist.external_urls.spotify}
+            src={artist.images[1].url}
+            alt={artist.name}
+          />
+          <AlbumArt
+            href={album.external_urls.spotify}
+            src={album.images[0].url}
+            alt={album.name}
+          />
         </section>
         <section className={styles.innerContainer}>
-          <h4 className={styles.trackList}>Tracklist:</h4>
-          <>{renderTracks()}</>
-          <span className={styles.copyright}>{album.copyrights[0].text}</span>
+          <AlbumTracklist album={album} copyright={album.copyrights[0].text} />
         </section>
-      </main>
+      </section>
     </>
   );
 };
