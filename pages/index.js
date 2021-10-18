@@ -1,12 +1,14 @@
 import styles from '../styles/styles.module.scss';
 import HeadTag from '../components/Head';
-import AudioPlayer from '../components/AudioPlayer';
+import React from 'react';
+import { useAppStateValue } from '../context/AppProvider';
+import { types } from '../reducers/appReducer';
 
 export default function Home() {
   const head = {
     title: 'Chune',
-    description: '',
-    tags: '',
+    description: 'The Music Discovery App',
+    tags: ['music discovery', 'discovery', 'hip-hop', 'pop'],
   };
   return (
     <>

@@ -41,6 +41,8 @@ export default function Genre({ genres }) {
       <section className={styles.container}>
         <section className={styles.innerContainer}>
           <div className={styles.bannerContainer}>
+            <div className={styles.gradientTop} />
+
             <Image
               src={Vinyl}
               alt={'vinyl'}
