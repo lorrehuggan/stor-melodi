@@ -7,7 +7,7 @@ import {
 } from '../../lib/spotify';
 import HeadTag from '../../components/Head';
 import styles from './styles.module.scss';
-import GenreRecommendedTracks from '../../components/GenreRecommendedTracks';
+import GenreRecommended from '../../components/GenreRecommend';
 
 const Genre = ({ genre, tracks }) => {
   //loop through album titles and add to meta tags
@@ -38,7 +38,7 @@ const Genre = ({ genre, tracks }) => {
           </span>
         </section>
         <section className={styles.gridContainer}>
-          <GenreRecommendedTracks tracks={tracks} />
+          <GenreRecommended tracks={tracks} />
         </section>
       </section>
     </>

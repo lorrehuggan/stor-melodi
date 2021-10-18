@@ -18,8 +18,8 @@ const Album = ({ album, artist }) => {
   });
 
   const head = {
-    title: `${album.name} - ${album.artists[0].name}`,
-    description: `${album.name} - ${album.artists[0].name}`,
+    title: `${album?.name} - ${album?.artists[0].name}`,
+    description: `${album?.name} - ${album?.artists[0].name}`,
     tags: tags,
   };
 
@@ -43,22 +43,22 @@ const Album = ({ album, artist }) => {
           <AlbumHeading
             artist={artist}
             album={album}
-            name={album.artists[0].name}
-            title={album.name}
-            href={artist.external_urls.spotify}
-            src={artist.images[1].url}
-            alt={artist.name}
+            name={album?.artists[0].name}
+            title={album?.name}
+            href={artist?.external_urls.spotify}
+            src={artist?.images[1].url}
+            alt={artist?.name}
           />
           <AlbumArt
-            href={album.external_urls.spotify}
-            src={album.images[0].url}
-            alt={album.name}
+            href={album?.external_urls.spotify}
+            src={album?.images[0].url}
+            alt={album?.name}
           />
         </section>
         <section className={styles.innerContainer}>
           <AlbumTracklist
             album={album}
-            copyright={album.copyrights[0]?.text}
+            copyright={album?.copyrights[0].text}
             type="Tracklist"
           />
         </section>

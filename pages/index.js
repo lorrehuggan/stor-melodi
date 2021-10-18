@@ -16,9 +16,7 @@ export default function Home() {
         tags={head.tags}
       />
 
-      <main>
-        <AudioPlayer />
-      </main>
+      <main></main>
     </>
   );
 }

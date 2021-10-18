@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.scss';
 import SmallCard from '../SmallCard';
 
-const GenreRecommendedTracks = ({ tracks }) => {
+const GenreRecommended = ({ tracks }) => {
   return (
     <div className={styles.container}>
       <SmallCard tracks={tracks} />
@@ -10,4 +10,4 @@ const GenreRecommendedTracks = ({ tracks }) => {
   );
 };
 
-export default GenreRecommendedTracks;
+export default GenreRecommended;
