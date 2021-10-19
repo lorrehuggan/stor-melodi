@@ -1,17 +1,16 @@
 export const initialState = {
   user: null,
-  playing: true,
+  playing: false,
   itemPlaying: null,
 };
 
 export const types = {
   SET_USER: 'SET_USER',
   SET_PLAYING: 'SET_PLAYING',
-  SET_ITEM: 'SET_ITEM_PLAYING',
+  SET_ITEM_PLAYING: 'SET_ITEM_PLAYING',
 };
 
 const appReducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case 'SET_USER':
       return {
