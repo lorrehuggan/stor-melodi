@@ -49,3 +49,26 @@
     }
   }
 }
+
+.player {
+  margin-left: 2.5rem;
+}
+
+.playerLink {
+  margin-top: 0.5rem;
+  margin-left: 2.5rem;
+  margin-bottom: 1rem;
+  span {
+    transition: color 0.2s ease;
+    cursor: pointer;
+    color: $spotify-green;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+.smSpotify {
+  margin-left: 0.25rem;
+}

@@ -21,13 +21,13 @@ const Playlist = ({ playlists }) => {
     tags: tags,
   };
   const renderPlaylists = () => {
-    return playlists.map((playlist) => {
+    return playlists?.map((playlist) => {
       return (
-        <div key={playlist.id} className={styles.grid}>
-          <Link href={`/playlist/${playlist.id}`} passHref>
+        <div key={playlist?.id} className={styles.grid}>
+          <Link href={`/playlist/${playlist?.id}`} passHref>
             <Image
-              src={playlist.images[0].url}
-              alt={playlist.name}
+              src={playlist?.images[0].url}
+              alt={playlist?.name}
               layout="fill"
             />
           </Link>

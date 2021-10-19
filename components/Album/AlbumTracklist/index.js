@@ -5,17 +5,10 @@ import styles from './styles.module.scss';
 import AudioPlayer from '../../AudioPlayer';
 import { useAppStateValue } from '../../../context/AppProvider';
 import { types } from '../../../reducers/appReducer';
+import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
 
 const AlbumTracklist = ({ album, copyright }) => {
-  const [{ playing, itemPlaying }, dispatch] = useAppStateValue();
-
-  function MsToMinsAndSeconds(ms) {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return seconds == 60
-      ? minutes + 1 + ':00'
-      : minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-  }
+  const [{ itemPlaying }, dispatch] = useAppStateValue();
 
   const renderTracks = () => {
     return album?.tracks.items.map((song, idx) => {
@@ -40,6 +33,8 @@ const AlbumTracklist = ({ album, copyright }) => {
             type: types.SET_PLAYING,
             playing: true,
           });
+        } else {
+          return;
         }
       };
 
@@ -93,7 +88,9 @@ const AlbumTracklist = ({ album, copyright }) => {
               </div>
               <span className={styles.playerLink}>
                 {`Play ${itemPlaying.artists[0].name} - ${itemPlaying.name} on `}
-                <span>Spotify</span>
+                <Link href={song.external_urls.spotify} passHref>
+                  <span>Spotify</span>
+                </Link>
               </span>
             </>
           ) : (
