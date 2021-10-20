@@ -11,7 +11,7 @@ const Nav = () => {
     <nav className={styles.nav}>
       <section className={styles.container}>
         <div className={styles.innerContainer}>
-          <span className={styles.logo}>Chuune</span>
+          <span className={styles.logo}>Chune</span>
         </div>
         <div className={`${styles.innerContainer} ${styles.links}`}>
           <ul>
