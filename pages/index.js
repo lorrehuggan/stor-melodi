@@ -3,6 +3,7 @@ import HeadTag from '../components/Head';
 import React from 'react';
 import { useAppStateValue } from '../context/AppProvider';
 import { types } from '../reducers/appReducer';
+import Link from 'next/link';
 
 export default function Home() {
   const head = {
@@ -10,6 +11,7 @@ export default function Home() {
     description: 'The Music Discovery App',
     tags: ['music discovery', 'discovery', 'hip-hop', 'pop'],
   };
+
   return (
     <>
       <HeadTag
@@ -18,7 +20,7 @@ export default function Home() {
         tags={head.tags}
       />
 
-      <main></main>
+      <main>Log in with spotify</main>
     </>
   );
 }

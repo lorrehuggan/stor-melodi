@@ -1,8 +1,12 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import Link from 'next/link';
+import { Howler } from 'howler';
 
 const Nav = () => {
+  const stop = () => {
+    Howler.stop();
+  };
   return (
     <nav className={styles.nav}>
       <section className={styles.container}>
@@ -11,19 +15,19 @@ const Nav = () => {
         </div>
         <div className={`${styles.innerContainer} ${styles.links}`}>
           <ul>
-            <Link href="/" passHref>
+            <Link href="/" passHref onClick={stop()}>
               <li>Home</li>
             </Link>
-            <Link href="/genre" passHref>
+            <Link href="/genre" passHref onClick={stop()}>
               <li>Genres</li>
             </Link>
-            <Link href="/playlist" passHref>
+            <Link href="/playlist" passHref onClick={stop()}>
               <li>Playlists</li>
             </Link>
-            <Link href="/genre/hip-hop" passHref>
+            <Link href="/genre/hip-hop" passHref onClick={stop()}>
               <li>Hip-Hop</li>
             </Link>
-            <Link href="/genre/pop" passHref>
+            <Link href="/genre/pop" passHref onClick={stop()}>
               <li>Pop</li>
             </Link>
           </ul>

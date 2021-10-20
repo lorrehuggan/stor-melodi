@@ -95,7 +95,7 @@ const AlbumTracklist = ({ album, copyright }) => {
                 </div>
               )}
               <span className={styles.playerLink}>
-                {`Play ${itemPlaying.artists[0].name} - ${itemPlaying.name} on `}
+                {`Play ${itemPlaying.artists[0].name} - ${itemPlaying.name} Full Song On `}
                 <Link href={song.external_urls.spotify} passHref>
                   <span>Spotify</span>
                 </Link>
