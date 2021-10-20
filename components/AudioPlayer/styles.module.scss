@@ -13,10 +13,12 @@ $play-head-select: $primary-alt;
     background-color: transparent;
     border: none;
     color: $primary;
+    border-radius: 50%;
     cursor: pointer;
     font-size: 2rem;
     margin-right: 0.5rem;
     padding: 0;
+    transition: box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
   .currentTime {
     font-size: 1.25rem;
@@ -38,6 +40,28 @@ $play-head-select: $primary-alt;
     }
   }
 }
+
+.buttonPlaying {
+  transition: box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  box-shadow: 0px 0px 10px $primary;
+  animation-name: playing;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes playing {
+  0% {
+    box-shadow: 0px 0px 0px $primary;
+  }
+  50% {
+    box-shadow: 0px 0px 10px $primary;
+  }
+  100% {
+    box-shadow: 0px 0px 0px $primary;
+  }
+}
+
 //progress bar safari
 .rang::-webkit-slider-runnable-track {
   background: $barBg;

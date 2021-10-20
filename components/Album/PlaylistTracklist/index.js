@@ -6,6 +6,8 @@ import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
 import { useAppStateValue } from '../../../context/AppProvider';
 import { types } from '../../../reducers/appReducer';
 import AudioPlayer from '../../AudioPlayer';
+import { Howler } from 'howler';
+import { AUDIO_FEATURES_ENDPOINT } from '../../../lib/spotify';
 
 const PlaylistTracklist = ({ album, copyright, type }) => {
   const [{ itemPlaying }, dispatch] = useAppStateValue();
@@ -16,6 +18,7 @@ const PlaylistTracklist = ({ album, copyright, type }) => {
       const handlePlay = () => {
         console.log(itemPlaying);
         if (itemPlaying) {
+          Howler.stop();
           dispatch({
             type: types.SET_ITEM_PLAYING,
             itemPlaying: null,
@@ -29,10 +32,10 @@ const PlaylistTracklist = ({ album, copyright, type }) => {
             type: types.SET_ITEM_PLAYING,
             itemPlaying: song.track,
           });
-          dispatch({
-            type: types.SET_PLAYING,
-            playing: true,
-          });
+          // dispatch({
+          //   type: types.SET_PLAYING,
+          //   playing: true,
+          // });
         } else {
           return;
         }
@@ -84,9 +87,15 @@ const PlaylistTracklist = ({ album, copyright, type }) => {
           {/* audio player */}
           {song?.track.id === itemPlaying?.id ? (
             <>
-              <div className={styles.player}>
-                <AudioPlayer />
-              </div>
+              {song?.track.preview_url ? (
+                <div className={styles.player}>
+                  <AudioPlayer src={song?.track.preview_url} />
+                </div>
+              ) : (
+                <div className={styles.player}>
+                  <p>No Preview Track Available</p>
+                </div>
+              )}
               <span className={styles.playerLink}>
                 {`Play ${itemPlaying.artists[0].name} - ${itemPlaying.name} on `}
                 <Link href={song.track.external_urls.spotify} passHref>

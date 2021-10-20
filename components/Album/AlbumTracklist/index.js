@@ -6,6 +6,7 @@ import AudioPlayer from '../../AudioPlayer';
 import { useAppStateValue } from '../../../context/AppProvider';
 import { types } from '../../../reducers/appReducer';
 import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
+import { Howler } from 'howler';
 
 const AlbumTracklist = ({ album, copyright }) => {
   const [{ itemPlaying }, dispatch] = useAppStateValue();
@@ -16,6 +17,7 @@ const AlbumTracklist = ({ album, copyright }) => {
       const handlePlay = () => {
         console.log(itemPlaying);
         if (itemPlaying) {
+          Howler.stop();
           dispatch({
             type: types.SET_ITEM_PLAYING,
             itemPlaying: null,
@@ -24,15 +26,15 @@ const AlbumTracklist = ({ album, copyright }) => {
             type: types.SET_PLAYING,
             playing: false,
           });
-        } else if (itemPlaying === null) {
+        } else if (!itemPlaying) {
           dispatch({
             type: types.SET_ITEM_PLAYING,
             itemPlaying: song,
           });
-          dispatch({
-            type: types.SET_PLAYING,
-            playing: true,
-          });
+          // dispatch({
+          //   type: types.SET_PLAYING,
+          //   playing: true,
+          // });
         } else {
           return;
         }
@@ -83,9 +85,15 @@ const AlbumTracklist = ({ album, copyright }) => {
           {/* audio player */}
           {song?.id === itemPlaying?.id ? (
             <>
-              <div className={styles.player}>
-                <AudioPlayer />
-              </div>
+              {song?.preview_url ? (
+                <div className={styles.player}>
+                  <AudioPlayer src={song.preview_url} />
+                </div>
+              ) : (
+                <div className={styles.player}>
+                  <p>No Preview Track Available</p>
+                </div>
+              )}
               <span className={styles.playerLink}>
                 {`Play ${itemPlaying.artists[0].name} - ${itemPlaying.name} on `}
                 <Link href={song.external_urls.spotify} passHref>

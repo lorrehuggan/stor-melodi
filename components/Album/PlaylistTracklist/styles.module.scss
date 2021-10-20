@@ -52,6 +52,10 @@
 
 .player {
   margin-left: 2.5rem;
+  p {
+    color: $warning;
+    text-transform: uppercase;
+  }
 }
 
 .playerLink {
