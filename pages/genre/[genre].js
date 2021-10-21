@@ -7,10 +7,11 @@ import {
 } from '../../lib/spotify';
 import HeadTag from '../../components/Head';
 import styles from './styles.module.scss';
-import GenreRecommended from '../../components/GenreRecommend';
+import SmallAlbumCard from '../../components/SmallAlbumCard';
 
 const Genre = ({ genre, tracks }) => {
   //loop through album titles and add to meta tags
+  console.log(tracks);
   let tags = [];
   tracks.map((track) => {
     return tags.push(track.album.name);
@@ -20,6 +21,21 @@ const Genre = ({ genre, tracks }) => {
     title: genre,
     description: 'Best to place to find your next music experience',
     tags: tags,
+  };
+
+  const renderAlbums = () => {
+    return tracks.map((track) => {
+      return (
+        <SmallAlbumCard
+          src={track.album.images[0].url}
+          alt={track.name}
+          key={track.id}
+          title={track.name}
+          name={track.artists[0].name}
+          href={`/album/${track.album.id}`}
+        />
+      );
+    });
   };
 
   return (
@@ -38,7 +54,7 @@ const Genre = ({ genre, tracks }) => {
           </span>
         </section>
         <section className={styles.gridContainer}>
-          <GenreRecommended tracks={tracks} />
+          <div className={styles.grid}>{renderAlbums()}</div>
         </section>
       </section>
     </>

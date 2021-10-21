@@ -6,13 +6,13 @@ import {
 } from '../../lib/spotify';
 import HeadTag from '../../components/Head';
 import styles from './styles.module.scss';
-import Image from 'next/image';
-import Link from 'next/link';
+import SmallAlbumCard from '../../components/SmallAlbumCard';
 
 const Playlist = ({ playlists }) => {
+  console.log(playlists);
   const tags = [];
   playlists.map((playlist) => {
-    return tags.push(playlist.name);
+    return tags.push(playlist?.name);
   });
 
   const head = {
@@ -23,15 +23,14 @@ const Playlist = ({ playlists }) => {
   const renderPlaylists = () => {
     return playlists?.map((playlist) => {
       return (
-        <div key={playlist?.id} className={styles.grid}>
-          <Link href={`/playlist/${playlist?.id}`} passHref>
-            <Image
-              src={playlist?.images[0].url}
-              alt={playlist?.name}
-              layout="fill"
-            />
-          </Link>
-        </div>
+        <SmallAlbumCard
+          src={playlist?.images[0].url}
+          alt={playlist?.name}
+          key={playlist?.id}
+          title={playlist?.name}
+          name={playlist?.description}
+          href={`/playlist/${playlist?.id}`}
+        />
       );
     });
   };

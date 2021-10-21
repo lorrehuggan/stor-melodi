@@ -12,7 +12,7 @@ const AudioPlayer = ({ src }) => {
   const player = new Howl({
     src: src,
     html5: true,
-    volume: 0.5,
+    volume: 0.3,
   });
 
   const togglePlay = () => {

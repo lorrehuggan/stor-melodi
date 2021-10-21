@@ -2,8 +2,12 @@ import React from 'react';
 import styles from './styles.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useAppStateValue } from '../../../context/AppProvider';
 
 const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
+  const [{ playing }, dispatch] = useAppStateValue();
+  const songPlaying = playing ? styles.buttonPlaying : '';
+
   const renderHeading = () => {
     return album ? (
       <>
@@ -39,7 +43,7 @@ const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
   };
   return (
     <section className={styles.heading}>
-      <div className={styles.avatar}>{renderAvatar()}</div>
+      <div className={`${styles.avatar} ${songPlaying}`}>{renderAvatar()}</div>
       <div className={styles.headingText}>{renderHeading()}</div>
     </section>
   );
