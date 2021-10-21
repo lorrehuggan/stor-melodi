@@ -39,6 +39,8 @@
 }
 
 .newReleases {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
   h2 {
     margin-bottom: 2rem;
     @include headerFont(4rem);
@@ -46,63 +48,5 @@
   }
 }
 
-.featured {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 1024px;
-  grid-gap: 8px;
-  margin-bottom: 2rem;
-}
-
-.feature {
-  position: relative;
-  width: 100%;
-  height: calc((1024px - 8px) / 2);
-
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.image {
-  border-radius: 16px;
-}
-
-.details {
-  @include flex(column, center, center);
-  position: relative;
-
-  h1 {
-    @include headerFont(6rem);
-    font-weight: 900;
-  }
-  h3 {
-    margin-top: 0.5rem;
-    font-size: 2.5rem;
-  }
-  h4 {
-    margin-top: 1rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: $grey;
-    span {
-      color: $primary;
-      font-weight: 100;
-    }
-  }
-  .spotifyLink {
-    position: absolute;
-    font-weight: 100;
-    bottom: 0;
-    right: 0;
-    cursor: pointer;
-    @include flex(row, center, center);
-    transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-    &:hover {
-      color: $spotify-green;
-    }
-    span {
-      margin-left: 0.25rem;
-      color: $spotify-green;
-    }
-  }
+.newReleases {
 }

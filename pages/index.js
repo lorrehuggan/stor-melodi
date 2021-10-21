@@ -5,24 +5,39 @@ import {
   NEW_RELEASES_ENDPOINT,
   GET_ACCESS_TOKEN,
   ARTIST_ENDPOINT,
+  FEATURED_PLAYLIST_ENDPOINT,
 } from '../lib/spotify';
 import axios from 'axios';
-import SmallAlbumCard from '../components/SmallAlbumCard';
-import Image from 'next/image';
-import { intToString } from '../utils/intToString';
-import Link from 'next/link';
-import { BsSpotify } from 'react-icons/bs';
+import SmallAlbumCard from '../components/Album/SmallAlbumCard';
+import FeaturedAlbum from '../components/Album/FeaturedAlbum';
 
-export default function Home({ newReleases, featured }) {
-  console.log(featured);
+export default function Home({
+  newReleases,
+  featured,
+  playlists,
+  featuredArtist1,
+}) {
+  console.log(newReleases);
+  //------>
+  //set meta tags
+  let tags = [];
+  newReleases.map((release) => {
+    return tags.push(release.name);
+  });
+  newReleases.map((release) => {
+    return tags.push(release.artists[0].name);
+  });
   const head = {
     title: 'Chune',
-    description: 'The Music Discovery App',
-    tags: ['music discovery', 'discovery', 'hip-hop', 'pop'],
+    description: 'The Music Discovery App To Find The Best CHUNES!',
+    tags: tags,
   };
 
+  const featuredItem = 0;
+  const featuredItem2 = 2;
+
   const renderNewReleases = () => {
-    return newReleases.map((release) => {
+    return newReleases?.map((release) => {
       return (
         <SmallAlbumCard
           src={release.images[0].url}
@@ -35,37 +50,19 @@ export default function Home({ newReleases, featured }) {
       );
     });
   };
-
-  const renderFeaturedImage = () => {
-    return (
-      <Image
-        src={newReleases[0].images[0].url}
-        alt="featured-image"
-        layout="fill"
-      />
-    );
-  };
-
-  const renderDetails = () => {
-    return (
-      <>
-        <span className={styles.spotifyLink}>
-          Listen On Spotify
-          <span>
-            <BsSpotify />
-          </span>
-        </span>
-        <h1>{newReleases[0]?.artists[0].name}</h1>
-        <h3>{newReleases[0]?.name}</h3>
-        {featured.followers.total ? (
-          <h4>
-            <span>{`${intToString(featured?.followers.total)}`}</span> Followers
-          </h4>
-        ) : (
-          ''
-        )}
-      </>
-    );
+  const renderPlaylists = () => {
+    return playlists?.map((playlist) => {
+      return (
+        <SmallAlbumCard
+          src={playlist.images[0].url}
+          alt={playlist.name}
+          key={playlist.id}
+          title={playlist.name}
+          name={playlist.description}
+          href={`/playlist/${playlist.id}`}
+        />
+      );
+    });
   };
 
   return (
@@ -79,18 +76,37 @@ export default function Home({ newReleases, featured }) {
       <section className={styles.container}>
         <section className={styles.innerContainer}>
           {/* Featured Album */}
-          <section className={styles.featured}>
-            <div className={`${styles.feature} ${styles.image}`}>
-              {renderFeaturedImage()}
-            </div>
-            <div className={`${styles.feature} ${styles.details}`}>
-              {renderDetails()}
-            </div>
-          </section>
+          <FeaturedAlbum
+            layout
+            image={newReleases[featuredItem].images[0].url}
+            artist={newReleases[featuredItem]?.artists[0].name}
+            followers={featured?.followers.total}
+            albumType={newReleases[featuredItem]?.album_type}
+            title={newReleases[featuredItem]?.name}
+            href={newReleases[featuredItem]?.external_urls.spotify}
+          />
           {/* New Releases */}
           <section className={styles.newReleases}>
             <h2>New Releases</h2>
             <div className={styles.grid}>{renderNewReleases()}</div>
+          </section>
+          {/* Featured Playlist */}
+          <section className={styles.newReleases}>
+            <h2>Featured Playlist</h2>
+            <div className={styles.grid}>{renderPlaylists()}</div>
+          </section>
+          {/* Featured Album */}
+          <FeaturedAlbum
+            image={newReleases[featuredItem2].images[0].url}
+            artist={newReleases[featuredItem2]?.artists[0].name}
+            followers={featuredArtist1?.followers.total}
+            albumType={newReleases[featuredItem2]?.album_type}
+            title={newReleases[featuredItem2]?.name}
+            href={newReleases[featuredItem2]?.external_urls.spotify}
+          />
+          <section className={styles.newReleases}>
+            <h2>Featured Playlist</h2>
+            <div className={styles.grid}>{renderPlaylists()}</div>
           </section>
         </section>
       </section>
@@ -100,6 +116,8 @@ export default function Home({ newReleases, featured }) {
 
 export async function getStaticProps() {
   let token = await GET_ACCESS_TOKEN();
+  //------>
+  // get top 4 new releases
   let newReleases = await axios(`${NEW_RELEASES_ENDPOINT}?limit=4`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -107,8 +125,10 @@ export async function getStaticProps() {
   })
     .then((res) => res.data.albums.items)
     .catch((error) => console.log(error));
+  //------>
+  //get featured artist
   let featured = await axios(
-    `${ARTIST_ENDPOINT}${await newReleases[0].artists[0].id}`,
+    `${ARTIST_ENDPOINT}${newReleases[0].artists[0].id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -117,8 +137,29 @@ export async function getStaticProps() {
   )
     .then((res) => res.data)
     .catch((error) => console.log(error));
+  //------>
+  //get featured 1 artist
+  let featuredArtist1 = await axios(
+    `${ARTIST_ENDPOINT}${newReleases[2].artists[0].id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+  //------>
+  //get featured playlist
+  let playlists = await axios(`${FEATURED_PLAYLIST_ENDPOINT}&limit=4`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.data.playlists.items)
+    .catch((error) => console.log(error));
 
   return {
-    props: { newReleases, featured },
+    props: { newReleases, featured, playlists, featuredArtist1 },
   };
 }

@@ -1,5 +1,4 @@
-@import '../../styles/mixin';
-
+@import '../../../styles/mixin';
 .card {
   @include flex(column, left, center);
 }

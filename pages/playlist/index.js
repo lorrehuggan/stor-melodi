@@ -6,7 +6,7 @@ import {
 } from '../../lib/spotify';
 import HeadTag from '../../components/Head';
 import styles from './styles.module.scss';
-import SmallAlbumCard from '../../components/SmallAlbumCard';
+import SmallAlbumCard from '../../components/Album/SmallAlbumCard';
 
 const Playlist = ({ playlists }) => {
   console.log(playlists);

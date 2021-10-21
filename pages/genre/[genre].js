@@ -7,11 +7,10 @@ import {
 } from '../../lib/spotify';
 import HeadTag from '../../components/Head';
 import styles from './styles.module.scss';
-import SmallAlbumCard from '../../components/SmallAlbumCard';
+import SmallAlbumCard from '../../components/Album/SmallAlbumCard';
 
 const Genre = ({ genre, tracks }) => {
   //loop through album titles and add to meta tags
-  console.log(tracks);
   let tags = [];
   tracks.map((track) => {
     return tags.push(track.album.name);

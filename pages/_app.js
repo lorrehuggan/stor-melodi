@@ -6,7 +6,6 @@ import appReducer, { initialState } from '../reducers/appReducer';
 import '../styles/nprogress.scss';
 import Router from 'next/router';
 import nProgress from 'nprogress';
-import { Howler } from 'howler';
 
 Router.events.on('routeChangeStart', nProgress.start);
 Router.events.on('routeChangeError', nProgress.done);
