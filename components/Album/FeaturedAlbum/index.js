@@ -13,18 +13,23 @@ const FeaturedAlbum = ({
   title,
   href,
   layout,
+  newAlbum,
+  link,
 }) => {
   const renderFeaturedImage = () => {
     return (
-      <div className={styles.featuredImageContainer}>
-        <Image src={image} alt="featured-image" layout="fill" />
-      </div>
+      <Link href={`/album/${link}`} passHref>
+        <div className={styles.featuredImageContainer}>
+          <Image src={image} alt="featured-image" layout="fill" />
+        </div>
+      </Link>
     );
   };
 
   const renderFeaturedDetails = () => {
     return (
       <>
+        <span className={styles.recommended}>recommended</span>
         <h1>{artist}</h1>
         {artist ? (
           <h4>
@@ -33,8 +38,12 @@ const FeaturedAlbum = ({
         ) : (
           ''
         )}
-        <span className={styles.albumType}>NEW {albumType}</span>
-        <h3>{`${title.substring(0, 25)}${title.length > 25 ? '...' : ''}`}</h3>
+        {newAlbum ? (
+          <span className={styles.albumType}>NEW {albumType}</span>
+        ) : (
+          <span>{albumType}</span>
+        )}
+        <h3>{`${title.substring(0, 20)}${title.length > 20 ? '...' : ''}`}</h3>
         <Link href={href} passHref>
           <span className={styles.spotifyLink}>
             Listen Now On Spotify

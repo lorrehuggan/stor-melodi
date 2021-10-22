@@ -40,39 +40,51 @@
   h1 {
     @include headerFont(2rem);
     font-weight: 900;
+    // color: $primary;
+    text-shadow: 0px 0px 4px $light;
+    margin-bottom: 0.5rem;
   }
   h3 {
-    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     font-size: 2.5rem;
   }
   h4 {
-    margin-top: 0.5rem;
+    margin-bottom: 1rem;
     font-size: 1.5rem;
     font-weight: 700;
     color: $grey;
     span {
-      color: $primary;
+      color: $secondary;
       font-weight: 100;
     }
   }
   .spotifyLink {
     font-weight: 100;
     cursor: pointer;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     @include flex(row, center, center);
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     &:hover {
-      color: $spotify-green;
+      color: $grey;
     }
     span {
       @include flex(row, center, center);
-      margin-left: 0.25rem;
+      margin-left: 0.5rem;
       color: $spotify-green;
     }
   }
   .albumType {
-    margin-top: 1rem;
     margin-bottom: 0.5rem;
     text-transform: uppercase;
   }
+}
+
+.recommended {
+  position: absolute;
+  top: 3rem;
+  letter-spacing: 16px;
+  text-transform: uppercase;
+  font-weight: 100;
+  color: $grey;
+  opacity: 0.3;
 }

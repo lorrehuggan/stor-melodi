@@ -6,6 +6,8 @@ import {
   GET_ACCESS_TOKEN,
   ARTIST_ENDPOINT,
   FEATURED_PLAYLIST_ENDPOINT,
+  GENRE_ENDPOINT,
+  RECOMMENDATIONS_ENDPOINT,
 } from '../lib/spotify';
 import axios from 'axios';
 import SmallAlbumCard from '../components/Album/SmallAlbumCard';
@@ -16,8 +18,12 @@ export default function Home({
   featured,
   playlists,
   featuredArtist1,
+  popGenre,
+  hipHopGenre,
+  featuredArtist2,
+  rnbGenre,
 }) {
-  console.log(newReleases);
+  console.log(featuredArtist1);
   //------>
   //set meta tags
   let tags = [];
@@ -35,6 +41,7 @@ export default function Home({
 
   const featuredItem = 0;
   const featuredItem2 = 2;
+  const featuredItem3 = 0;
 
   const renderNewReleases = () => {
     return newReleases?.map((release) => {
@@ -64,6 +71,34 @@ export default function Home({
       );
     });
   };
+  const renderPopGenre = () => {
+    return popGenre?.map((pop) => {
+      return (
+        <SmallAlbumCard
+          src={pop.album.images[0].url}
+          alt={pop.name}
+          key={pop.id}
+          title={pop.name}
+          name={pop.album.artists[0].name}
+          href={`/album/${pop.album.id}`}
+        />
+      );
+    });
+  };
+  const renderHipHopGenre = () => {
+    return hipHopGenre?.map((hipHop) => {
+      return (
+        <SmallAlbumCard
+          src={hipHop.album.images[0].url}
+          alt={hipHop.name}
+          key={hipHop.id}
+          title={hipHop.name}
+          name={hipHop.album.artists[0].name}
+          href={`/album/${hipHop.album.id}`}
+        />
+      );
+    });
+  };
 
   return (
     <>
@@ -78,12 +113,14 @@ export default function Home({
           {/* Featured Album */}
           <FeaturedAlbum
             layout
+            link={newReleases[featuredItem]?.id}
             image={newReleases[featuredItem].images[0].url}
             artist={newReleases[featuredItem]?.artists[0].name}
             followers={featured?.followers.total}
             albumType={newReleases[featuredItem]?.album_type}
             title={newReleases[featuredItem]?.name}
             href={newReleases[featuredItem]?.external_urls.spotify}
+            newAlbum
           />
           {/* New Releases */}
           <section className={styles.newReleases}>
@@ -97,17 +134,34 @@ export default function Home({
           </section>
           {/* Featured Album */}
           <FeaturedAlbum
+            link={newReleases[featuredItem2].id}
             image={newReleases[featuredItem2].images[0].url}
             artist={newReleases[featuredItem2]?.artists[0].name}
             followers={featuredArtist1?.followers.total}
             albumType={newReleases[featuredItem2]?.album_type}
             title={newReleases[featuredItem2]?.name}
             href={newReleases[featuredItem2]?.external_urls.spotify}
+            newAlbum
           />
           <section className={styles.newReleases}>
-            <h2>Featured Playlist</h2>
-            <div className={styles.grid}>{renderPlaylists()}</div>
+            <h2>Editors Pop Album Picks</h2>
+            <div className={styles.grid}>{renderPopGenre()}</div>
           </section>
+          <section className={styles.newReleases}>
+            <h2>Editors Hip Hop Album Picks</h2>
+            <div className={styles.grid}>{renderHipHopGenre()}</div>
+          </section>
+          {/* Featured Album */}
+          <FeaturedAlbum
+            layout
+            link={rnbGenre[featuredItem3].album.id}
+            image={rnbGenre[featuredItem3]?.album.images[0].url}
+            artist={rnbGenre[featuredItem3]?.artists[0].name}
+            followers={featuredArtist2?.followers.total}
+            albumType={rnbGenre[featuredItem3]?.album_type}
+            title={rnbGenre[featuredItem3]?.name}
+            href={rnbGenre[featuredItem3]?.external_urls.spotify}
+          />
         </section>
       </section>
     </>
@@ -126,7 +180,7 @@ export async function getStaticProps() {
     .then((res) => res.data.albums.items)
     .catch((error) => console.log(error));
   //------>
-  //get featured artist
+  //get featured 1 artist
   let featured = await axios(
     `${ARTIST_ENDPOINT}${newReleases[0].artists[0].id}`,
     {
@@ -138,7 +192,7 @@ export async function getStaticProps() {
     .then((res) => res.data)
     .catch((error) => console.log(error));
   //------>
-  //get featured 1 artist
+  //get featured 2 artist
   let featuredArtist1 = await axios(
     `${ARTIST_ENDPOINT}${newReleases[2].artists[0].id}`,
     {
@@ -158,8 +212,65 @@ export async function getStaticProps() {
   })
     .then((res) => res.data.playlists.items)
     .catch((error) => console.log(error));
+  //------->
+  //get pop category picks
+  let popGenre = await axios(
+    `${RECOMMENDATIONS_ENDPOINT}?seed_genres=pop&limit=4`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data.tracks)
+    .catch((error) => console.log(error));
+  //------->
+  //get hip-hop category picks
+  let hipHopGenre = await axios(
+    `${RECOMMENDATIONS_ENDPOINT}?seed_genres=hip-hop&limit=4`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data.tracks)
+    .catch((error) => console.log(error));
+  //------->
+  //get r-n-b category picks
+  let rnbGenre = await axios(
+    `${RECOMMENDATIONS_ENDPOINT}?seed_genres=r-n-b&limit=1`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data.tracks)
+    .catch((error) => console.log(error));
+  //------>
+  //get featured 3 artist
+  let featuredArtist2 = await axios(
+    `${ARTIST_ENDPOINT}${rnbGenre[0].artists[0].id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 
   return {
-    props: { newReleases, featured, playlists, featuredArtist1 },
+    props: {
+      newReleases,
+      featured,
+      playlists,
+      featuredArtist1,
+      featuredArtist2,
+      popGenre,
+      hipHopGenre,
+      rnbGenre,
+    },
   };
 }
