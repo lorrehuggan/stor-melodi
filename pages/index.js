@@ -23,9 +23,6 @@ export default function Home({
   hipHopGenre,
   featuredArtist2,
   rnbGenre,
-  genres,
-  soulPlaylist,
-  bluesPlaylist,
 }) {
   //------>
   //set meta tags
@@ -103,34 +100,6 @@ export default function Home({
       );
     });
   };
-  const renderSoulPlaylist = () => {
-    return soulPlaylist?.map((soul) => {
-      return (
-        <SmallAlbumCard
-          src={soul.images[0].url}
-          alt={soul.name}
-          key={soul.id}
-          title={soul.name}
-          name={soul.description}
-          href={`/playlist/soul/${soul.id}`}
-        />
-      );
-    });
-  };
-  const renderBluesPlaylist = () => {
-    return bluesPlaylist?.map((blues) => {
-      return (
-        <SmallAlbumCard
-          src={blues.images[0].url}
-          alt={blues.name}
-          key={blues.id}
-          title={blues.name}
-          name={blues.description}
-          href={`/playlist/blues/${blues.id}`}
-        />
-      );
-    });
-  };
 
   return (
     <>
@@ -194,15 +163,7 @@ export default function Home({
             title={rnbGenre[featuredItem3]?.name}
             href={rnbGenre[featuredItem3]?.external_urls.spotify}
           />
-          {/* Genre Specific Playlist */}
-          <section className={styles.newReleases}>
-            <h2>The Best Soul Playlists</h2>
-            <div className={styles.grid}>{renderSoulPlaylist()}</div>
-          </section>
-          <section className={styles.newReleases}>
-            <h2>Great Blues Playlists</h2>
-            <div className={styles.grid}>{renderBluesPlaylist()}</div>
-          </section>
+
           {/* Featured Album */}
           <FeaturedAlbum
             link={newReleases[featuredItem4].id}
@@ -311,33 +272,6 @@ export async function getStaticProps() {
   )
     .then((res) => res.data)
     .catch((error) => console.log(error));
-  //------>
-  //get all genre ids
-  let genres = await axios(GENRE_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.data.genres)
-    .catch((error) => console.log(error));
-  //-------->
-  //get soul playlist
-  let soulPlaylist = await axios(GENRE_PLAYLIST_ENDPOINT('soul', 4), {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.data.playlists.items)
-    .catch((error) => console.log(error));
-  //-------->
-  //get pop playlist
-  let bluesPlaylist = await axios(GENRE_PLAYLIST_ENDPOINT('blues', 4), {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.data.playlists.items)
-    .catch((error) => console.log(error));
 
   return {
     props: {
@@ -349,9 +283,6 @@ export async function getStaticProps() {
       popGenre,
       hipHopGenre,
       rnbGenre,
-      genres,
-      soulPlaylist,
-      bluesPlaylist,
     },
   };
 }
