@@ -21,3 +21,11 @@
     border-radius: 8px;
   }
 }
+
+.imageAnchor {
+  position: relative;
+  img {
+    width: 100%;
+    height: calc((1024px - 8px) / 4);
+  }
+}

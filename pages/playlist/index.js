@@ -7,6 +7,8 @@ import {
 import HeadTag from '../../components/Head';
 import styles from './styles.module.scss';
 import SmallAlbumCard from '../../components/Album/SmallAlbumCard';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const Playlist = ({ playlists }) => {
   console.log(playlists);
