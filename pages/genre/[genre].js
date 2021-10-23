@@ -26,12 +26,12 @@ const Genre = ({ genre, tracks }) => {
     return tracks.map((track) => {
       return (
         <SmallAlbumCard
-          src={track.album.images[0].url}
-          alt={track.name}
-          key={track.id}
-          title={track.name}
-          name={track.artists[0].name}
-          href={`/album/${track.album.id}`}
+          src={track?.album.images[0].url}
+          alt={track?.name}
+          key={track?.id}
+          title={track?.name}
+          name={track?.artists[0].name}
+          href={`/album/${track?.album.id}`}
         />
       );
     });
