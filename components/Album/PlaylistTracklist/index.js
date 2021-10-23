@@ -16,7 +16,6 @@ const PlaylistTracklist = ({ album, copyright, type }) => {
     return album?.tracks.items.map((song) => {
       // Play button dispatch function
       const handlePlay = () => {
-        console.log(itemPlaying);
         if (itemPlaying) {
           Howler.stop();
           dispatch({
@@ -32,6 +31,7 @@ const PlaylistTracklist = ({ album, copyright, type }) => {
             type: types.SET_ITEM_PLAYING,
             itemPlaying: song.track,
           });
+
           // dispatch({
           //   type: types.SET_PLAYING,
           //   playing: true,
@@ -41,8 +41,8 @@ const PlaylistTracklist = ({ album, copyright, type }) => {
         }
       };
       return (
-        <>
-          <div key={song.track.id} className={styles.track}>
+        <section className={styles.trackContainer} key={song.track.id}>
+          <div className={styles.track}>
             {/* spotify / play button*/}
             {itemPlaying?.id === song.track.id ? (
               <span
@@ -86,7 +86,7 @@ const PlaylistTracklist = ({ album, copyright, type }) => {
           </div>
           {/* audio player */}
           {song?.track.id === itemPlaying?.id ? (
-            <>
+            <div className={styles.trackPlayer}>
               {song?.track.preview_url ? (
                 <div className={styles.player}>
                   <AudioPlayer src={song?.track.preview_url} />
@@ -102,11 +102,11 @@ const PlaylistTracklist = ({ album, copyright, type }) => {
                   <span>Spotify</span>
                 </Link>
               </span>
-            </>
+            </div>
           ) : (
             ''
           )}
-        </>
+        </section>
       );
     });
   };

@@ -41,8 +41,8 @@ const AlbumTracklist = ({ album, copyright }) => {
       };
 
       return (
-        <>
-          <div key={song?.id} className={styles.track}>
+        <section key={song?.id} className={styles.trackContainer}>
+          <div className={styles.track}>
             {/* spotify / play button*/}
             {itemPlaying?.id === song.id ? (
               <span
@@ -84,7 +84,7 @@ const AlbumTracklist = ({ album, copyright }) => {
           </div>
           {/* audio player */}
           {song?.id === itemPlaying?.id ? (
-            <>
+            <div className={styles.trackPlayer}>
               {song?.preview_url ? (
                 <div className={styles.player}>
                   <AudioPlayer src={song.preview_url} />
@@ -100,11 +100,11 @@ const AlbumTracklist = ({ album, copyright }) => {
                   <span>Spotify</span>
                 </Link>
               </span>
-            </>
+            </div>
           ) : (
             ''
           )}
-        </>
+        </section>
       );
     });
   };

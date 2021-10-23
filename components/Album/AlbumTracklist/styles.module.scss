@@ -1,7 +1,14 @@
 @import '../../../styles/mixin';
 
-.track {
+.trackContainer {
   margin-bottom: 0.75rem;
+}
+
+.trackPlayer {
+  margin-top: 0.5rem;
+}
+
+.track {
   @include flex(row, center, left);
   .play {
     @include flex(row, center, center);
