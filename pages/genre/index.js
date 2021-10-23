@@ -74,5 +74,6 @@ export async function getStaticProps() {
 
   return {
     props: { genres },
+    revalidate: 30,
   };
 }

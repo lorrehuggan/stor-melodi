@@ -284,5 +284,6 @@ export async function getStaticProps() {
       hipHopGenre,
       rnbGenre,
     },
+    revalidate: 30,
   };
 }
