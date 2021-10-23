@@ -26,7 +26,7 @@ const Genre = ({ genre, tracks }) => {
     return tracks.map((track) => {
       return (
         <SmallAlbumCard
-          src={track?.album.images[0].url}
+          src={track?.album.images[0]?.url}
           alt={track?.name}
           key={track?.id}
           title={track?.name}
