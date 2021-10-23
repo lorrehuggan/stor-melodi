@@ -20,21 +20,21 @@ const Playlist = ({ playlists }) => {
     description: 'Discover Fresh New Playlist',
     tags: tags,
   };
-  const renderPlaylists = () => {
-    return playlists?.map((playlist) => {
-      return (
-        <div key={playlist?.id} className={styles.grid}>
-          <Link href={`/playlist/${playlist?.id}`} passHref>
-            <Image
-              src={playlist?.images[0].url}
-              alt={playlist?.name}
-              layout="fill"
-            />
-          </Link>
-        </div>
-      );
-    });
-  };
+  // const renderPlaylists = () => {
+  //   return playlists?.map((playlist) => {
+  //     return (
+  //       <div key={playlist?.id} className={styles.grid}>
+  //         <Link href={`/playlist/${playlist?.id}`} passHref>
+  //           <Image
+  //             src={playlist?.images[0].url}
+  //             alt={playlist?.name}
+  //             layout="fill"
+  //           />
+  //         </Link>
+  //       </div>
+  //     );
+  //   });
+  // };
   return (
     <>
       <HeadTag
@@ -50,7 +50,26 @@ const Playlist = ({ playlists }) => {
           </div>
         </section>
         <section>
-          <div className={styles.gridContainer}>{renderPlaylists()}</div>
+          <div className={styles.gridContainer}>
+            {playlists?.map((playlist) => {
+              return (
+                <div key={playlist?.id} className={styles.grid}>
+                  <Link href={`/playlist/${playlist?.id}`}>
+                    <a className={styles.imageAnchor}>
+                      <Image
+                        src={playlist?.images[0].url}
+                        alt={playlist?.name}
+                        layout="responsive"
+                        width={254}
+                        height={260}
+                        objectFit="cover"
+                      />
+                    </a>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
         </section>
       </section>
     </>
