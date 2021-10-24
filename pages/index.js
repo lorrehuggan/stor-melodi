@@ -6,9 +6,7 @@ import {
   GET_ACCESS_TOKEN,
   ARTIST_ENDPOINT,
   FEATURED_PLAYLIST_ENDPOINT,
-  GENRE_ENDPOINT,
   RECOMMENDATIONS_ENDPOINT,
-  GENRE_PLAYLIST_ENDPOINT,
 } from '../lib/spotify';
 import axios from 'axios';
 import SmallAlbumCard from '../components/Album/SmallAlbumCard';
@@ -284,6 +282,6 @@ export async function getStaticProps() {
       hipHopGenre,
       rnbGenre,
     },
-    revalidate: 30,
+    revalidate: 300,
   };
 }
