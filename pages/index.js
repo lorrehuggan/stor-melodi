@@ -9,6 +9,7 @@ import {
   RECOMMENDATIONS_ENDPOINT,
   GET_URL_RESPONSE_TOKEN,
   GET_USER_ENDPOINT,
+  GET_USER_PLAYLISTS_ENDPOINT,
 } from '../lib/spotify';
 import axios from 'axios';
 import SmallAlbumCard from '../components/Album/SmallAlbumCard';
@@ -27,7 +28,7 @@ export default function Home({
   rnbGenre,
 }) {
   // Get users data
-  const [{ userToken, user }, dispatch] = useAppStateValue();
+  const [{ userToken, user, userPlaylists }, dispatch] = useAppStateValue();
 
   //Get url response token from url
 
@@ -65,6 +66,26 @@ export default function Home({
     }
   }, [userToken, dispatch]);
 
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(GET_USER_PLAYLISTS_ENDPOINT(user.id), {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        })
+        .then(
+          (res) =>
+            dispatch({
+              type: types.SET_USER_PLAYLISTS,
+              userPlaylists: res.data.items,
+            })
+          // console.log(res.data.items)
+        )
+        .catch((err) => console.log(err));
+    }
+  }, [userToken, user, dispatch]);
+
   //------>
   //set meta tags
   let tags = [];
@@ -85,6 +106,20 @@ export default function Home({
   const featuredItem3 = 0;
   const featuredItem4 = 1;
 
+  const renderUserPlaylists = () => {
+    return userPlaylists.slice(0, 4)?.map((playlist) => {
+      return (
+        <SmallAlbumCard
+          src={playlist.images[0].url}
+          alt={playlist.name}
+          key={playlist.id}
+          title={playlist.name}
+          name={playlist.description ? playlist.description : playlist.name}
+          href={`/playlist/${playlist.id}`}
+        />
+      );
+    });
+  };
   const renderNewReleases = () => {
     return newReleases?.map((release) => {
       return (
@@ -164,6 +199,15 @@ export default function Home({
             href={newReleases[featuredItem]?.external_urls.spotify}
             newAlbum
           />
+          {/* User Playlists */}
+          {userPlaylists ? (
+            <section className={styles.newReleases}>
+              <h2>Your Top Playlists</h2>
+              <div className={styles.grid}>{renderUserPlaylists()}</div>
+            </section>
+          ) : (
+            ''
+          )}
           {/* New Releases */}
           <section className={styles.newReleases}>
             <h2>New Releases</h2>

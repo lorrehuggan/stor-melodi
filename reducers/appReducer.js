@@ -1,6 +1,7 @@
 export const initialState = {
   user: null,
   userToken: null,
+  userPlaylists: null,
   playing: false,
   itemPlaying: null,
 };
@@ -8,6 +9,7 @@ export const initialState = {
 export const types = {
   SET_USER: 'SET_USER',
   SET_USER_TOKEN: 'SET_USER_TOKEN',
+  SET_USER_PLAYLISTS: 'SET_USER_PLAYLISTS',
   SET_PLAYING: 'SET_PLAYING',
   SET_ITEM_PLAYING: 'SET_ITEM_PLAYING',
 };
@@ -33,6 +35,11 @@ const appReducer = (state, action) => {
       return {
         ...state,
         userToken: action.userToken,
+      };
+    case 'SET_USER_PLAYLISTS':
+      return {
+        ...state,
+        userPlaylists: action.userPlaylists,
       };
     default:
       return state;

@@ -59,27 +59,10 @@ const Playlist = ({ playlist }) => {
 
 export default Playlist;
 
-export async function getStaticPaths() {
-  let token = await GET_ACCESS_TOKEN();
-  let playlists = await axios(FEATURED_PLAYLIST_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((res) => res.data.playlists.items);
-
-  const paths = playlists.map((playlist) => {
-    return { params: { playlist: playlist.id } };
-  });
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }) {
-  let token = await GET_ACCESS_TOKEN();
-  let data = await axios(`${PLAYLIST_ENDPOINT}${params.playlist}`, {
+export async function getServerSideProps({ params }) {
+  const token = await GET_ACCESS_TOKEN();
+  // Fetch albums
+  const playlist = await axios(`${PLAYLIST_ENDPOINT}${params.playlist}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -88,7 +71,8 @@ export async function getStaticProps({ params }) {
     .catch((error) => console.log(error));
 
   return {
-    props: { playlist: data },
-    revalidate: 900,
+    props: {
+      playlist,
+    },
   };
 }

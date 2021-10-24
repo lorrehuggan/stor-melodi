@@ -41,7 +41,7 @@ const Nav = () => {
               <li>Pop</li>
             </Link>
             {user ? (
-              <Link href={user.href} passHref onClick={stop()}>
+              <Link href={user.external_urls.spotify} passHref onClick={stop()}>
                 <li className={styles.userName}>
                   <span>
                     <FaUserCircle />
