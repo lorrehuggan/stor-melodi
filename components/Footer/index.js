@@ -8,6 +8,7 @@ const Footer = () => {
     { logo: BsTwitter },
     { logo: BsYoutube },
     { logo: BsInstagram },
+    { logo: BsSpotify },
   ];
 
   const socialLinks = () => {

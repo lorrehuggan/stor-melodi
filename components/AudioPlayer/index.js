@@ -7,12 +7,23 @@ import { Howl, Howler } from 'howler';
 
 const AudioPlayer = ({ src }) => {
   const [{ playing, itemPlaying }, dispatch] = useAppStateValue();
-  const audioPlayer = useRef();
 
   const player = new Howl({
     src: src,
     html5: true,
     volume: 0.3,
+    onplay: () => {
+      dispatch({
+        type: types.SET_PLAYING,
+        playing: true,
+      });
+    },
+    onend: () => {
+      dispatch({
+        type: types.SET_PLAYING,
+        playing: false,
+      });
+    },
   });
 
   const togglePlay = () => {
@@ -24,10 +35,6 @@ const AudioPlayer = ({ src }) => {
       });
     } else {
       player.play();
-      dispatch({
-        type: types.SET_PLAYING,
-        playing: true,
-      });
     }
   };
 
@@ -35,7 +42,6 @@ const AudioPlayer = ({ src }) => {
 
   return (
     <div className={styles.audioPlayer}>
-      <audio ref={audioPlayer} src={src}></audio>
       <button
         className={`${styles.button} ${songPlaying}`}
         onClick={togglePlay}
