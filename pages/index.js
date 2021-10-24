@@ -1,16 +1,20 @@
 import styles from '../styles/styles.module.scss';
 import HeadTag from '../components/Head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   NEW_RELEASES_ENDPOINT,
   GET_ACCESS_TOKEN,
   ARTIST_ENDPOINT,
   FEATURED_PLAYLIST_ENDPOINT,
   RECOMMENDATIONS_ENDPOINT,
+  GET_URL_RESPONSE_TOKEN,
+  GET_USER_ENDPOINT,
 } from '../lib/spotify';
 import axios from 'axios';
 import SmallAlbumCard from '../components/Album/SmallAlbumCard';
 import FeaturedAlbum from '../components/Album/FeaturedAlbum';
+import { useAppStateValue } from '../context/AppProvider';
+import { types } from '../reducers/appReducer';
 
 export default function Home({
   newReleases,
@@ -22,6 +26,45 @@ export default function Home({
   featuredArtist2,
   rnbGenre,
 }) {
+  // Get users data
+  const [{ userToken, user }, dispatch] = useAppStateValue();
+
+  //Get url response token from url
+
+  useEffect(() => {
+    const hash = GET_URL_RESPONSE_TOKEN();
+    const _token = hash.access_token;
+    window.location.hash = '';
+    if (_token) {
+      dispatch({
+        type: types.SET_USER_TOKEN,
+        userToken: _token,
+      });
+      console.log('toke>>>>');
+    } else {
+      return;
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (userToken) {
+      axios
+        .get(GET_USER_ENDPOINT, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        })
+        .then((res) =>
+          dispatch({
+            type: types.SET_USER,
+            user: res.data,
+          })
+        )
+
+        .catch((err) => console.log(err));
+    }
+  }, [userToken, dispatch]);
+
   //------>
   //set meta tags
   let tags = [];
@@ -282,6 +325,6 @@ export async function getStaticProps() {
       hipHopGenre,
       rnbGenre,
     },
-    revalidate: 300,
+    revalidate: 900,
   };
 }

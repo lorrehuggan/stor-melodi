@@ -34,6 +34,16 @@
         color: $primary;
       }
     }
+    .userName {
+      @include flex(row, right, center);
+      color: $primary;
+      text-transform: capitalize;
+      margin-left: 0.5rem;
+      span {
+        margin-right: 0.1rem;
+        font-size: 1.1rem;
+      }
+    }
   }
 }
 
