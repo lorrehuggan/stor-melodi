@@ -10,6 +10,7 @@ import {
   GET_URL_RESPONSE_TOKEN,
   GET_USER_ENDPOINT,
   GET_USER_PLAYLISTS_ENDPOINT,
+  GET_USER_TOP_TRACKS,
 } from '../lib/spotify';
 import axios from 'axios';
 import SmallAlbumCard from '../components/Album/SmallAlbumCard';
@@ -28,7 +29,8 @@ export default function Home({
   rnbGenre,
 }) {
   // Get users data
-  const [{ userToken, user, userPlaylists }, dispatch] = useAppStateValue();
+  const [{ userToken, user, userPlaylists, userTopTracks }, dispatch] =
+    useAppStateValue();
 
   //Get url response token from url
 
@@ -86,6 +88,24 @@ export default function Home({
     }
   }, [userToken, user, dispatch]);
 
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${GET_USER_TOP_TRACKS}?limit=20&time_range=short_term`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        })
+        .then((res) =>
+          dispatch({
+            type: types.SET_USER_TOP_TRACKS,
+            userTopTracks: res.data.items,
+          })
+        )
+        .catch((err) => console.log(err));
+    }
+  }, [user, userToken, dispatch]);
+
   //------>
   //set meta tags
   let tags = [];
@@ -106,6 +126,20 @@ export default function Home({
   const featuredItem3 = 0;
   const featuredItem4 = 1;
 
+  const renderUserTopTracks = () => {
+    return userTopTracks.slice(0, 4)?.map((track) => {
+      return (
+        <SmallAlbumCard
+          src={track.album.images[0].url}
+          alt={track.name}
+          key={track.id}
+          title={track.album.name}
+          name={track.album.artists[0].name}
+          href={`/album/${track.album.id}`}
+        />
+      );
+    });
+  };
   const renderUserPlaylists = () => {
     return userPlaylists.slice(0, 4)?.map((playlist) => {
       return (
@@ -208,6 +242,27 @@ export default function Home({
           ) : (
             ''
           )}
+          {/* User Top Tracks */}
+          {userPlaylists ? (
+            <section className={styles.newReleases}>
+              <h2>Your Recent Top Songs</h2>
+              <div className={styles.grid}>{renderUserTopTracks()}</div>
+            </section>
+          ) : (
+            ''
+          )}
+          {/* Featured Album */}
+          <FeaturedAlbum
+            layout
+            link={newReleases[featuredItem4].id}
+            image={newReleases[featuredItem4].images[0].url}
+            artist={newReleases[featuredItem4]?.artists[0].name}
+            followers={featuredArtist1?.followers.total}
+            albumType={newReleases[featuredItem4]?.album_type}
+            title={newReleases[featuredItem4]?.name}
+            href={newReleases[featuredItem4]?.external_urls.spotify}
+            newAlbum
+          />
           {/* New Releases */}
           <section className={styles.newReleases}>
             <h2>New Releases</h2>
@@ -247,18 +302,6 @@ export default function Home({
             albumType={rnbGenre[featuredItem3]?.album_type}
             title={rnbGenre[featuredItem3]?.name}
             href={rnbGenre[featuredItem3]?.external_urls.spotify}
-          />
-
-          {/* Featured Album */}
-          <FeaturedAlbum
-            link={newReleases[featuredItem4].id}
-            image={newReleases[featuredItem4].images[0].url}
-            artist={newReleases[featuredItem4]?.artists[0].name}
-            followers={featuredArtist1?.followers.total}
-            albumType={newReleases[featuredItem4]?.album_type}
-            title={newReleases[featuredItem4]?.name}
-            href={newReleases[featuredItem4]?.external_urls.spotify}
-            newAlbum
           />
         </section>
       </section>

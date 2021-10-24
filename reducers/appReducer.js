@@ -2,6 +2,7 @@ export const initialState = {
   user: null,
   userToken: null,
   userPlaylists: null,
+  userTopTrack: null,
   playing: false,
   itemPlaying: null,
 };
@@ -10,6 +11,7 @@ export const types = {
   SET_USER: 'SET_USER',
   SET_USER_TOKEN: 'SET_USER_TOKEN',
   SET_USER_PLAYLISTS: 'SET_USER_PLAYLISTS',
+  SET_USER_TOP_TRACKS: 'SET_USER_TOP_TRACKS',
   SET_PLAYING: 'SET_PLAYING',
   SET_ITEM_PLAYING: 'SET_ITEM_PLAYING',
 };
@@ -40,6 +42,11 @@ const appReducer = (state, action) => {
       return {
         ...state,
         userPlaylists: action.userPlaylists,
+      };
+    case 'SET_USER_TOP_TRACKS':
+      return {
+        ...state,
+        userTopTracks: action.userTopTracks,
       };
     default:
       return state;

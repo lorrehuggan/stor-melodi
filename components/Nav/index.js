@@ -51,7 +51,7 @@ const Nav = () => {
               </Link>
             ) : (
               <Link href={AUTHENTICATION_ENDPOINT} passHref onClick={stop()}>
-                <li className={styles.userName}>Log In</li>
+                <li className={styles.userLogin}>Spotify Login</li>
               </Link>
             )}
           </ul>
