@@ -233,15 +233,7 @@ export default function Home({
             href={newReleases[featuredItem]?.external_urls.spotify}
             newAlbum
           />
-          {/* User Playlists */}
-          {userPlaylists ? (
-            <section className={styles.newReleases}>
-              <h2>Your Top Playlists</h2>
-              <div className={styles.grid}>{renderUserPlaylists()}</div>
-            </section>
-          ) : (
-            ''
-          )}
+
           {/* User Top Tracks */}
           {userPlaylists ? (
             <section className={styles.newReleases}>
@@ -251,7 +243,13 @@ export default function Home({
           ) : (
             ''
           )}
+          {/* New Releases */}
+          <section className={styles.newReleases}>
+            <h2>New Releases</h2>
+            <div className={styles.grid}>{renderNewReleases()}</div>
+          </section>
           {/* Featured Album */}
+
           <FeaturedAlbum
             layout
             link={newReleases[featuredItem4].id}
@@ -263,11 +261,16 @@ export default function Home({
             href={newReleases[featuredItem4]?.external_urls.spotify}
             newAlbum
           />
-          {/* New Releases */}
-          <section className={styles.newReleases}>
-            <h2>New Releases</h2>
-            <div className={styles.grid}>{renderNewReleases()}</div>
-          </section>
+          {/* User Playlists */}
+          {userPlaylists ? (
+            <section className={styles.newReleases}>
+              <h2>Your Top Playlists</h2>
+              <div className={styles.grid}>{renderUserPlaylists()}</div>
+            </section>
+          ) : (
+            ''
+          )}
+
           {/* Featured Playlist */}
           <section className={styles.newReleases}>
             <h2>Featured Playlist</h2>
