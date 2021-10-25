@@ -130,12 +130,12 @@ export default function Home({
     return userTopTracks.slice(0, 4)?.map((track) => {
       return (
         <SmallAlbumCard
-          src={track.album.images[0].url}
-          alt={track.name}
-          key={track.id}
-          title={track.album.name}
-          name={track.album.artists[0].name}
-          href={`/album/${track.album.id}`}
+          src={track?.album.images[0]?.url}
+          alt={track?.name}
+          key={track?.id}
+          title={track?.album.name}
+          name={track?.album.artists[0].name}
+          href={`/album/${track?.album.id}`}
         />
       );
     });
@@ -144,12 +144,12 @@ export default function Home({
     return userPlaylists.slice(0, 4)?.map((playlist) => {
       return (
         <SmallAlbumCard
-          src={playlist.images[0].url}
-          alt={playlist.name}
-          key={playlist.id}
-          title={playlist.name}
-          name={playlist.description ? playlist.description : playlist.name}
-          href={`/playlist/${playlist.id}`}
+          src={playlist?.images[0]?.url}
+          alt={playlist?.name}
+          key={playlist?.id}
+          title={playlist?.name}
+          name={playlist?.description ? playlist?.description : playlist?.name}
+          href={`/playlist/${playlist?.id}`}
         />
       );
     });
@@ -158,12 +158,12 @@ export default function Home({
     return newReleases?.map((release) => {
       return (
         <SmallAlbumCard
-          src={release.images[0].url}
-          alt={release.name}
-          key={release.id}
-          title={release.name}
-          name={release.artists[0].name}
-          href={`/album/${release.id}`}
+          src={release?.images[0]?.url}
+          alt={release?.name}
+          key={release?.id}
+          title={release?.name}
+          name={release?.artists[0].name}
+          href={`/album/${release?.id}`}
         />
       );
     });
@@ -172,12 +172,12 @@ export default function Home({
     return playlists?.map((playlist) => {
       return (
         <SmallAlbumCard
-          src={playlist.images[0].url}
-          alt={playlist.name}
-          key={playlist.id}
-          title={playlist.name}
-          name={playlist.description}
-          href={`/playlist/${playlist.id}`}
+          src={playlist?.images[0]?.url}
+          alt={playlist?.name}
+          key={playlist?.id}
+          title={playlist?.name}
+          name={playlist?.description}
+          href={`/playlist/${playlist?.id}`}
         />
       );
     });
@@ -186,12 +186,12 @@ export default function Home({
     return popGenre?.map((pop) => {
       return (
         <SmallAlbumCard
-          src={pop.album.images[0].url}
-          alt={pop.name}
-          key={pop.id}
-          title={pop.album.name}
-          name={pop.album.artists[0].name}
-          href={`/album/${pop.album.id}`}
+          src={pop?.album.images[0]?.url}
+          alt={pop?.name}
+          key={pop?.id}
+          title={pop?.album.name}
+          name={pop?.album.artists[0].name}
+          href={`/album/${pop?.album.id}`}
         />
       );
     });
@@ -200,12 +200,12 @@ export default function Home({
     return hipHopGenre?.map((hipHop) => {
       return (
         <SmallAlbumCard
-          src={hipHop.album.images[0].url}
-          alt={hipHop.name}
-          key={hipHop.id}
-          title={hipHop.album.name}
-          name={hipHop.album.artists[0].name}
-          href={`/album/${hipHop.album.id}`}
+          src={hipHop?.album.images[0]?.url}
+          alt={hipHop?.name}
+          key={hipHop?.id}
+          title={hipHop?.album.name}
+          name={hipHop?.album.artists[0].name}
+          href={`/album/${hipHop?.album.id}`}
         />
       );
     });
@@ -225,8 +225,8 @@ export default function Home({
           <FeaturedAlbum
             layout
             link={newReleases[featuredItem]?.id}
-            image={newReleases[featuredItem].images[0].url}
-            artist={newReleases[featuredItem]?.artists[0].name}
+            image={newReleases[featuredItem].images[0]?.url}
+            artist={newReleases[featuredItem]?.artists[0]?.name}
             followers={featured?.followers.total}
             albumType={newReleases[featuredItem]?.album_type}
             title={newReleases[featuredItem]?.name}
@@ -252,8 +252,8 @@ export default function Home({
 
           <FeaturedAlbum
             layout
-            link={newReleases[featuredItem4].id}
-            image={newReleases[featuredItem4].images[0].url}
+            link={newReleases[featuredItem4]?.id}
+            image={newReleases[featuredItem4]?.images[0]?.url}
             artist={newReleases[featuredItem4]?.artists[0].name}
             followers={featuredArtist1?.followers.total}
             albumType={newReleases[featuredItem4]?.album_type}
@@ -278,8 +278,8 @@ export default function Home({
           </section>
           {/* Featured Album */}
           <FeaturedAlbum
-            link={newReleases[featuredItem2].id}
-            image={newReleases[featuredItem2].images[0].url}
+            link={newReleases[featuredItem2]?.id}
+            image={newReleases[featuredItem2].images[0]?.url}
             artist={newReleases[featuredItem2]?.artists[0].name}
             followers={featuredArtist1?.followers.total}
             albumType={newReleases[featuredItem2]?.album_type}
@@ -298,8 +298,8 @@ export default function Home({
           {/* Featured Album */}
           <FeaturedAlbum
             layout
-            link={rnbGenre[featuredItem3].album.id}
-            image={rnbGenre[featuredItem3]?.album.images[0].url}
+            link={rnbGenre[featuredItem3]?.album.id}
+            image={rnbGenre[featuredItem3]?.album.images[0]?.url}
             artist={rnbGenre[featuredItem3]?.artists[0].name}
             followers={featuredArtist2?.followers.total}
             albumType={rnbGenre[featuredItem3]?.album_type}
