@@ -19,7 +19,7 @@ const AlbumArt = ({ href, src, alt }) => {
       },
     },
     blurredImage: {
-      hidden: { opacity: 0, y: 20 },
+      hidden: { opacity: 0, y: 30 },
       visible: {
         opacity: 1,
         y: 0,

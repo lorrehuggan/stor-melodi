@@ -13,7 +13,7 @@ const SmallAlbumImage = ({ src, name, href, idx }) => {
       rotate: 0,
       transition: {
         delay: idx * 0.2,
-        duration: 0.3,
+        duration: 0.5,
         ease: 'easeOut',
       },
     },

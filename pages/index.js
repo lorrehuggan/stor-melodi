@@ -147,7 +147,7 @@ export default function Home({
       return (
         <SmallAlbumCard
           idx={idx}
-          src={playlist?.images[1]?.url}
+          src={playlist?.images[0]?.url}
           alt={playlist?.name}
           key={playlist?.id}
           title={playlist?.name}

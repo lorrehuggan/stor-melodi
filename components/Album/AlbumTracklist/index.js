@@ -9,12 +9,29 @@ import { useAppStateValue } from '../../../context/AppProvider';
 import { types } from '../../../reducers/appReducer';
 import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
 import { Howler } from 'howler';
+import { motion } from 'framer-motion';
 
 const AlbumTracklist = ({ album, copyright }) => {
   const [{ itemPlaying }, dispatch] = useAppStateValue();
 
   const renderTracks = () => {
     return album?.tracks.items.map((song, idx) => {
+      const animations = {
+        trackVariant: {
+          hidden: {
+            opacity: 0,
+          },
+          visible: {
+            opacity: 1,
+            transition: {
+              delay: idx * 0.2,
+              duration: 0.2,
+              ease: 'easeOut',
+            },
+          },
+        },
+      };
+
       // Play button dispatch function
       const handlePlay = () => {
         console.log(itemPlaying);
@@ -43,7 +60,13 @@ const AlbumTracklist = ({ album, copyright }) => {
       };
 
       return (
-        <section key={song?.id} className={styles.trackContainer}>
+        <motion.section
+          variants={animations.trackVariant}
+          initial="hidden"
+          animate="visible"
+          key={song?.id}
+          className={styles.trackContainer}
+        >
           <div className={styles.track}>
             {/* spotify / play button*/}
             {itemPlaying?.id === song.id ? (
@@ -108,7 +131,7 @@ const AlbumTracklist = ({ album, copyright }) => {
           ) : (
             ''
           )}
-        </section>
+        </motion.section>
       );
     });
   };
@@ -116,7 +139,7 @@ const AlbumTracklist = ({ album, copyright }) => {
   return (
     <>
       <h4 className={styles.trackList}>Track List:</h4>
-      <>{renderTracks()}</>
+      <motion.div>{renderTracks()}</motion.div>
       <span className={styles.copyright}>{copyright}</span>
     </>
   );

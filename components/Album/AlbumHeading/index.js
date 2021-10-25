@@ -3,10 +3,22 @@ import styles from './styles.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAppStateValue } from '../../../context/AppProvider';
+import { motion } from 'framer-motion';
 
 const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
   const [{ playing }, dispatch] = useAppStateValue();
   const songPlaying = playing ? styles.buttonPlaying : '';
+
+  const animations = {
+    heading: {
+      hidden: { opacity: 0, y: 15 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { ease: 'easeOut', duration: 0.6, delay: 0.8 },
+      },
+    },
+  };
 
   const renderHeading = () => {
     return album ? (
@@ -42,10 +54,15 @@ const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
     );
   };
   return (
-    <section className={styles.heading}>
+    <motion.section
+      variants={animations.heading}
+      initial="hidden"
+      animate="visible"
+      className={styles.heading}
+    >
       <div className={`${styles.avatar} ${songPlaying}`}>{renderAvatar()}</div>
       <div className={styles.headingText}>{renderHeading()}</div>
-    </section>
+    </motion.section>
   );
 };
 
