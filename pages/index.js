@@ -17,6 +17,7 @@ import SmallAlbumCard from '../components/Album/SmallAlbumCard';
 import FeaturedAlbum from '../components/Album/FeaturedAlbum';
 import { useAppStateValue } from '../context/AppProvider';
 import { types } from '../reducers/appReducer';
+import { motion } from 'framer-motion';
 
 export default function Home({
   newReleases,
@@ -127,10 +128,11 @@ export default function Home({
   const featuredItem4 = 1;
 
   const renderUserTopTracks = () => {
-    return userTopTracks.slice(0, 4)?.map((track) => {
+    return userTopTracks.slice(0, 4)?.map((track, idx) => {
       return (
         <SmallAlbumCard
-          src={track?.album.images[0]?.url}
+          idx={idx}
+          src={track?.album.images[1]?.url}
           alt={track?.name}
           key={track?.id}
           title={track?.album.name}
@@ -141,10 +143,11 @@ export default function Home({
     });
   };
   const renderUserPlaylists = () => {
-    return userPlaylists.slice(0, 4)?.map((playlist) => {
+    return userPlaylists.slice(0, 4)?.map((playlist, idx) => {
       return (
         <SmallAlbumCard
-          src={playlist?.images[0]?.url}
+          idx={idx}
+          src={playlist?.images[1]?.url}
           alt={playlist?.name}
           key={playlist?.id}
           title={playlist?.name}
@@ -155,10 +158,11 @@ export default function Home({
     });
   };
   const renderNewReleases = () => {
-    return newReleases?.map((release) => {
+    return newReleases?.map((release, idx) => {
       return (
         <SmallAlbumCard
-          src={release?.images[0]?.url}
+          idx={idx}
+          src={release?.images[1]?.url}
           alt={release?.name}
           key={release?.id}
           title={release?.name}
@@ -169,9 +173,10 @@ export default function Home({
     });
   };
   const renderPlaylists = () => {
-    return playlists?.map((playlist) => {
+    return playlists?.map((playlist, idx) => {
       return (
         <SmallAlbumCard
+          idx={idx}
           src={playlist?.images[0]?.url}
           alt={playlist?.name}
           key={playlist?.id}
@@ -183,10 +188,11 @@ export default function Home({
     });
   };
   const renderPopGenre = () => {
-    return popGenre?.map((pop) => {
+    return popGenre?.map((pop, idx) => {
       return (
         <SmallAlbumCard
-          src={pop?.album.images[0]?.url}
+          idx={idx}
+          src={pop?.album.images[1]?.url}
           alt={pop?.name}
           key={pop?.id}
           title={pop?.album.name}
@@ -197,10 +203,11 @@ export default function Home({
     });
   };
   const renderHipHopGenre = () => {
-    return hipHopGenre?.map((hipHop) => {
+    return hipHopGenre?.map((hipHop, idx) => {
       return (
         <SmallAlbumCard
-          src={hipHop?.album.images[0]?.url}
+          idx={idx}
+          src={hipHop?.album.images[1]?.url}
           alt={hipHop?.name}
           key={hipHop?.id}
           title={hipHop?.album.name}
@@ -209,6 +216,22 @@ export default function Home({
         />
       );
     });
+  };
+  //------->
+  //Animation
+
+  const animations = {
+    headers: {
+      hidden: { opacity: 0, y: 35 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.3,
+          ease: 'easeOut',
+        },
+      },
+    },
   };
 
   return (
@@ -236,22 +259,33 @@ export default function Home({
 
           {/* User Top Tracks */}
           {userPlaylists ? (
-            <section className={styles.newReleases}>
-              <h2>Your Recent Top Songs</h2>
+            <motion.section className={styles.newReleases}>
+              <motion.h2
+                variants={animations.headers}
+                initial="hidden"
+                animate="visible"
+              >
+                Your Recent Top Songs
+              </motion.h2>
               <div className={styles.grid}>{renderUserTopTracks()}</div>
-            </section>
+            </motion.section>
           ) : (
             ''
           )}
           {/* New Releases */}
-          <section className={styles.newReleases}>
-            <h2>New Releases</h2>
+          <motion.section className={styles.newReleases}>
+            <motion.h2
+              variants={animations.headers}
+              initial="hidden"
+              animate="visible"
+            >
+              New Releases
+            </motion.h2>
             <div className={styles.grid}>{renderNewReleases()}</div>
-          </section>
+          </motion.section>
           {/* Featured Album */}
 
           <FeaturedAlbum
-            layout
             link={newReleases[featuredItem4]?.id}
             image={newReleases[featuredItem4]?.images[0]?.url}
             artist={newReleases[featuredItem4]?.artists[0].name}
@@ -264,7 +298,13 @@ export default function Home({
           {/* User Playlists */}
           {userPlaylists ? (
             <section className={styles.newReleases}>
-              <h2>Your Top Playlists</h2>
+              <motion.h2
+                variants={animations.headers}
+                initial="hidden"
+                animate="visible"
+              >
+                Your Top Playlists
+              </motion.h2>
               <div className={styles.grid}>{renderUserPlaylists()}</div>
             </section>
           ) : (
@@ -273,11 +313,18 @@ export default function Home({
 
           {/* Featured Playlist */}
           <section className={styles.newReleases}>
-            <h2>Featured Playlist</h2>
+            <motion.h2
+              variants={animations.headers}
+              initial="hidden"
+              animate="visible"
+            >
+              Featured Playlist
+            </motion.h2>
             <div className={styles.grid}>{renderPlaylists()}</div>
           </section>
           {/* Featured Album */}
           <FeaturedAlbum
+            layout
             link={newReleases[featuredItem2]?.id}
             image={newReleases[featuredItem2].images[0]?.url}
             artist={newReleases[featuredItem2]?.artists[0].name}
@@ -297,7 +344,6 @@ export default function Home({
           </section>
           {/* Featured Album */}
           <FeaturedAlbum
-            layout
             link={rnbGenre[featuredItem3]?.album.id}
             image={rnbGenre[featuredItem3]?.album.images[0]?.url}
             artist={rnbGenre[featuredItem3]?.artists[0].name}

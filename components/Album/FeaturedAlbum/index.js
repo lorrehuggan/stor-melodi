@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BsSpotify } from 'react-icons/bs';
 import { intToString } from '../../../utils/intToString';
+import { motion } from 'framer-motion';
 
 const FeaturedAlbum = ({
   image,
@@ -16,6 +17,32 @@ const FeaturedAlbum = ({
   newAlbum,
   link,
 }) => {
+  //Animation
+  const imageVariant = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+
+      transition: {
+        delay: 0.3,
+        duration: 0.3,
+        ease: 'easeOut',
+      },
+    },
+  };
+  const textVariant = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+
+      transition: {
+        delay: 0.5,
+        duration: 0.3,
+        ease: 'easeOut',
+      },
+    },
+  };
   const renderFeaturedImage = () => {
     return (
       <Link href={`/album/${link}`} passHref>
@@ -30,11 +57,11 @@ const FeaturedAlbum = ({
     return (
       <>
         <span className={styles.recommended}>recommended</span>
-        <h1>{artist}</h1>
+        <motion.h1>{artist}</motion.h1>
         {artist ? (
-          <h4>
+          <motion.h4>
             <span>{`${intToString(followers)}`}</span> Followers
-          </h4>
+          </motion.h4>
         ) : (
           ''
         )}
@@ -60,22 +87,42 @@ const FeaturedAlbum = ({
     <section className={styles.featured}>
       {layout ? (
         <>
-          <div className={`${styles.feature} ${styles.image}`}>
+          <motion.div
+            variants={imageVariant}
+            initial="hidden"
+            animate="visible"
+            className={`${styles.feature} ${styles.image}`}
+          >
             {renderFeaturedImage()}
-          </div>
-          <div className={`${styles.feature} ${styles.details}`}>
+          </motion.div>
+          <motion.div
+            variants={textVariant}
+            initial="hidden"
+            animate="visible"
+            className={`${styles.feature} ${styles.details}`}
+          >
             {renderFeaturedDetails()}
-          </div>
+          </motion.div>
         </>
       ) : (
         <>
-          <div className={`${styles.feature} ${styles.details}`}>
+          <motion.div
+            variants={textVariant}
+            initial="hidden"
+            animate="visible"
+            className={`${styles.feature} ${styles.details}`}
+          >
             {renderFeaturedDetails()}
-          </div>
+          </motion.div>
 
-          <div className={`${styles.feature} ${styles.image}`}>
+          <motion.div
+            variants={imageVariant}
+            initial="hidden"
+            animate="visible"
+            className={`${styles.feature} ${styles.image}`}
+          >
             {renderFeaturedImage()}
-          </div>
+          </motion.div>
         </>
       )}
     </section>
