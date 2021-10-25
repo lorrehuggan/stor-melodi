@@ -37,25 +37,16 @@
     }
     .userLogin {
       @include flex(row, right, center);
-      color: $primary;
-      padding: 0.5rem;
-      border-radius: 12px;
-      border: 0.5px solid $primary;
-      margin-left: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      color: $spotify-green;
+      font-size: 2rem;
       transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
       &:hover {
-        border: 0.5px solid $primary;
-        background-color: $primary;
-        color: $light;
-        box-shadow: 0px 0px 10px $primary;
+        color: $grey;
       }
     }
     .userName {
       @include flex(row, right, center);
       color: $primary;
-
       text-transform: capitalize;
 
       span {

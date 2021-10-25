@@ -5,6 +5,7 @@ import { Howler } from 'howler';
 import { AUTHENTICATION_ENDPOINT } from '../../lib/spotify';
 import { useAppStateValue } from '../../context/AppProvider';
 import { FaUserCircle } from 'react-icons/fa';
+import { BsSpotify } from 'react-icons/bs';
 
 const Nav = () => {
   const [{ user }, dispatch] = useAppStateValue();
@@ -48,7 +49,9 @@ const Nav = () => {
               </Link>
             ) : (
               <Link href={AUTHENTICATION_ENDPOINT} passHref>
-                <li className={styles.userLogin}>Spotify Login</li>
+                <li className={styles.userLogin}>
+                  <BsSpotify />
+                </li>
               </Link>
             )}
           </ul>
