@@ -6,17 +6,45 @@ import appReducer, { initialState } from '../reducers/appReducer';
 import '../styles/nprogress.scss';
 import Router from 'next/router';
 import nProgress from 'nprogress';
+import { useState, useEffect } from 'react';
+import SmallScreen from '../components/SmallScreen';
 
 Router.events.on('routeChangeStart', nProgress.start);
 Router.events.on('routeChangeError', nProgress.done);
 Router.events.on('routeChangeComplete', nProgress.done);
 
 function MyApp({ Component, pageProps }) {
+  const [smallScreen, setSmallScreen] = useState(false);
+  const [width, setWidth] = useState(null);
+
+  //------->
+  // render small screen component if the users screen size is too small
+
+  useEffect(() => {
+    if (window.innerWidth <= 1020) {
+      setSmallScreen(true);
+    } else {
+      setSmallScreen(false);
+    }
+  }, [width]);
+
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateDimensions);
+  });
+
   return (
     <AppProvider initialState={initialState} reducer={appReducer}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      {smallScreen ? (
+        <SmallScreen />
+      ) : (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      )}
     </AppProvider>
   );
 }

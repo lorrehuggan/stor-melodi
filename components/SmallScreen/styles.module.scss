@@ -1,0 +1,7 @@
+@import '../../styles/mixin';
+
+.smallScreen {
+  @include flex(row, center, center);
+  height: 100vh;
+  font-size: 2rem;
+}

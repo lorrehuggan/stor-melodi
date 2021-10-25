@@ -50,7 +50,10 @@ const Nav = () => {
             ) : (
               <Link href={AUTHENTICATION_ENDPOINT} passHref>
                 <li className={styles.userLogin}>
-                  <BsSpotify />
+                  <span>
+                    <BsSpotify />
+                  </span>
+                  Spotify Login
                 </li>
               </Link>
             )}

@@ -32,22 +32,29 @@
       margin-left: 0.5rem;
       text-align: right;
       &:hover {
-        color: $primary;
+        color: $grey;
       }
     }
     .userLogin {
       @include flex(row, right, center);
       color: $spotify-green;
-      font-size: 2rem;
+      font-size: 1rem;
       transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
       &:hover {
         color: $grey;
       }
+      span {
+        @include flex(row, center, center);
+        margin-right: 0.25rem;
+      }
     }
     .userName {
       @include flex(row, right, center);
-      color: $primary;
+      color: $warning;
       text-transform: capitalize;
+      &:hover {
+        color: $grey;
+      }
 
       span {
         margin-right: 0.25rem;
