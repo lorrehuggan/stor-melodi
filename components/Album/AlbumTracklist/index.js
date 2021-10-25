@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { BsFillPlayCircleFill, BsSpotify } from 'react-icons/bs';
+import { GiAudioCassette } from 'react-icons/gi';
+import { RiPlayListAddLine } from 'react-icons/ri';
 import styles from './styles.module.scss';
 import AudioPlayer from '../../AudioPlayer';
 import { useAppStateValue } from '../../../context/AppProvider';
@@ -50,12 +52,14 @@ const AlbumTracklist = ({ album, copyright }) => {
                 style={{ color: '#1ed760' }}
                 onClick={handlePlay}
               >
-                <BsSpotify />
+                <GiAudioCassette />
               </span>
             ) : (
-              <span className={styles.play} onClick={handlePlay}>
-                <BsFillPlayCircleFill />
-              </span>
+              <>
+                <span className={styles.play} onClick={handlePlay}>
+                  <BsFillPlayCircleFill />
+                </span>
+              </>
             )}
             {/* song details */}
             <div>

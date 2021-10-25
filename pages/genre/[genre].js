@@ -23,7 +23,7 @@ const Genre = ({ genre, tracks }) => {
   };
 
   const renderAlbums = () => {
-    return tracks.map((track) => {
+    return tracks?.map((track) => {
       return (
         <SmallAlbumCard
           src={track?.album.images[0]?.url}
