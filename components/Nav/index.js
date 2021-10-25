@@ -2,15 +2,12 @@ import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
 import Link from 'next/link';
 import { Howler } from 'howler';
-import {
-  AUTHENTICATION_ENDPOINT,
-  GET_URL_RESPONSE_TOKEN,
-} from '../../lib/spotify';
+import { AUTHENTICATION_ENDPOINT } from '../../lib/spotify';
 import { useAppStateValue } from '../../context/AppProvider';
 import { FaUserCircle } from 'react-icons/fa';
 
 const Nav = () => {
-  const [{ userToken, user }, dispatch] = useAppStateValue();
+  const [{ user }, dispatch] = useAppStateValue();
 
   const stop = () => {
     Howler.stop();
@@ -24,33 +21,33 @@ const Nav = () => {
         </div>
 
         <div className={`${styles.innerContainer} ${styles.links}`}>
-          <ul>
-            <Link href="/" passHref onClick={stop()}>
+          <ul onClick={stop}>
+            <Link href="/" passHref>
               <li>Home</li>
             </Link>
-            <Link href="/genre" passHref onClick={stop()}>
+            <Link href="/genre" passHref>
               <li>Genres</li>
             </Link>
-            <Link href="/playlist" passHref onClick={stop()}>
+            <Link href="/playlist" passHref>
               <li>Playlists</li>
             </Link>
-            <Link href="/genre/hip-hop" passHref onClick={stop()}>
+            <Link href="/genre/hip-hop" passHref>
               <li>Hip-Hop</li>
             </Link>
-            <Link href="/genre/pop" passHref onClick={stop()}>
+            <Link href="/genre/pop" passHref>
               <li>Pop</li>
             </Link>
             {user ? (
-              <Link href={user.external_urls.spotify} passHref onClick={stop()}>
+              <Link href={user?.external_urls.spotify} passHref>
                 <li className={styles.userName}>
                   <span>
                     <FaUserCircle />
                   </span>
-                  {user.display_name}
+                  {user?.display_name}
                 </li>
               </Link>
             ) : (
-              <Link href={AUTHENTICATION_ENDPOINT} passHref onClick={stop()}>
+              <Link href={AUTHENTICATION_ENDPOINT} passHref>
                 <li className={styles.userLogin}>Spotify Login</li>
               </Link>
             )}
