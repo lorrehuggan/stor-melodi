@@ -17,7 +17,9 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
-    "sass": "^1.42.1"
+    "react-rotating-text": "^1.4.1",
+    "sass": "^1.42.1",
+    "windups": "^1.1.9"
   },
   "devDependencies": {
     "eslint": "7.32.0",

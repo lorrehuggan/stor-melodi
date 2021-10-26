@@ -10,13 +10,55 @@
 }
 
 .headingContainer {
-  @include flex(column, center, center);
-  margin-bottom: 4rem;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 30rem;
+
+  position: relative;
+  margin-top: 2rem;
+  @include flex(row, center, center);
+  margin-bottom: 6rem;
+  @include headerFont(4.5rem);
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 4.5rem;
   .heading {
-    @include headerFont(4rem);
-    font-weight: 900;
-    letter-spacing: 1px;
-    line-height: 4.5rem;
+    margin-right: 0.5rem;
+  }
+  .type {
+    @include flex(row, center, center);
+    position: absolute;
+  }
+  img {
+    opacity: 0.3;
+    border-radius: 16px;
+    filter: grayscale(0.7) blur(0.75px);
+    object-position: 0 60%;
+  }
+  .gradient {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 15rem;
+    z-index: 2;
+    background-image: linear-gradient(to top, $dark, transparent);
+  }
+  .gradientTop {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 5rem;
+    z-index: 2;
+    background-image: linear-gradient(to bottom, $dark, transparent);
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

@@ -36,11 +36,11 @@
     }
     .userLogin {
       @include flex(row, right, center);
-      color: $spotify-green;
+      color: $grey;
       font-size: 1rem;
       transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
       &:hover {
-        color: $grey;
+        color: $spotify-green;
       }
       span {
         @include flex(row, center, center);

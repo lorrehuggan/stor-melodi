@@ -18,6 +18,9 @@ import FeaturedAlbum from '../components/Album/FeaturedAlbum';
 import { useAppStateValue } from '../context/AppProvider';
 import { types } from '../reducers/appReducer';
 import { motion } from 'framer-motion';
+import ReactRotatingText from 'react-rotating-text';
+import Image from 'next/image';
+import vinylShop from '../public/images/vinylShop.jpg';
 
 export default function Home({
   newReleases,
@@ -246,9 +249,25 @@ export default function Home({
         <section className={styles.innerContainer}>
           {/* Home Page Heading  */}
           <div className={styles.headingContainer}>
-            <h1 className={styles.heading}>
-              Discover something old or something new or just discover...{' '}
-            </h1>
+            <div className={styles.gradient} />
+            <div className={styles.gradientTop} />
+
+            <Image
+              src={vinylShop}
+              alt="vinyl-shop"
+              width={1024}
+              height={480}
+              objectFit="cover"
+            />
+            <div className={styles.type}>
+              <h1 className={styles.heading}>Discover</h1>
+              <ReactRotatingText
+                items={['something old', 'something new']}
+                pause={5000}
+                typingInterval={280}
+                deletingInterval={130}
+              />
+            </div>
           </div>
           {/* Featured Album */}
           <FeaturedAlbum
