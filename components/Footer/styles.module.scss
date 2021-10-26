@@ -25,6 +25,7 @@
 }
 
 .message {
+  margin-right: 0.5rem;
   a {
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     &:hover {
@@ -41,4 +42,8 @@
 
 .gridRight {
   @include flex(row, center, right);
+}
+
+.createdBy {
+  color: $grey;
 }

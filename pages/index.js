@@ -244,6 +244,12 @@ export default function Home({
 
       <section className={styles.container}>
         <section className={styles.innerContainer}>
+          {/* Home Page Heading  */}
+          <div className={styles.headingContainer}>
+            <h1 className={styles.heading}>
+              Discover something old or something new or just discover...{' '}
+            </h1>
+          </div>
           {/* Featured Album */}
           <FeaturedAlbum
             layout

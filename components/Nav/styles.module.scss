@@ -1,7 +1,6 @@
 @import '../../styles/mixin';
 
 .nav {
-  width: 100vw;
   height: 8rem;
   @include flex(row, center, center);
 }

@@ -9,6 +9,17 @@
   width: 1024px;
 }
 
+.headingContainer {
+  @include flex(column, center, center);
+  margin-bottom: 4rem;
+  .heading {
+    @include headerFont(4rem);
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 4.5rem;
+  }
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

@@ -53,7 +53,7 @@ export default function Genre({ genres }) {
             <div className={styles.gradient} />
 
             <div className={styles.headingContainer}>
-              <h2>Love Music? Discover Something New </h2>
+              <h2>Choose A Genre Find Something New </h2>
             </div>
           </div>
 

@@ -31,6 +31,7 @@ const Footer = () => {
           <span className={styles.message}>
             Powered By <Link href="https://www.spotify.com/">Spotify</Link>
           </span>
+          <span className={styles.createdBy}>Created by @HugganLorre</span>
         </div>
         <div className={`${styles.grid} ${styles.gridRight}`}>
           {socialLinks()}
