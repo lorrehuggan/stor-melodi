@@ -11,7 +11,7 @@ import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
 import { Howler } from 'howler';
 import { motion } from 'framer-motion';
 
-const AlbumTracklist = ({ album, copyright }) => {
+const AlbumTracklist = ({ album, copyright, features }) => {
   const [{ itemPlaying }, dispatch] = useAppStateValue();
 
   const renderTracks = () => {
@@ -34,7 +34,6 @@ const AlbumTracklist = ({ album, copyright }) => {
 
       // Play button dispatch function
       const handlePlay = () => {
-        console.log(itemPlaying);
         if (itemPlaying) {
           Howler.stop();
           dispatch({
@@ -50,10 +49,6 @@ const AlbumTracklist = ({ album, copyright }) => {
             type: types.SET_ITEM_PLAYING,
             itemPlaying: song,
           });
-          // dispatch({
-          //   type: types.SET_PLAYING,
-          //   playing: true,
-          // });
         } else {
           return;
         }
@@ -84,6 +79,8 @@ const AlbumTracklist = ({ album, copyright }) => {
                 </span>
               </>
             )}
+            {/*features*/}
+            {/* <div>{features[idx].danceability}</div> */}
             {/* song details */}
             <div>
               <span>{song?.name}</span>

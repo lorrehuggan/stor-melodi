@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Album = () => {
-  return <div>logged in</div>;
+  return <div>Page Error</div>;
 };
 
 export default Album;

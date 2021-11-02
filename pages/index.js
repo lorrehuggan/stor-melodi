@@ -47,7 +47,6 @@ export default function Home({
         type: types.SET_USER_TOKEN,
         userToken: _token,
       });
-      console.log('toke>>>>');
     } else {
       return;
     }
@@ -235,6 +234,14 @@ export default function Home({
         },
       },
     },
+    headingImage: {
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { delay: 0.3, duration: 1.3, ease: 'easeOut' },
+      },
+    },
   };
 
   return (
@@ -251,20 +258,25 @@ export default function Home({
           <div className={styles.headingContainer}>
             <div className={styles.gradient} />
             <div className={styles.gradientTop} />
-
-            <Image
-              src={vinylShop}
-              alt="vinyl-shop"
-              width={1024}
-              height={480}
-              objectFit="cover"
-            />
+            <motion.div
+              variants={animations.headingImage}
+              initial="hidden"
+              animate="visible"
+            >
+              <Image
+                src={vinylShop}
+                alt="vinyl-shop"
+                width={1024}
+                height={480}
+                objectFit="cover"
+              />
+            </motion.div>
             <div className={styles.type}>
               <h1 className={styles.heading}>Discover</h1>
               <ReactRotatingText
                 items={['something old', 'something new']}
-                pause={5000}
-                typingInterval={280}
+                pause={3000}
+                typingInterval={150}
                 deletingInterval={130}
               />
             </div>
