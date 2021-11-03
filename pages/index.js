@@ -256,8 +256,8 @@ export default function Home({
         <section className={styles.innerContainer}>
           {/* Home Page Heading  */}
           <div className={styles.headingContainer}>
-            <div className={styles.gradient} />
-            <div className={styles.gradientTop} />
+            {/* <div className={styles.gradient} />
+            <div className={styles.gradientTop} /> */}
             <motion.div
               variants={animations.headingImage}
               initial="hidden"

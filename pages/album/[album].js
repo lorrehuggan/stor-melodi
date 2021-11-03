@@ -66,7 +66,6 @@ const Album = ({ album, artist, features, recommendations }) => {
             alt={album?.name}
           />
         </section>
-        <section>features go here</section>
         <section className={styles.innerContainer}>
           <AlbumTracklist
             album={album}

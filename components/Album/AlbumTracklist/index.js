@@ -1,19 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { BsFillPlayCircleFill, BsSpotify } from 'react-icons/bs';
-import { GiAudioCassette } from 'react-icons/gi';
-import { RiPlayListAddLine } from 'react-icons/ri';
 import styles from './styles.module.scss';
-import AudioPlayer from '../../AudioPlayer';
 import { useAppStateValue } from '../../../context/AppProvider';
 import { types } from '../../../reducers/appReducer';
 import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
-import { Howler } from 'howler';
+import { Howler, Howl } from 'howler';
 import { motion } from 'framer-motion';
 
 const AlbumTracklist = ({ album, copyright, features }) => {
-  console.log(features);
-  const [{ itemPlaying }, dispatch] = useAppStateValue();
+  const [{ playing, itemPlaying }, dispatch] = useAppStateValue();
 
   const renderTracks = () => {
     return album?.tracks.items.map((song, idx) => {
@@ -34,29 +29,53 @@ const AlbumTracklist = ({ album, copyright, features }) => {
       };
 
       // Play button dispatch function
-      const handlePlay = () => {
-        if (itemPlaying) {
-          Howler.stop();
-          dispatch({
-            type: types.SET_ITEM_PLAYING,
-            itemPlaying: null,
-          });
+      const player = new Howl({
+        src: song?.preview_url,
+        html5: true,
+        volume: 0.3,
+        onplay: () => {
           dispatch({
             type: types.SET_PLAYING,
-            playing: false,
+            playing: true,
           });
-        } else if (!itemPlaying) {
           dispatch({
             type: types.SET_ITEM_PLAYING,
             itemPlaying: song,
           });
+        },
+        onend: () => {
+          dispatch({
+            type: types.SET_PLAYING,
+            playing: false,
+          });
+          dispatch({
+            type: types.SET_ITEM_PLAYING,
+            itemPlaying: null,
+          });
+        },
+      });
+
+      const handlePlay = () => {
+        if (song.preview_url) {
+          player.play();
         } else {
           return;
         }
       };
+      const handleStop = () => {
+        Howler.stop();
+        dispatch({
+          type: types.SET_PLAYING,
+          playing: false,
+        });
+        dispatch({
+          type: types.SET_ITEM_PLAYING,
+          itemPlaying: null,
+        });
+      };
 
       const trackFeatures = features.filter((feature) => {
-        return feature.id === song.id;
+        return feature?.id === song?.id;
       });
 
       return (
@@ -68,49 +87,59 @@ const AlbumTracklist = ({ album, copyright, features }) => {
           className={styles.trackContainer}
         >
           <div className={styles.track}>
-            {/* spotify / play button*/}
-            {itemPlaying?.id === song.id ? (
-              <span
-                className={styles.play}
-                style={{ color: '#1ed760' }}
-                onClick={handlePlay}
-              >
-                <GiAudioCassette />
-              </span>
+            {song?.id === itemPlaying?.id && song.preview_url ? (
+              <div className={`${styles.numberCircle} ${styles.circlePlaying}`}>
+                <div className={styles.number}>{idx + 1}</div>
+              </div>
             ) : (
-              <>
-                <span className={styles.play} onClick={handlePlay}>
-                  <BsFillPlayCircleFill />
-                </span>
-              </>
+              <div className={styles.numberCircle}>
+                <div className={styles.number}>{idx + 1}</div>
+              </div>
             )}
+
             {/*features*/}
             {/* danceability */}
             <div className={styles.featureContainer}>
               <div
-                className={styles.danceBar}
+                className={`${styles.danceBar} ${styles.bar}`}
                 style={{
-                  width: `${Math.floor(trackFeatures[0].danceability * 100)}%`,
+                  width: `${Math.floor(trackFeatures[0]?.danceability * 100)}%`,
                 }}
               ></div>
               {/* energy */}
               <div
-                className={styles.energyBar}
+                className={`${styles.energyBar} ${styles.bar}`}
                 style={{
-                  width: `${Math.floor(trackFeatures[0].energy * 100)}%`,
+                  width: `${Math.floor(trackFeatures[0]?.energy * 100)}%`,
                 }}
               ></div>
               {/* acoustic */}
               <div
-                className={styles.acousticBar}
+                className={`${styles.acousticBar} ${styles.bar}`}
                 style={{
-                  width: `${Math.floor(trackFeatures[0].acousticness * 100)}%`,
+                  width: `${Math.floor(trackFeatures[0]?.acousticness * 100)}%`,
                 }}
               ></div>
             </div>
-
+            {/* Track Information */}
             <div>
-              <span>{song?.name}</span>
+              {song?.id === itemPlaying?.id && song?.preview_url ? (
+                <span
+                  className={styles.songName}
+                  onMouseOver={handlePlay}
+                  onMouseLeave={handleStop}
+                >
+                  {song?.name}
+                </span>
+              ) : (
+                <span
+                  className={styles.noPreview}
+                  onMouseOver={handlePlay}
+                  onMouseLeave={handleStop}
+                >
+                  {song?.name}
+                </span>
+              )}
               <span className={styles.ms}>
                 {MsToMinsAndSeconds(song?.duration_ms)}
               </span>
@@ -133,28 +162,6 @@ const AlbumTracklist = ({ album, copyright, features }) => {
               </div>
             </div>
           </div>
-          {/* audio player */}
-          {song?.id === itemPlaying?.id ? (
-            <div className={styles.trackPlayer}>
-              {song?.preview_url ? (
-                <div className={styles.player}>
-                  <AudioPlayer src={song.preview_url} />
-                </div>
-              ) : (
-                <div className={styles.player}>
-                  <p>No Preview Track Available</p>
-                </div>
-              )}
-              <span className={styles.playerLink}>
-                {`Play Full Song On `}
-                <Link href={song.external_urls.spotify} passHref>
-                  <span>Spotify</span>
-                </Link>
-              </span>
-            </div>
-          ) : (
-            ''
-          )}
         </motion.section>
       );
     });
@@ -162,7 +169,21 @@ const AlbumTracklist = ({ album, copyright, features }) => {
 
   return (
     <>
-      <h4 className={styles.trackList}>Track List:</h4>
+      {/* <h4 className={styles.trackList}>Track List:</h4> */}
+      <motion.div className={styles.container}>
+        <div className={styles.featureIdx}>
+          <div className={`${styles.pin} ${styles.dancePin}`}></div>
+          <span>Dance-ability</span>
+        </div>
+        <div className={styles.featureIdx}>
+          <div className={`${styles.pin} ${styles.energyPin}`}></div>
+          <span>Energy</span>
+        </div>
+        <div className={styles.featureIdx}>
+          <div className={`${styles.pin} ${styles.acousticPin}`}></div>
+          <span>Acoustic-ness</span>
+        </div>
+      </motion.div>
       <motion.div>{renderTracks()}</motion.div>
       <span className={styles.copyright}>{copyright}</span>
     </>
