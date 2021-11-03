@@ -12,6 +12,7 @@ import { Howler } from 'howler';
 import { motion } from 'framer-motion';
 
 const AlbumTracklist = ({ album, copyright, features }) => {
+  console.log(features);
   const [{ itemPlaying }, dispatch] = useAppStateValue();
 
   const renderTracks = () => {
@@ -54,6 +55,10 @@ const AlbumTracklist = ({ album, copyright, features }) => {
         }
       };
 
+      const trackFeatures = features.filter((feature) => {
+        return feature.id === song.id;
+      });
+
       return (
         <motion.section
           variants={animations.trackVariant}
@@ -80,8 +85,30 @@ const AlbumTracklist = ({ album, copyright, features }) => {
               </>
             )}
             {/*features*/}
-            {/* <div>{features[idx].danceability}</div> */}
-            {/* song details */}
+            {/* danceability */}
+            <div className={styles.featureContainer}>
+              <div
+                className={styles.danceBar}
+                style={{
+                  width: `${Math.floor(trackFeatures[0].danceability * 100)}%`,
+                }}
+              ></div>
+              {/* energy */}
+              <div
+                className={styles.energyBar}
+                style={{
+                  width: `${Math.floor(trackFeatures[0].energy * 100)}%`,
+                }}
+              ></div>
+              {/* acoustic */}
+              <div
+                className={styles.acousticBar}
+                style={{
+                  width: `${Math.floor(trackFeatures[0].acousticness * 100)}%`,
+                }}
+              ></div>
+            </div>
+
             <div>
               <span>{song?.name}</span>
               <span className={styles.ms}>
