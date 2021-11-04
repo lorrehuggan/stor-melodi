@@ -239,7 +239,7 @@ export default function Home({
       visible: {
         opacity: 1,
         y: 0,
-        transition: { delay: 0.3, duration: 1.3, ease: 'easeOut' },
+        transition: { delay: 0.5, duration: 1, ease: 'easeOut' },
       },
     },
   };
@@ -256,8 +256,6 @@ export default function Home({
         <section className={styles.innerContainer}>
           {/* Home Page Heading  */}
           <div className={styles.headingContainer}>
-            {/* <div className={styles.gradient} />
-            <div className={styles.gradientTop} /> */}
             <motion.div
               variants={animations.headingImage}
               initial="hidden"

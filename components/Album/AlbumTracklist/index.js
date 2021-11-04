@@ -12,6 +12,9 @@ const AlbumTracklist = ({ album, copyright, features }) => {
 
   const renderTracks = () => {
     return album?.tracks.items.map((song, idx) => {
+      const trackFeatures = features.filter((feature) => {
+        return feature?.id === song?.id;
+      });
       const animations = {
         trackVariant: {
           hidden: {
@@ -26,9 +29,57 @@ const AlbumTracklist = ({ album, copyright, features }) => {
             },
           },
         },
+        danceVariant: {
+          hidden: {
+            opacity: 0,
+            width: 0,
+          },
+          visible: {
+            opacity: 1,
+            width: `${Math.floor(trackFeatures[0]?.danceability * 100)}%`,
+            transition: {
+              delay: 1.6,
+              duration: 0.3,
+              type: 'spring',
+              stiffness: 90,
+            },
+          },
+        },
+        energyVariant: {
+          hidden: {
+            opacity: 0,
+            width: 0,
+          },
+          visible: {
+            opacity: 1,
+            width: `${Math.floor(trackFeatures[0]?.energy * 100)}%`,
+            transition: {
+              delay: 1.8,
+              duration: 0.3,
+              type: 'spring',
+              stiffness: 90,
+            },
+          },
+        },
+        acousticVariant: {
+          hidden: {
+            opacity: 0,
+            width: 0,
+          },
+          visible: {
+            opacity: 1,
+            width: `${Math.floor(trackFeatures[0]?.acousticness * 100)}%`,
+            transition: {
+              delay: 2,
+              duration: 0.3,
+              type: 'spring',
+              stiffness: 90,
+            },
+          },
+        },
       };
 
-      // Play button dispatch function
+      // Play dispatch function
       const player = new Howl({
         src: song?.preview_url,
         html5: true,
@@ -74,10 +125,6 @@ const AlbumTracklist = ({ album, copyright, features }) => {
         });
       };
 
-      const trackFeatures = features.filter((feature) => {
-        return feature?.id === song?.id;
-      });
-
       return (
         <motion.section
           variants={animations.trackVariant}
@@ -97,48 +144,61 @@ const AlbumTracklist = ({ album, copyright, features }) => {
               </div>
             )}
 
-            {/*features*/}
+            {/*song features*/}
             {/* danceability */}
             <div className={styles.featureContainer}>
-              <div
+              <motion.div
+                variants={animations.danceVariant}
+                initial="hidden"
+                animate="visible"
                 className={`${styles.danceBar} ${styles.bar}`}
                 style={{
                   width: `${Math.floor(trackFeatures[0]?.danceability * 100)}%`,
                 }}
-              ></div>
+              ></motion.div>
               {/* energy */}
-              <div
+              <motion.div
+                variants={animations.energyVariant}
+                initial="hidden"
+                animate="visible"
                 className={`${styles.energyBar} ${styles.bar}`}
                 style={{
                   width: `${Math.floor(trackFeatures[0]?.energy * 100)}%`,
                 }}
-              ></div>
+              ></motion.div>
               {/* acoustic */}
-              <div
+              <motion.div
+                variants={animations.acousticVariant}
+                initial="hidden"
+                animate="visible"
                 className={`${styles.acousticBar} ${styles.bar}`}
                 style={{
                   width: `${Math.floor(trackFeatures[0]?.acousticness * 100)}%`,
                 }}
-              ></div>
+              ></motion.div>
             </div>
             {/* Track Information */}
             <div>
               {song?.id === itemPlaying?.id && song?.preview_url ? (
-                <span
-                  className={styles.songName}
-                  onMouseOver={handlePlay}
-                  onMouseLeave={handleStop}
-                >
-                  {song?.name}
-                </span>
+                <Link href={song?.external_urls.spotify} passHref>
+                  <span
+                    className={styles.songName}
+                    onMouseOver={handlePlay}
+                    onMouseLeave={handleStop}
+                  >
+                    {song?.name}
+                  </span>
+                </Link>
               ) : (
-                <span
-                  className={styles.noPreview}
-                  onMouseOver={handlePlay}
-                  onMouseLeave={handleStop}
-                >
-                  {song?.name}
-                </span>
+                <Link href={song?.external_urls.spotify} passHref>
+                  <span
+                    className={styles.noPreview}
+                    onMouseOver={handlePlay}
+                    onMouseLeave={handleStop}
+                  >
+                    {song?.name}
+                  </span>
+                </Link>
               )}
               <span className={styles.ms}>
                 {MsToMinsAndSeconds(song?.duration_ms)}
@@ -169,7 +229,6 @@ const AlbumTracklist = ({ album, copyright, features }) => {
 
   return (
     <>
-      {/* <h4 className={styles.trackList}>Track List:</h4> */}
       <motion.div className={styles.container}>
         <div className={styles.featureIdx}>
           <div className={`${styles.pin} ${styles.dancePin}`}></div>
