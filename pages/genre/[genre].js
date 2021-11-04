@@ -30,7 +30,7 @@ const Genre = ({ genre, tracks }) => {
           src={track?.album.images[0]?.url}
           alt={track?.name}
           key={track?.id}
-          title={track?.name}
+          title={track?.album.name}
           name={track?.artists[0].name}
           href={`/album/${track?.album.id}`}
         />

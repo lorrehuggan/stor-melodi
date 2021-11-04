@@ -38,13 +38,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <AppProvider initialState={initialState} reducer={appReducer}>
-      {smallScreen ? (
-        <SmallScreen />
-      ) : (
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      )}
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </AppProvider>
   );
 }

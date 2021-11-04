@@ -1,82 +1,221 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { BsFillPlayCircleFill, BsSpotify } from 'react-icons/bs';
 import styles from './styles.module.scss';
-import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
 import { useAppStateValue } from '../../../context/AppProvider';
 import { types } from '../../../reducers/appReducer';
-import AudioPlayer from '../../AudioPlayer';
-import { Howler } from 'howler';
-import { AUDIO_FEATURES_ENDPOINT } from '../../../lib/spotify';
+import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
+import { Howler, Howl } from 'howler';
+import { motion } from 'framer-motion';
 
-const PlaylistTracklist = ({ album, copyright, type }) => {
-  const [{ itemPlaying }, dispatch] = useAppStateValue();
+const PlaylistTracklist = ({ album, copyright, features }) => {
+  const [{ playing, itemPlaying }, dispatch] = useAppStateValue();
 
   const renderTracks = () => {
-    return album?.tracks.items.map((song) => {
-      // Play button dispatch function
-      const handlePlay = () => {
-        if (itemPlaying) {
-          Howler.stop();
-          dispatch({
-            type: types.SET_ITEM_PLAYING,
-            itemPlaying: null,
-          });
+    return album?.tracks.items.map((song, idx) => {
+      const trackFeatures = features?.filter((feature) => {
+        return feature?.id === song?.track.id;
+      });
+      //framer motion animation variants
+      const animations = {
+        trackVariant: {
+          hidden: {
+            opacity: 0,
+          },
+          visible: {
+            opacity: 1,
+            transition: {
+              delay: idx * 0.02,
+              duration: 0.2,
+              ease: 'easeOut',
+            },
+          },
+        },
+        danceVariant: {
+          hidden: {
+            opacity: 0,
+            width: 0,
+          },
+          visible: {
+            opacity: 1,
+            width: `${Math.floor(trackFeatures[0]?.danceability * 100)}%`,
+            transition: {
+              delay: idx * 0.02,
+              duration: 0.3,
+              type: 'spring',
+              stiffness: 90,
+            },
+          },
+        },
+        energyVariant: {
+          hidden: {
+            opacity: 0,
+            width: 0,
+          },
+          visible: {
+            opacity: 1,
+            width: `${Math.floor(trackFeatures[0]?.energy * 100)}%`,
+            transition: {
+              delay: idx * 0.03,
+              duration: 0.3,
+              type: 'spring',
+              stiffness: 90,
+            },
+          },
+        },
+        acousticVariant: {
+          hidden: {
+            opacity: 0,
+            width: 0,
+          },
+          visible: {
+            opacity: 1,
+            width: `${Math.floor(trackFeatures[0]?.acousticness * 100)}%`,
+            transition: {
+              delay: idx * 0.04,
+              duration: 0.3,
+              type: 'spring',
+              stiffness: 90,
+            },
+          },
+        },
+      };
+
+      // Play dispatch function
+      const player = new Howl({
+        src: song?.track.preview_url,
+        html5: true,
+        volume: 0.3,
+        onplay: () => {
           dispatch({
             type: types.SET_PLAYING,
-            playing: false,
+            playing: true,
           });
-        } else if (itemPlaying === null) {
           dispatch({
             type: types.SET_ITEM_PLAYING,
             itemPlaying: song.track,
           });
+        },
+        onend: () => {
+          dispatch({
+            type: types.SET_PLAYING,
+            playing: false,
+          });
+          dispatch({
+            type: types.SET_ITEM_PLAYING,
+            itemPlaying: null,
+          });
+        },
+      });
 
-          // dispatch({
-          //   type: types.SET_PLAYING,
-          //   playing: true,
-          // });
+      const handlePlay = () => {
+        if (song.track.preview_url) {
+          player.play();
         } else {
           return;
         }
       };
-      return (
-        <section className={styles.trackContainer} key={song.track.id}>
-          <div className={styles.track}>
-            {/* spotify / play button*/}
-            {itemPlaying?.id === song.track.id ? (
-              <span
-                className={styles.play}
-                style={{ color: '#1ed760' }}
-                onClick={handlePlay}
-              >
-                <BsSpotify />
-              </span>
-            ) : (
-              <span className={styles.play} onClick={handlePlay}>
-                <BsFillPlayCircleFill />
-              </span>
-            )}
-            {/* song details */}
+      const handleStop = () => {
+        Howler.stop();
+        dispatch({
+          type: types.SET_PLAYING,
+          playing: false,
+        });
+        dispatch({
+          type: types.SET_ITEM_PLAYING,
+          itemPlaying: null,
+        });
+      };
 
+      return (
+        <motion.section
+          variants={animations.trackVariant}
+          initial="hidden"
+          animate="visible"
+          key={song?.track.id}
+          className={styles.trackContainer}
+        >
+          <div className={styles.track}>
+            {song?.track.id === itemPlaying?.id && song.track.preview_url ? (
+              <div className={`${styles.numberCircle} ${styles.circlePlaying}`}>
+                <div className={styles.number}>{idx + 1}</div>
+              </div>
+            ) : (
+              <div className={styles.numberCircle}>
+                <div className={styles.number}>{idx + 1}</div>
+              </div>
+            )}
+
+            {/*song features*/}
+            {/* danceability */}
+            <div className={styles.featureContainer}>
+              <motion.div
+                variants={animations.danceVariant}
+                initial="hidden"
+                animate="visible"
+                className={`${styles.danceBar} ${styles.bar}`}
+                style={{
+                  width: `${Math.floor(trackFeatures[0]?.danceability * 100)}%`,
+                }}
+              ></motion.div>
+              {/* energy */}
+              <motion.div
+                variants={animations.energyVariant}
+                initial="hidden"
+                animate="visible"
+                className={`${styles.energyBar} ${styles.bar}`}
+                style={{
+                  width: `${Math.floor(trackFeatures[0]?.energy * 100)}%`,
+                }}
+              ></motion.div>
+              {/* acoustic */}
+              <motion.div
+                variants={animations.acousticVariant}
+                initial="hidden"
+                animate="visible"
+                className={`${styles.acousticBar} ${styles.bar}`}
+                style={{
+                  width: `${Math.floor(trackFeatures[0]?.acousticness * 100)}%`,
+                }}
+              ></motion.div>
+            </div>
+            {/* Track Information */}
             <div>
-              <span>{song.track.name}</span>
+              {song?.track.id === itemPlaying?.id && song?.track.preview_url ? (
+                <Link href={song?.track.external_urls.spotify} passHref>
+                  <span
+                    className={styles.songName}
+                    onMouseOver={handlePlay}
+                    onMouseLeave={handleStop}
+                  >
+                    {song?.track.name}
+                  </span>
+                </Link>
+              ) : (
+                <Link href={song?.track.external_urls.spotify} passHref>
+                  <span
+                    className={styles.noPreview}
+                    onMouseOver={handlePlay}
+                    onMouseLeave={handleStop}
+                  >
+                    {song?.track.name}
+                  </span>
+                </Link>
+              )}
               <span className={styles.ms}>
-                {MsToMinsAndSeconds(song.track.duration_ms)}
+                {MsToMinsAndSeconds(song?.track.duration_ms)}
               </span>
               <div className={styles.meta}>
-                {song.track.artists.map((artist) => {
+                {song?.track.artists.map((artist) => {
                   return (
                     <Link
-                      key={artist.id}
-                      href={artist.external_urls.spotify}
+                      key={artist?.id}
+                      href={artist?.external_urls.spotify}
                       passHref
                     >
                       <a target="_blank">
-                        <p key={artist.id}>{`${artist.name}${
-                          song.track.artists.length > 1 ? ',' : ''
-                        }
-                      `}</p>
+                        <p key={artist?.id}>{`${artist?.name}${
+                          song?.track.artists.length > 1 ? ',' : ''
+                        }`}</p>
                       </a>
                     </Link>
                   );
@@ -84,37 +223,28 @@ const PlaylistTracklist = ({ album, copyright, type }) => {
               </div>
             </div>
           </div>
-          {/* audio player */}
-          {song?.track.id === itemPlaying?.id ? (
-            <div className={styles.trackPlayer}>
-              {song?.track.preview_url ? (
-                <div className={styles.player}>
-                  <AudioPlayer src={song?.track.preview_url} />
-                </div>
-              ) : (
-                <div className={styles.player}>
-                  <p>No Preview Track Available</p>
-                </div>
-              )}
-              <span className={styles.playerLink}>
-                {`Play ${itemPlaying.artists[0].name} - ${itemPlaying.name} Full Song On `}
-                <Link href={song.track.external_urls.spotify} passHref>
-                  <span>Spotify</span>
-                </Link>
-              </span>
-            </div>
-          ) : (
-            ''
-          )}
-        </section>
+        </motion.section>
       );
     });
   };
 
   return (
     <>
-      <h4 className={styles.trackList}>{type}:</h4>
-      <>{renderTracks()}</>
+      <motion.div className={styles.container}>
+        <div className={styles.featureIdx}>
+          <div className={`${styles.pin} ${styles.dancePin}`}></div>
+          <span>Dance-ability</span>
+        </div>
+        <div className={styles.featureIdx}>
+          <div className={`${styles.pin} ${styles.energyPin}`}></div>
+          <span>Energy</span>
+        </div>
+        <div className={styles.featureIdx}>
+          <div className={`${styles.pin} ${styles.acousticPin}`}></div>
+          <span>Acoustic-ness</span>
+        </div>
+      </motion.div>
+      <motion.div>{renderTracks()}</motion.div>
       <span className={styles.copyright}>{copyright}</span>
     </>
   );

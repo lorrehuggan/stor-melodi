@@ -2,31 +2,56 @@
 
 .trackContainer {
   margin-bottom: 0.75rem;
-}
-
-.trackPlayer {
-  margin-top: 0.5rem;
+  .circlePlaying {
+    transition: box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    box-shadow: 0px 0px 2px $light;
+    animation-name: playing;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .numberCircle {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid $light;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px $light;
+    .number {
+      color: $light;
+      font-size: 0.75rem;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
 
 .track {
   @include flex(row, center, left);
-  .play {
-    @include flex(row, center, center);
-    font-size: 2rem;
-    margin-right: 0.5rem;
-    color: $primary;
-    cursor: pointer;
-    transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-    &:hover {
-      color: $primary-alt;
-    }
-  }
+
   p {
     font-size: 1.25rem;
     margin-top: 0.125rem;
   }
   span {
     font-size: 1rem;
+  }
+  .songName {
+    cursor: pointer;
+    transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    &:hover {
+      color: $spotify-green;
+    }
+  }
+  .noPreview {
+    cursor: pointer;
+    transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    &:hover {
+      color: $primary;
+    }
   }
 }
 
@@ -36,7 +61,7 @@
 }
 
 .trackList {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 2rem;
 }
 
@@ -48,6 +73,7 @@
   color: $grey;
   @include flex(row, center, left);
   p {
+    font-size: 0.75rem;
     margin-right: 0.5rem;
     cursor: pointer;
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -57,29 +83,67 @@
   }
 }
 
-.player {
-  margin-left: 2.5rem;
-  p {
-    color: $warning;
-    text-transform: uppercase;
+.featureContainer {
+  @include flex(column, left, space-between);
+  width: 100px;
+  height: 30px;
+  margin-right: 0.25rem;
+
+  .bar {
+    height: 15%;
+    border-radius: 12px;
+  }
+
+  .danceBar {
+    background: $dance;
+  }
+  .energyBar {
+    background: $energy;
+  }
+  .acousticBar {
+    background: $acoustic;
   }
 }
-
-.playerLink {
-  margin-top: 0.5rem;
-  margin-left: 2.5rem;
+.container {
+  @include flex(row, left, left);
   margin-bottom: 1rem;
-  span {
-    transition: color 0.2s ease;
-    cursor: pointer;
-    color: $spotify-green;
-
-    &:hover {
-      color: $primary;
+  .featureIdx {
+    @include flex(column, center, center);
+    margin-right: 0.5rem;
+    .pin {
+      height: 1rem;
+      width: 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 50%;
+    }
+    .dancePin {
+      background: $dance;
+    }
+    .energyPin {
+      background: $energy;
+    }
+    .acousticPin {
+      background: $acoustic;
+    }
+    span {
+      text-transform: uppercase;
+      font-size: 0.5rem;
+      letter-spacing: 2px;
     }
   }
 }
 
-.smSpotify {
-  margin-left: 0.25rem;
+@keyframes playing {
+  0% {
+    box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
+    transform: rotate(0deg);
+  }
+  50% {
+    box-shadow: 0px 0px 8px $light, inset 0px 0px 6px $light;
+    transform: rotate(180deg);
+  }
+  100% {
+    box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
+    transform: rotate(360deg);
+  }
 }

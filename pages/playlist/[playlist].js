@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import {
   GET_ACCESS_TOKEN,
-  FEATURED_PLAYLIST_ENDPOINT,
   PLAYLIST_ENDPOINT,
+  GET_TRACK_FEATURES_ENDPOINT,
 } from '../../lib/spotify';
 import HeadTag from '../../components/Head';
 import styles from './styles.module.scss';
@@ -11,7 +11,7 @@ import AlbumHeading from '../../components/Album/AlbumHeading';
 import AlbumArt from '../../components/Album/AlbumArt';
 import PlaylistTracklist from '../../components/Album/PlaylistTracklist';
 
-const Playlist = ({ playlist }) => {
+const Playlist = ({ playlist, features }) => {
   let tags = [];
   playlist.tracks.items.map((track) => {
     return tags.push(track.track.name);
@@ -49,6 +49,7 @@ const Playlist = ({ playlist }) => {
               album={playlist}
               copyright={playlist.description}
               type="Playlist"
+              features={features}
             />
           </section>
         </section>
@@ -70,9 +71,23 @@ export async function getServerSideProps({ params }) {
     .then((res) => res.data)
     .catch((error) => console.log(error));
 
+  // get track features = dance ability, key, energy...
+  const ids = playlist.tracks.items.map((m) => m.track.id);
+  const features = await axios(
+    `${GET_TRACK_FEATURES_ENDPOINT}?ids=${ids.join(',')}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data.audio_features)
+    .catch((error) => console.log(error));
+
   return {
     props: {
       playlist,
+      features,
     },
   };
 }

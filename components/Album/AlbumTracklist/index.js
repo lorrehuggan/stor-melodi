@@ -15,6 +15,7 @@ const AlbumTracklist = ({ album, copyright, features }) => {
       const trackFeatures = features.filter((feature) => {
         return feature?.id === song?.id;
       });
+      //framer motion animation variants
       const animations = {
         trackVariant: {
           hidden: {
@@ -38,7 +39,7 @@ const AlbumTracklist = ({ album, copyright, features }) => {
             opacity: 1,
             width: `${Math.floor(trackFeatures[0]?.danceability * 100)}%`,
             transition: {
-              delay: 1.6,
+              delay: idx * 0.2,
               duration: 0.3,
               type: 'spring',
               stiffness: 90,
@@ -54,7 +55,7 @@ const AlbumTracklist = ({ album, copyright, features }) => {
             opacity: 1,
             width: `${Math.floor(trackFeatures[0]?.energy * 100)}%`,
             transition: {
-              delay: 1.8,
+              delay: idx * 0.3,
               duration: 0.3,
               type: 'spring',
               stiffness: 90,
@@ -70,7 +71,7 @@ const AlbumTracklist = ({ album, copyright, features }) => {
             opacity: 1,
             width: `${Math.floor(trackFeatures[0]?.acousticness * 100)}%`,
             transition: {
-              delay: 2,
+              delay: idx * 0.4,
               duration: 0.3,
               type: 'spring',
               stiffness: 90,
