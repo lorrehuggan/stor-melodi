@@ -1,5 +1,5 @@
 // Theme
-$spotify-green: #1ed760;
+$spotify-green: #1db954;
 $spotify-alt: #13833a;
 $primary: #d6241e;
 $primary-alt: #a71a16;
@@ -46,7 +46,22 @@ $shadow: 0px 0px 0.9px rgba(0, 0, 0, 0.188), 0px 0px 2.1px rgba(0, 0, 0, 0.271),
 // Media Queries
 
 @mixin iPadPortrait {
-  @media (min-width: 768px) {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+@mixin iPadLandscape {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin phoneLarge {
+  @media (max-width: 420px) {
+    @content;
+  }
+}
+@mixin phoneMedium {
+  @media (max-width: 350px) {
     @content;
   }
 }

@@ -10,7 +10,12 @@
   transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
     filter 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
     box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-
+  @include iPadLandscape {
+    height: 235px;
+  }
+  @include iPadPortrait {
+    height: 180px;
+  }
   &:hover {
     z-index: 99;
     box-shadow: $shadow;
@@ -27,5 +32,8 @@
   img {
     width: 100%;
     height: calc((1024px - 8px) / 4);
+    @include iPadPortrait {
+      height: calc((720px - 8px) / 4);
+    }
   }
 }

@@ -3,8 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './styles.module.scss';
 import { motion } from 'framer-motion';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import axios from 'axios';
+import { SAVE_ALBUM_ENDPOINT } from '../../../lib/spotify';
 
-const AlbumArt = ({ href, src, alt }) => {
+const AlbumArt = ({ href, src, alt, albumSaved, user, albumId }) => {
   //animation
   const animations = {
     mainImage: {
@@ -30,6 +33,20 @@ const AlbumArt = ({ href, src, alt }) => {
       },
     },
   };
+
+  const saveAlbum = async () => {
+    axios
+      .put(`${SAVE_ALBUM_ENDPOINT}`, {
+        headers: {
+          Authorization: `Bearer ${user}`,
+          ids: [`"${albumId}"`],
+        },
+      })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+    return;
+  };
+
   return (
     <section className={styles.imageSection}>
       <motion.div
@@ -68,6 +85,15 @@ const AlbumArt = ({ href, src, alt }) => {
           width={1024}
         />
       </motion.div>
+      {user ? (
+        <div className={styles.saved}>
+          <span onClick={saveAlbum}>
+            {albumSaved ? <AiFillHeart /> : <AiOutlineHeart />}
+          </span>
+        </div>
+      ) : (
+        ''
+      )}
     </section>
   );
 };

@@ -10,6 +10,12 @@
   display: grid;
   width: 1024px;
   grid-template-columns: repeat(2, 1fr);
+  @include iPadLandscape {
+    width: 950px;
+  }
+  @include iPadPortrait {
+    width: 720px;
+  }
 }
 
 .grid {
@@ -22,10 +28,16 @@
   margin-right: 0.5rem;
   font-size: 2rem;
   color: $spotify-green;
+  @include iPadPortrait {
+    font-size: 1rem;
+  }
 }
 
 .message {
   margin-right: 0.5rem;
+  @include iPadPortrait {
+    font-size: 0.75rem;
+  }
   a {
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     &:hover {
@@ -38,6 +50,9 @@
   margin-left: 1rem;
   font-size: 2rem;
   color: $grey;
+  @include iPadPortrait {
+    font-size: 1rem;
+  }
 }
 
 .gridRight {

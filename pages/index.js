@@ -11,6 +11,7 @@ import {
   GET_USER_ENDPOINT,
   GET_USER_PLAYLISTS_ENDPOINT,
   GET_USER_TOP_TRACKS,
+  BROWSE_CATEGORIES_ENDPOINT,
 } from '../lib/spotify';
 import axios from 'axios';
 import SmallAlbumCard from '../components/Album/SmallAlbumCard';
@@ -24,13 +25,13 @@ import vinylShop from '../public/images/vinylShop.jpg';
 
 export default function Home({
   newReleases,
-  featured,
-  playlists,
   featuredArtist1,
+  playlists,
+  featuredArtist2,
   popGenre,
   hipHopGenre,
-  featuredArtist2,
-  rnbGenre,
+  featuredArtist3,
+  featuredArtist4,
 }) {
   // Get users data
   const [{ userToken, user, userPlaylists, userTopTracks }, dispatch] =
@@ -125,9 +126,9 @@ export default function Home({
   };
 
   const featuredItem = 0;
-  const featuredItem2 = 2;
-  const featuredItem3 = 0;
-  const featuredItem4 = 1;
+  const featuredItem2 = 1;
+  const featuredItem3 = 2;
+  const featuredItem4 = 3;
 
   const renderUserTopTracks = () => {
     return userTopTracks.slice(0, 4)?.map((track, idx) => {
@@ -160,7 +161,7 @@ export default function Home({
     });
   };
   const renderNewReleases = () => {
-    return newReleases?.map((release, idx) => {
+    return newReleases?.slice(4, 8).map((release, idx) => {
       return (
         <SmallAlbumCard
           idx={idx}
@@ -285,7 +286,7 @@ export default function Home({
             link={newReleases[featuredItem]?.id}
             image={newReleases[featuredItem].images[0]?.url}
             artist={newReleases[featuredItem]?.artists[0]?.name}
-            followers={featured?.followers.total}
+            followers={featuredArtist1?.followers.total}
             albumType={newReleases[featuredItem]?.album_type}
             title={newReleases[featuredItem]?.name}
             href={newReleases[featuredItem]?.external_urls.spotify}
@@ -321,13 +322,13 @@ export default function Home({
           {/* Featured Album */}
 
           <FeaturedAlbum
-            link={newReleases[featuredItem4]?.id}
-            image={newReleases[featuredItem4]?.images[0]?.url}
-            artist={newReleases[featuredItem4]?.artists[0].name}
-            followers={featuredArtist1?.followers.total}
-            albumType={newReleases[featuredItem4]?.album_type}
-            title={newReleases[featuredItem4]?.name}
-            href={newReleases[featuredItem4]?.external_urls.spotify}
+            link={newReleases[featuredItem2]?.id}
+            image={newReleases[featuredItem2]?.images[0]?.url}
+            artist={newReleases[featuredItem2]?.artists[0].name}
+            followers={featuredArtist2?.followers.total}
+            albumType={newReleases[featuredItem2]?.album_type}
+            title={newReleases[featuredItem2]?.name}
+            href={newReleases[featuredItem2]?.external_urls.spotify}
             newAlbum
           />
           {/* User Playlists */}
@@ -360,13 +361,13 @@ export default function Home({
           {/* Featured Album */}
           <FeaturedAlbum
             layout
-            link={newReleases[featuredItem2]?.id}
-            image={newReleases[featuredItem2].images[0]?.url}
-            artist={newReleases[featuredItem2]?.artists[0].name}
-            followers={featuredArtist1?.followers.total}
-            albumType={newReleases[featuredItem2]?.album_type}
-            title={newReleases[featuredItem2]?.name}
-            href={newReleases[featuredItem2]?.external_urls.spotify}
+            link={newReleases[featuredItem3]?.id}
+            image={newReleases[featuredItem3].images[0]?.url}
+            artist={newReleases[featuredItem3]?.artists[0].name}
+            followers={featuredArtist3?.followers.total}
+            albumType={newReleases[featuredItem3]?.album_type}
+            title={newReleases[featuredItem3]?.name}
+            href={newReleases[featuredItem3]?.external_urls.spotify}
             newAlbum
           />
           <section className={styles.newReleases}>
@@ -379,13 +380,15 @@ export default function Home({
           </section>
           {/* Featured Album */}
           <FeaturedAlbum
-            link={rnbGenre[featuredItem3]?.album.id}
-            image={rnbGenre[featuredItem3]?.album.images[0]?.url}
-            artist={rnbGenre[featuredItem3]?.artists[0].name}
-            followers={featuredArtist2?.followers.total}
-            albumType={rnbGenre[featuredItem3]?.album_type}
-            title={rnbGenre[featuredItem3]?.name}
-            href={rnbGenre[featuredItem3]?.external_urls.spotify}
+            layout
+            link={newReleases[featuredItem4]?.id}
+            image={newReleases[featuredItem4].images[0]?.url}
+            artist={newReleases[featuredItem4]?.artists[0].name}
+            followers={featuredArtist4?.followers.total}
+            albumType={newReleases[featuredItem4]?.album_type}
+            title={newReleases[featuredItem4]?.name}
+            href={newReleases[featuredItem4]?.external_urls.spotify}
+            newAlbum
           />
         </section>
       </section>
@@ -396,7 +399,7 @@ export async function getStaticProps() {
   let token = await GET_ACCESS_TOKEN();
   //------>
   // get top 4 new releases
-  let newReleases = await axios(`${NEW_RELEASES_ENDPOINT}?limit=4`, {
+  let newReleases = await axios(`${NEW_RELEASES_ENDPOINT}?limit=8`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -405,7 +408,7 @@ export async function getStaticProps() {
     .catch((error) => console.log(error));
   //------>
   //get featured 1 artist
-  let featured = await axios(
+  let featuredArtist1 = await axios(
     `${ARTIST_ENDPOINT}${newReleases[0].artists[0].id}`,
     {
       headers: {
@@ -417,8 +420,31 @@ export async function getStaticProps() {
     .catch((error) => console.log(error));
   //------>
   //get featured 2 artist
-  let featuredArtist1 = await axios(
+  let featuredArtist2 = await axios(
+    `${ARTIST_ENDPOINT}${newReleases[1].artists[0].id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+
+  //get featured 3 artist
+  let featuredArtist3 = await axios(
     `${ARTIST_ENDPOINT}${newReleases[2].artists[0].id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+  //get featured 4 artist
+  let featuredArtist4 = await axios(
+    `${ARTIST_ENDPOINT}${newReleases[3].artists[0].id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -460,41 +486,17 @@ export async function getStaticProps() {
   )
     .then((res) => res.data.tracks)
     .catch((error) => console.log(error));
-  //------->
-  //get r-n-b category picks
-  let rnbGenre = await axios(
-    `${RECOMMENDATIONS_ENDPOINT}?seed_genres=r-n-b&limit=1`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-    .then((res) => res.data.tracks)
-    .catch((error) => console.log(error));
-  //------>
-  //get featured 3 artist
-  let featuredArtist2 = await axios(
-    `${ARTIST_ENDPOINT}${rnbGenre[0].artists[0].id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-    .then((res) => res.data)
-    .catch((error) => console.log(error));
 
   return {
     props: {
       newReleases,
-      featured,
       playlists,
       featuredArtist1,
       featuredArtist2,
+      featuredArtist3,
+      featuredArtist4,
       popGenre,
       hipHopGenre,
-      rnbGenre,
     },
     revalidate: 900,
   };

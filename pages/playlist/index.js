@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {
   FEATURED_PLAYLIST_ENDPOINT,
+  GENRE_PLAYLIST_ENDPOINT,
   GET_ACCESS_TOKEN,
 } from '../../lib/spotify';
 import HeadTag from '../../components/Head';
@@ -11,7 +12,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const Playlist = ({ playlists }) => {
-  console.log(playlists);
   const tags = [];
   playlists.map((playlist) => {
     return tags.push(playlist?.name);
@@ -85,7 +85,9 @@ export async function getStaticProps() {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.data.playlists.items);
+  })
+    .then((res) => res.data.playlists.items)
+    .catch((err) => console.log(err));
 
   return {
     props: { playlists },

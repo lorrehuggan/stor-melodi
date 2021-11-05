@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeadTag from '../../components/Head';
 import {
   ALBUM_ENDPOINT,
@@ -7,14 +7,31 @@ import {
   ARTIST_ENDPOINT,
   GET_TRACK_FEATURES_ENDPOINT,
   RECOMMENDATIONS_ENDPOINT,
+  CHECK_ALBUM_SAVED_ENDPOINT,
 } from '../../lib/spotify';
 import styles from './styles.module.scss';
 import AlbumHeading from '../../components/Album/AlbumHeading';
 import AlbumArt from '../../components/Album/AlbumArt';
 import AlbumTracklist from '../../components/Album/AlbumTracklist';
 import SmallAlbumCard from '../../components/Album/SmallAlbumCard';
+import { useAppStateValue } from '../../context/AppProvider';
+import { types } from '../../reducers/appReducer';
 
 const Album = ({ album, artist, features, recommendations }) => {
+  const [{ userToken }, dispatch] = useAppStateValue();
+  const [albumSaved, setAlbumSaved] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`${CHECK_ALBUM_SAVED_ENDPOINT}?ids=${album?.id}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+      .then((res) => setAlbumSaved(res.data[0]))
+      .catch((error) => console.log(error));
+  }, [userToken, album]);
+
   let tags = [];
   album?.tracks.items.map((song) => {
     return tags.push(song.name);
@@ -64,6 +81,9 @@ const Album = ({ album, artist, features, recommendations }) => {
             href={album?.external_urls.spotify}
             src={album?.images[0].url}
             alt={album?.name}
+            albumSaved={albumSaved}
+            user={userToken}
+            albumId={album?.id}
           />
         </section>
         <section className={styles.innerContainer}>
@@ -130,6 +150,18 @@ export async function getServerSideProps({ params }) {
   )
     .then((res) => res.data)
     .catch((error) => console.log(error));
+
+  // Get Album Saved State
+  // const albumSaved = await axios(
+  //   `${CHECK_ALBUM_SAVED_ENDPOINT}?ids=32iAEBstCjauDhyKpGjTuq`,
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   }
+  // )
+  //   .then((res) => console.log(res))
+  //   .catch((error) => console.log(error))
 
   return {
     props: {

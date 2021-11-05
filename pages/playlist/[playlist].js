@@ -14,7 +14,7 @@ import PlaylistTracklist from '../../components/Album/PlaylistTracklist';
 const Playlist = ({ playlist, features }) => {
   let tags = [];
   playlist.tracks.items.map((track) => {
-    return tags.push(track.track.name);
+    return tags.push(track.track?.name);
   });
   const head = {
     title: playlist.name,

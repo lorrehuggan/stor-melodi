@@ -3,12 +3,25 @@
 .nav {
   height: 8rem;
   @include flex(row, center, center);
+  @include phoneLarge {
+    height: 5rem;
+    width: 100%;
+  }
 }
 
 .container {
   width: 1024px;
   height: 5rem;
   @include flex(row, center, space-between);
+  @include phoneLarge {
+    height: 3rem;
+  }
+  @include iPadLandscape {
+    width: 950px;
+  }
+  @include iPadPortrait {
+    width: 720px;
+  }
 }
 
 .innerContainer {
@@ -17,11 +30,20 @@
     font-weight: 900;
     color: $primary;
     text-shadow: 0px 0px 5px $primary;
+
+    @include phoneLarge {
+      @include headerFont(2rem);
+      margin-left: 1rem;
+    }
   }
   ul {
     height: 100%;
     width: 100%;
     @include flex(row, left, right);
+    @include phoneLarge {
+      display: none;
+    }
+
     li {
       @include flex(row, center, center);
       font-weight: 900;
@@ -30,6 +52,9 @@
       margin: 0.07rem 0rem;
       margin-left: 0.5rem;
       text-align: right;
+      @include iPadLandscape {
+        font-size: 0.75rem;
+      }
       &:hover {
         color: $grey;
       }
@@ -39,6 +64,9 @@
       color: $grey;
       font-size: 1rem;
       transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+      @include iPadPortrait {
+        font-size: 0.75rem;
+      }
       &:hover {
         color: $spotify-green;
       }

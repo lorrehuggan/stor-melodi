@@ -6,6 +6,12 @@
   width: 1024px;
   grid-gap: 8px;
   margin-bottom: 2rem;
+  @include iPadLandscape {
+    width: 950px;
+  }
+  @include iPadPortrait {
+    width: 720px;
+  }
 }
 
 .feature {
@@ -14,6 +20,12 @@
   height: calc((1024px - 8px) / 2);
   border-radius: 8px;
   overflow: hidden;
+  @include iPadLandscape {
+    height: calc((950px - 8px) / 2);
+  }
+  @include iPadPortrait {
+    height: calc((720px - 8px) / 2);
+  }
 }
 
 .image {
@@ -43,16 +55,25 @@
     // color: $primary;
     text-shadow: 0px 0px 4px $light;
     margin-bottom: 0.5rem;
+    @include iPadPortrait {
+      @include headerFont(1.75rem);
+    }
   }
   h3 {
     margin-bottom: 0.5rem;
     font-size: 2.5rem;
+    @include iPadPortrait {
+      font-size: 1.5rem;
+    }
   }
   h4 {
     margin-bottom: 1rem;
     font-size: 1.5rem;
     font-weight: 700;
     color: $grey;
+    @include iPadPortrait {
+      font-size: 1.25rem;
+    }
     span {
       color: $primary;
       font-weight: 100;

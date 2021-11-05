@@ -24,7 +24,7 @@ const PlaylistTracklist = ({ album, copyright, features }) => {
           visible: {
             opacity: 1,
             transition: {
-              delay: idx * 0.02,
+              delay: idx * 0.03,
               duration: 0.2,
               ease: 'easeOut',
             },
@@ -39,7 +39,7 @@ const PlaylistTracklist = ({ album, copyright, features }) => {
             opacity: 1,
             width: `${Math.floor(trackFeatures[0]?.danceability * 100)}%`,
             transition: {
-              delay: idx * 0.02,
+              delay: idx * 0.04,
               duration: 0.3,
               type: 'spring',
               stiffness: 90,
@@ -55,7 +55,7 @@ const PlaylistTracklist = ({ album, copyright, features }) => {
             opacity: 1,
             width: `${Math.floor(trackFeatures[0]?.energy * 100)}%`,
             transition: {
-              delay: idx * 0.03,
+              delay: idx * 0.05,
               duration: 0.3,
               type: 'spring',
               stiffness: 90,
@@ -71,7 +71,7 @@ const PlaylistTracklist = ({ album, copyright, features }) => {
             opacity: 1,
             width: `${Math.floor(trackFeatures[0]?.acousticness * 100)}%`,
             transition: {
-              delay: idx * 0.04,
+              delay: idx * 0.06,
               duration: 0.3,
               type: 'spring',
               stiffness: 90,
@@ -131,7 +131,7 @@ const PlaylistTracklist = ({ album, copyright, features }) => {
           variants={animations.trackVariant}
           initial="hidden"
           animate="visible"
-          key={song?.track.id}
+          key={song?.track?.id}
           className={styles.trackContainer}
         >
           <div className={styles.track}>

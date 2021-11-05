@@ -53,3 +53,19 @@
     }
   }
 }
+
+.saved {
+  position: absolute;
+  bottom: -40px;
+  z-index: 99;
+  span {
+    font-size: 3rem;
+    color: $primary;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
+      color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    &:hover {
+      color: $primary-alt;
+    }
+  }
+}
