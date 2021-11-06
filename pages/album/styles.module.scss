@@ -11,15 +11,25 @@
   @include iPadPortrait {
     width: 720px;
   }
+  @include phoneLarge {
+    width: 380px;
+  }
 }
 
 .recommended {
   margin-top: 4rem;
   margin-bottom: 1rem;
+  @include phoneLarge {
+    margin-top: 2rem;
+  }
   h2 {
     margin-bottom: 2rem;
     font-size: 1.5rem;
     font-weight: 900;
+    @include phoneLarge {
+      font-size: 0.75rem;
+      margin-bottom: 1rem;
+    }
     span {
       color: $primary;
     }
@@ -33,5 +43,8 @@
   grid-gap: 8px;
   @include iPadPortrait {
     width: 720px;
+  }
+  @include phoneLarge {
+    width: 380px;
   }
 }

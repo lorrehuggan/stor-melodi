@@ -16,10 +16,12 @@ import AlbumTracklist from '../../components/Album/AlbumTracklist';
 import SmallAlbumCard from '../../components/Album/SmallAlbumCard';
 import { useAppStateValue } from '../../context/AppProvider';
 import { types } from '../../reducers/appReducer';
+import useScreenSize from '../../hooks/useScreenWidth';
 
 const Album = ({ album, artist, features, recommendations }) => {
   const [{ userToken }, dispatch] = useAppStateValue();
   const [albumSaved, setAlbumSaved] = useState(false);
+  const { smallScreen } = useScreenSize(430);
 
   useEffect(() => {
     axios
@@ -95,9 +97,13 @@ const Album = ({ album, artist, features, recommendations }) => {
           />
         </section>
         <section className={styles.recommended}>
-          <h2>
-            If you like <span>{album?.name}</span> you might like these:
-          </h2>
+          {smallScreen ? (
+            <h2>Recommended</h2>
+          ) : (
+            <h2>
+              If you like <span>{album?.name}</span> you might like these:
+            </h2>
+          )}
           <div className={styles.grid}>{renderRecommended()}</div>
         </section>
       </section>

@@ -4,8 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useAppStateValue } from '../../../context/AppProvider';
 import { motion } from 'framer-motion';
+import useScreenSize from '../../../hooks/useScreenWidth';
 
 const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
+  const { smallScreen } = useScreenSize(430);
   const [{ playing }, dispatch] = useAppStateValue();
   const songPlaying = playing ? styles.buttonPlaying : '';
 
@@ -42,8 +44,8 @@ const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
             <Image
               src={src}
               alt={alt}
-              width={100}
-              height={100}
+              width={smallScreen ? 50 : 100}
+              height={smallScreen ? 50 : 100}
               objectFit="cover"
             />
           </a>
