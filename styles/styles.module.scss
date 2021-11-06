@@ -7,14 +7,14 @@
 .innerContainer {
   @include flex(column, left, left);
   width: 1024px;
-  @include phoneLarge {
-    width: 405px;
-  }
   @include iPadLandscape {
     width: 950px;
   }
   @include iPadPortrait {
     width: 720px;
+  }
+  @include phoneLarge {
+    width: 380px;
   }
 }
 
@@ -31,10 +31,6 @@
   font-weight: 900;
   letter-spacing: 1px;
   line-height: 4.5rem;
-  @include phoneLarge {
-    height: 25rem;
-    font-size: 2.5rem;
-  }
   @include iPadLandscape {
     height: 25rem;
     font-size: 2.5rem;
@@ -42,6 +38,12 @@
   @include iPadPortrait {
     height: 20rem;
     font-size: 2.5rem;
+  }
+  @include phoneLarge {
+    height: 9rem;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
   }
   .heading {
     margin-right: 0.5rem;
@@ -55,6 +57,9 @@
     border-radius: 16px;
     filter: grayscale(0.1) blur(0.75px);
     object-position: 0 60%;
+    @include phoneLarge {
+      object-position: 0 30%;
+    }
   }
 }
 
@@ -77,6 +82,9 @@
   }
   @include iPadPortrait {
     width: 720px;
+  }
+  @include phoneLarge {
+    width: 380px;
   }
 }
 
@@ -115,5 +123,12 @@
     @include iPadPortrait {
       @include headerFont(3rem);
     }
+    @include phoneLarge {
+      @include headerFont(1.5rem);
+      margin-bottom: 1rem;
+    }
+  }
+  @include phoneLarge {
+    margin-top: 0rem;
   }
 }

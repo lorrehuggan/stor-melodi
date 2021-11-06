@@ -5,6 +5,7 @@ export const initialState = {
   userTopTrack: null,
   playing: false,
   itemPlaying: null,
+  menuOpen: false,
 };
 
 export const types = {
@@ -14,6 +15,7 @@ export const types = {
   SET_USER_TOP_TRACKS: 'SET_USER_TOP_TRACKS',
   SET_PLAYING: 'SET_PLAYING',
   SET_ITEM_PLAYING: 'SET_ITEM_PLAYING',
+  SET_MENU_OPEN: 'SET_MENU_OPEN',
 };
 
 const appReducer = (state, action) => {
@@ -47,6 +49,11 @@ const appReducer = (state, action) => {
       return {
         ...state,
         userTopTracks: action.userTopTracks,
+      };
+    case 'SET_MENU_OPEN':
+      return {
+        ...state,
+        menuOpen: action.menuOpen,
       };
     default:
       return state;

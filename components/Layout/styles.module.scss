@@ -1,3 +1,12 @@
+@import '../../styles/mixin';
+
 .wrap {
   min-height: calc(100vh - 16rem);
+}
+
+.menu {
+  min-height: calc(100vh - 8rem);
+  background-color: $dark;
+  width: 100%;
+  @include flex(column, center, left);
 }

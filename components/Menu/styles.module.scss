@@ -1,0 +1,46 @@
+@import '../../styles/mixin';
+
+.container {
+  width: 380px;
+  height: calc(100vh - 8rem);
+}
+
+.heading {
+  @include flex(row, center, space-between);
+  margin-top: 2rem;
+}
+
+.menu {
+  @include headerFont(5rem);
+  font-weight: 900;
+}
+
+.items {
+  ul {
+    margin-top: 2rem;
+    li {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      @include flex(row, center, left);
+      .logo {
+        font-size: 3rem;
+        margin-left: 0.5rem;
+        color: $spotify-green;
+        @include flex(column, center, center);
+      }
+      img {
+        width: 200px;
+      }
+    }
+    .userName {
+      font-size: 2rem;
+
+      margin-top: 3rem;
+      span {
+        font-size: 2rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

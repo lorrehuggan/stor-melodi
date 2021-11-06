@@ -16,6 +16,9 @@
   @include iPadPortrait {
     height: 180px;
   }
+  @include phoneLarge {
+    height: 90px;
+  }
   &:hover {
     z-index: 99;
     box-shadow: $shadow;
@@ -24,6 +27,9 @@
   }
   img {
     border-radius: 8px;
+    @include phoneLarge {
+      border-radius: 4px;
+    }
   }
 }
 
@@ -34,6 +40,9 @@
     height: calc((1024px - 8px) / 4);
     @include iPadPortrait {
       height: calc((720px - 8px) / 4);
+    }
+    @include phoneLarge {
+      height: calc((405px - 8px) / 4);
     }
   }
 }

@@ -6,12 +6,32 @@ import { AUTHENTICATION_ENDPOINT } from '../../lib/spotify';
 import { useAppStateValue } from '../../context/AppProvider';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsSpotify } from 'react-icons/bs';
+import { types } from '../../reducers/appReducer';
+import useScreenSize from '../../hooks/useScreenWidth';
 
 const Nav = () => {
-  const [{ user }, dispatch] = useAppStateValue();
+  const [{ user, menuOpen }, dispatch] = useAppStateValue();
+  const { smallScreen } = useScreenSize(430);
 
   const stop = () => {
     Howler.stop();
+  };
+
+  const lines = {
+    transform: menuOpen ? 'rotate(180deg)' : '',
+  };
+
+  const btn = {
+    transform: menuOpen ? 'rotate(-90deg)' : '',
+  };
+
+  const btnContainer = {};
+
+  const buttonHandler = () => {
+    dispatch({
+      type: types.SET_MENU_OPEN,
+      menuOpen: !menuOpen,
+    });
   };
 
   return (
@@ -22,6 +42,17 @@ const Nav = () => {
         </div>
 
         <div className={`${styles.innerContainer} ${styles.links}`}>
+          {/*Menu Button*/}
+          {smallScreen ? (
+            <div className={styles.buttonContainer}>
+              <div onClick={buttonHandler} style={btn}>
+                <span style={lines}></span>
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
+
           <ul onClick={stop}>
             <Link href="/" passHref>
               <li>Home</li>
@@ -52,8 +83,8 @@ const Nav = () => {
                 <li className={styles.userLogin}>
                   <span>
                     <BsSpotify />
+                    Spotify Login
                   </span>
-                  Spotify Login
                 </li>
               </Link>
             )}

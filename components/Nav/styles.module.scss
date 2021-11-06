@@ -4,7 +4,7 @@
   height: 8rem;
   @include flex(row, center, center);
   @include phoneLarge {
-    height: 5rem;
+    height: 4rem;
     width: 100%;
   }
 }
@@ -13,14 +13,15 @@
   width: 1024px;
   height: 5rem;
   @include flex(row, center, space-between);
-  @include phoneLarge {
-    height: 3rem;
-  }
   @include iPadLandscape {
     width: 950px;
   }
   @include iPadPortrait {
     width: 720px;
+  }
+  @include phoneLarge {
+    height: 3rem;
+    width: 380px;
   }
 }
 
@@ -33,7 +34,6 @@
 
     @include phoneLarge {
       @include headerFont(2rem);
-      margin-left: 1rem;
     }
   }
   ul {
@@ -87,6 +87,27 @@
         margin-right: 0.25rem;
         font-size: 1.5rem;
         @include flex(row, center, center);
+      }
+    }
+  }
+  .buttonContainer {
+    @include flex(row, center, right);
+    div {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+      border: 1px solid red;
+      span {
+        width: 20px;
+        height: 2px;
+        background: #fff;
+        border-radius: 5px;
+        transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
       }
     }
   }

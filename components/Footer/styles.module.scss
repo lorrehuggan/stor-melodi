@@ -4,6 +4,9 @@
   width: 100vw;
   height: 8rem;
   @include flex(row, center, center);
+  @include phoneLarge {
+    height: 4rem;
+  }
 }
 
 .gridContainer {
@@ -16,12 +19,18 @@
   @include iPadPortrait {
     width: 720px;
   }
+  @include phoneLarge {
+    width: 380px;
+  }
 }
 
 .grid {
   width: 100%;
   height: 5rem;
   @include flex(row, center, left);
+  @include phoneLarge {
+    height: 4rem;
+  }
 }
 
 .spotify {
@@ -31,12 +40,18 @@
   @include iPadPortrait {
     font-size: 1rem;
   }
+  @include phoneLarge {
+    font-size: 0.75rem;
+  }
 }
 
 .message {
   margin-right: 0.5rem;
   @include iPadPortrait {
     font-size: 0.75rem;
+  }
+  @include phoneLarge {
+    font-size: 0.35rem;
   }
   a {
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -61,4 +76,7 @@
 
 .createdBy {
   color: $grey;
+  @include phoneLarge {
+    font-size: 0.35rem;
+  }
 }
