@@ -5,8 +5,10 @@ import styles from './styles.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import Vinyl from '../../public/images/vinyl.jpg';
+import useScreenSize from '../../hooks/useScreenWidth';
 
 export default function Genre({ genres }) {
+  const { width, smallScreen } = useScreenSize(430);
   //set genres to meta tags
   let tags = [];
   genres.map((genre) => {
@@ -47,7 +49,7 @@ export default function Genre({ genres }) {
               src={Vinyl}
               alt={'vinyl'}
               width={1024}
-              height={400}
+              height={smallScreen ? 200 : 400}
               objectFit="cover"
             />
             <div className={styles.gradient} />

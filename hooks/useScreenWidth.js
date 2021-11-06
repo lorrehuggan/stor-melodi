@@ -20,7 +20,7 @@ function useScreenSize(screen) {
     window.addEventListener('resize', updateDimensions);
   });
 
-  return { smallScreen };
+  return { smallScreen, width };
 }
 
 export default useScreenSize;
