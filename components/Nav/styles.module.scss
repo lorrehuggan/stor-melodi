@@ -92,6 +92,7 @@
   }
   .buttonContainer {
     @include flex(row, center, right);
+
     div {
       position: relative;
       display: flex;
@@ -115,4 +116,7 @@
 
 .links {
   width: 50%;
+  @include phoneLarge {
+    width: 32px;
+  }
 }

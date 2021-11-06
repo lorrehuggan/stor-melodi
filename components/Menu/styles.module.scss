@@ -19,7 +19,7 @@
   ul {
     margin-top: 2rem;
     li {
-      font-size: 5rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
       cursor: pointer;
       @include flex(row, center, left);
@@ -35,8 +35,7 @@
     }
     .userName {
       font-size: 2rem;
-
-      margin-top: 3rem;
+      margin-top: 2rem;
       span {
         font-size: 2rem;
         margin-right: 0.5rem;
