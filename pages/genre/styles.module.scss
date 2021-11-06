@@ -8,6 +8,9 @@
   @include flex(column, left, left);
   width: 1024px;
   margin-top: 2rem;
+  @include iPadPortrait {
+    width: 720px;
+  }
   @include phoneLarge {
     width: 380px;
   }
@@ -17,6 +20,9 @@
   @include flex(column, center, center);
   width: 1024px;
   margin-top: 2rem;
+  @include iPadPortrait {
+    width: 720px;
+  }
   @include phoneLarge {
     width: 380px;
     margin-top: 1rem;
@@ -29,6 +35,9 @@
   position: absolute;
   bottom: 0px;
   z-index: 3;
+  @include iPadPortrait {
+    @include headerFont(3rem);
+  }
   @include phoneLarge {
     @include headerFont(2rem);
     top: 0;
