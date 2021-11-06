@@ -5,6 +5,9 @@
   position: relative;
   height: 640px;
   @include flex(column, center, center);
+  @include iPadPortrait {
+    height: 450px;
+  }
   .imageContainer {
     box-shadow: $shadow;
     height: 600px;
@@ -14,6 +17,10 @@
     cursor: pointer;
     transition: filter 0.8s cubic-bezier(0.215, 0.61, 0.355, 1),
       transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+    @include iPadPortrait {
+      height: 400px;
+      width: 400px;
+    }
     &:hover {
       transform: scale(0.97);
       filter: brightness(1.05) saturate(1.05);

@@ -8,6 +8,9 @@
   @include flex(column, left, left);
   width: 1024px;
   margin-top: 2rem;
+  @include iPadPortrait {
+    width: 720px;
+  }
 }
 
 .recommended {
@@ -28,4 +31,7 @@
   grid-template-columns: repeat(4, 1fr);
   width: 1024px;
   grid-gap: 8px;
+  @include iPadPortrait {
+    width: 720px;
+  }
 }

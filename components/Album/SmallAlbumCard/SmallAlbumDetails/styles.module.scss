@@ -14,6 +14,9 @@
   font-size: 1.25rem;
   letter-spacing: -0.5px;
   color: $primary;
+  @include iPadPortrait {
+    font-size: 1rem;
+  }
   @include phoneLarge {
     font-size: 0.45rem;
   }
@@ -25,6 +28,9 @@
   letter-spacing: 0px;
   color: $grey;
   margin-top: 0.5rem;
+  @include iPadPortrait {
+    font-size: 0.75rem;
+  }
   @include phoneLarge {
     font-size: 0.6rem;
     margin-top: 0.25rem;

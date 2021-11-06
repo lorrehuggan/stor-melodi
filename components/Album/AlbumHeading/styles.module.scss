@@ -57,4 +57,7 @@
 .albumTitle {
   @include headerFont(4rem);
   font-weight: 900;
+  @include iPadPortrait {
+    @include headerFont(3rem);
+  }
 }
