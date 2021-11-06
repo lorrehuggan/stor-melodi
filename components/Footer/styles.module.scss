@@ -41,7 +41,7 @@
     font-size: 1rem;
   }
   @include phoneLarge {
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
 }
 
@@ -51,7 +51,7 @@
     font-size: 0.75rem;
   }
   @include phoneLarge {
-    font-size: 0.35rem;
+    font-size: 0.5rem;
   }
   a {
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -77,6 +77,6 @@
 .createdBy {
   color: $grey;
   @include phoneLarge {
-    font-size: 0.35rem;
+    font-size: 0.4rem;
   }
 }
