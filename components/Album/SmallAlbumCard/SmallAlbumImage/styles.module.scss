@@ -19,6 +19,9 @@
   @include phoneLarge {
     height: 90px;
   }
+  @include phoneMedium {
+    height: 80px;
+  }
   &:hover {
     z-index: 99;
     box-shadow: $shadow;
@@ -43,6 +46,9 @@
     }
     @include phoneLarge {
       height: calc((405px - 8px) / 4);
+    }
+    @include phoneMedium {
+      height: calc((330px - 8px) / 4);
     }
   }
 }

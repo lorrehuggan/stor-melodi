@@ -16,6 +16,9 @@
   @include phoneLarge {
     width: 380px;
   }
+  @include phoneMedium {
+    width: 330px;
+  }
 }
 
 .headingContainer {
@@ -44,6 +47,10 @@
     font-size: 1.5rem;
     margin-top: 1rem;
     margin-bottom: 2rem;
+  }
+  @include phoneMedium {
+    font-size: 1.25rem;
+    height: 8rem;
   }
   .heading {
     margin-right: 0.5rem;
@@ -85,6 +92,9 @@
   }
   @include phoneLarge {
     width: 380px;
+  }
+  @include phoneMedium {
+    width: 330px;
   }
 }
 

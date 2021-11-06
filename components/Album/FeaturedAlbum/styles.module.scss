@@ -15,6 +15,9 @@
   @include phoneLarge {
     width: 380px;
   }
+  @include phoneMedium {
+    width: 330px;
+  }
 }
 
 .feature {
@@ -31,6 +34,9 @@
   }
   @include phoneLarge {
     height: calc((380px - 8px) / 2);
+  }
+  @include phoneMedium {
+    height: calc((330px - 8px) / 2);
   }
 }
 
