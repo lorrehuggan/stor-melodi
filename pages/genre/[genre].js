@@ -8,6 +8,8 @@ import {
 import HeadTag from '../../components/Head';
 import styles from './styles.module.scss';
 import SmallAlbumCard from '../../components/Album/SmallAlbumCard';
+import SmallAlbumImage from '../../components/Album/SmallAlbumCard/SmallAlbumImage';
+import SmallAlbumDetails from '../../components/Album/SmallAlbumCard/SmallAlbumDetails';
 
 const Genre = ({ genre, tracks }) => {
   //loop through album titles and add to meta tags
@@ -25,15 +27,21 @@ const Genre = ({ genre, tracks }) => {
   const renderAlbums = () => {
     return tracks?.map((track, idx) => {
       return (
-        <SmallAlbumCard
-          idx={idx}
-          src={track?.album.images[0]?.url}
-          alt={track?.name}
-          key={track?.id}
-          title={track?.album.name}
-          name={track?.artists[0].name}
-          href={`/album/${track?.album.id}`}
-        />
+        <div key={track?.id} className={styles.album}>
+          <SmallAlbumImage
+            alt={track?.name}
+            idx={idx}
+            src={track?.album.images[0]?.url}
+            href={`/album/${track?.album.id}`}
+            name={track?.artists[0].name}
+          />
+          <div className={styles.details}>
+            <SmallAlbumDetails
+              name={track?.artists[0].name}
+              title={track?.album.name}
+            />
+          </div>
+        </div>
       );
     });
   };

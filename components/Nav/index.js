@@ -38,7 +38,9 @@ const Nav = () => {
     <nav className={styles.nav}>
       <section className={styles.container}>
         <div className={styles.innerContainer}>
-          <span className={styles.logo}>Chune</span>
+          <Link href="/" passHref>
+            <span className={styles.logo}>Chune</span>
+          </Link>
         </div>
 
         <div className={`${styles.innerContainer} ${styles.links}`}>
