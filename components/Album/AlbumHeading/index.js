@@ -46,7 +46,6 @@ const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
               alt={alt}
               width={smallScreen ? 50 : 100}
               height={smallScreen ? 50 : 100}
-              objectFit="cover"
             />
           </a>
         </Link>

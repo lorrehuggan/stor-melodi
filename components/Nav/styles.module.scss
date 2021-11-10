@@ -2,10 +2,23 @@
 
 .nav {
   height: 8rem;
+
   @include flex(row, center, center);
   @include phoneLarge {
     height: 4rem;
     width: 100%;
+  }
+}
+
+.mobileUser {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 900;
+  @include phoneLarge {
+    display: block;
   }
 }
 
@@ -29,6 +42,7 @@
 }
 
 .innerContainer {
+  position: relative;
   .logo {
     @include headerFont(3rem);
     font-weight: 900;

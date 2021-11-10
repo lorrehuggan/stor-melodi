@@ -179,31 +179,33 @@ const AlbumTracklist = ({ album, copyright, features }) => {
               ></motion.div>
             </div>
             {/* Track Information */}
-            <div>
-              {song?.id === itemPlaying?.id && song?.preview_url ? (
-                <Link href={song?.external_urls.spotify} passHref>
-                  <span
-                    className={styles.songName}
-                    onMouseOver={handlePlay}
-                    onMouseLeave={handleStop}
-                  >
-                    {song?.name}
-                  </span>
-                </Link>
-              ) : (
-                <Link href={song?.external_urls.spotify} passHref>
-                  <span
-                    className={styles.noPreview}
-                    onMouseOver={handlePlay}
-                    onMouseLeave={handleStop}
-                  >
-                    {song?.name}
-                  </span>
-                </Link>
-              )}
-              <span className={styles.ms}>
-                {MsToMinsAndSeconds(song?.duration_ms)}
-              </span>
+            <div className={styles.trackInfo}>
+              <div className={styles.trackTitle}>
+                {song?.id === itemPlaying?.id && song?.preview_url ? (
+                  <Link href={song?.external_urls.spotify} passHref>
+                    <span
+                      className={styles.songName}
+                      onMouseOver={handlePlay}
+                      onMouseLeave={handleStop}
+                    >
+                      {song?.name}
+                    </span>
+                  </Link>
+                ) : (
+                  <Link href={song?.external_urls.spotify} passHref>
+                    <span
+                      className={styles.noPreview}
+                      onMouseOver={handlePlay}
+                      onMouseLeave={handleStop}
+                    >
+                      {song?.name}
+                    </span>
+                  </Link>
+                )}
+                <span className={styles.ms}>
+                  {MsToMinsAndSeconds(song?.duration_ms)}
+                </span>
+              </div>
               <div className={styles.meta}>
                 {song?.artists.map((artist) => {
                   return (

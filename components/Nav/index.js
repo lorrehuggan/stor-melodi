@@ -42,6 +42,11 @@ const Nav = () => {
             <span className={styles.logo}>Chune</span>
           </Link>
         </div>
+        {user ? (
+          <div className={styles.mobileUser}>{user?.display_name}</div>
+        ) : (
+          ''
+        )}
 
         <div className={`${styles.innerContainer} ${styles.links}`}>
           {/*Menu Button*/}

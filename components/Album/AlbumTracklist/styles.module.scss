@@ -19,8 +19,8 @@
     border-radius: 50%;
     box-shadow: 0px 0px 0px $light;
     @include phoneLarge {
-      height: 1.5rem;
-      width: 1.5rem;
+      height: 1.25rem;
+      width: 1.25rem;
     }
     .number {
       color: $light;
@@ -34,6 +34,10 @@
       }
     }
   }
+}
+
+.trackInfo {
+  @include flex(column, left, center);
 }
 
 .track {
@@ -126,6 +130,10 @@
 .container {
   @include flex(row, left, left);
   margin-bottom: 1rem;
+  @include phoneLarge {
+    @include flex(row, center, center);
+  }
+
   .featureIdx {
     @include flex(column, center, center);
     margin-right: 0.5rem;
@@ -134,6 +142,10 @@
       width: 1rem;
       margin-bottom: 0.5rem;
       border-radius: 50%;
+      @include phoneLarge {
+        height: 0.75rem;
+        width: 0.75rem;
+      }
     }
     .dancePin {
       background: $dance;

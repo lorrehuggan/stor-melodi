@@ -85,15 +85,6 @@ const AlbumArt = ({ href, src, alt, albumSaved, user, albumId }) => {
           width={1024}
         />
       </motion.div>
-      {user ? (
-        <div className={styles.saved}>
-          <span onClick={saveAlbum}>
-            {albumSaved ? <AiFillHeart /> : <AiOutlineHeart />}
-          </span>
-        </div>
-      ) : (
-        ''
-      )}
     </section>
   );
 };
