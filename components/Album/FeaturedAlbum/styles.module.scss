@@ -50,6 +50,18 @@
   }
   &:hover {
     transform: translateY(-15px);
+    @include iPadLandscape {
+      transform: translateY(0px);
+    }
+    @include iPadPortrait {
+      transform: translateY(0px);
+    }
+    @include phoneLarge {
+      transform: translateY(0px);
+    }
+    @include phoneMedium {
+      transform: translateY(0px);
+    }
   }
   img {
     cursor: pointer;

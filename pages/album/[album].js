@@ -15,7 +15,6 @@ import AlbumArt from '../../components/Album/AlbumArt';
 import AlbumTracklist from '../../components/Album/AlbumTracklist';
 import SmallAlbumCard from '../../components/Album/SmallAlbumCard';
 import { useAppStateValue } from '../../context/AppProvider';
-import { types } from '../../reducers/appReducer';
 import useScreenSize from '../../hooks/useScreenWidth';
 
 const Album = ({ album, artist, features, recommendations }) => {

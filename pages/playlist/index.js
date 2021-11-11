@@ -62,8 +62,7 @@ const Playlist = ({ playlists }) => {
                         alt={playlist?.name}
                         layout="responsive"
                         width={254}
-                        height={260}
-                        objectFit="cover"
+                        height={280}
                       />
                     </a>
                   </Link>

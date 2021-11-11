@@ -27,6 +27,18 @@
     box-shadow: $shadow;
     filter: brightness(1.05) grayscale(0);
     transform: translateY(-12px) rotate(1deg);
+    @include iPadLandscape {
+      transform: translate(0px) rotate(0deg);
+    }
+    @include iPadPortrait {
+      transform: translate(0px) rotate(0deg);
+    }
+    @include phoneLarge {
+      transform: translate(0px) rotate(0deg);
+    }
+    @include phoneMedium {
+      transform: translate(0px) rotate(0deg);
+    }
   }
   img {
     border-radius: 8px;

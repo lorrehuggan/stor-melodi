@@ -8,12 +8,21 @@
   @include flex(column, left, left);
   width: 1024px;
   margin-top: 2rem;
+  @include iPadPortrait {
+    width: 720px;
+  }
+  @include phoneLarge {
+    width: 380px;
+  }
 }
 
 .heading {
   @include headerFont(4rem);
   font-weight: 900;
   margin-bottom: 2rem;
+  @include iPadPortrait {
+    @include headerFont(3rem);
+  }
 }
 
 .subTitle {
@@ -28,6 +37,14 @@
   width: 1024px;
   grid-gap: 8px;
   margin-top: 2rem;
+  @include iPadPortrait {
+    width: 720px;
+  }
+  @include phoneLarge {
+    width: 380px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 2rem;
+  }
 }
 
 .grid {
@@ -44,6 +61,13 @@
   transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
     filter 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
     box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  @include iPadPortrait {
+    height: calc((720px - 8px) / 4);
+  }
+  @include phoneLarge {
+    height: 195px;
+    margin-bottom: 0.25rem;
+  }
 
   &:hover {
     z-index: 99;
@@ -53,6 +77,12 @@
       0px 0px 92px rgba(0, 0, 0, 0.64);
     filter: brightness(1.05) grayscale(0);
     transform: translateY(-12px) rotate(1deg);
+    @include iPadPortrait {
+      transform: translateY(0px) rotate(0deg);
+    }
+    @include phoneLarge {
+      transform: translateY(0px) rotate(0deg);
+    }
   }
 }
 
@@ -61,5 +91,11 @@
   img {
     width: 100%;
     height: calc((1024px - 8px) / 4);
+    @include iPadPortrait {
+      height: calc((720px - 8px) / 4);
+    }
+    @include phoneLarge {
+      height: calc((380px - 8px) / 4);
+    }
   }
 }
