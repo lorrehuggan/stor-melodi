@@ -6,6 +6,9 @@
   @include iPadPortrait {
     width: 720px;
   }
+  @include phoneLarge {
+    width: 380px;
+  }
   @include phoneMedium {
     width: 330px;
   }
