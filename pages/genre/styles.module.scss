@@ -30,6 +30,19 @@
     width: 380px;
     margin-top: 1rem;
   }
+  @include phoneMedium {
+    width: 330px;
+  }
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+  @include phoneLarge {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .headingContainer {
@@ -63,16 +76,6 @@
   margin-top: 0.5rem;
   font-size: 1.125rem;
   letter-spacing: 0.5px;
-}
-
-.grid {
-  width: 100%;
-  display: grid;
-  grid-gap: 8px;
-  grid-template-columns: repeat(4, 1fr);
-  @include phoneLarge {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .genre {

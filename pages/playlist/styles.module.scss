@@ -14,6 +14,9 @@
   @include phoneLarge {
     width: 380px;
   }
+  @include phoneMedium {
+    width: 330px;
+  }
 }
 
 .heading {
@@ -45,6 +48,9 @@
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 2rem;
   }
+  @include phoneMedium {
+    width: 330px;
+  }
 }
 
 .grid {
@@ -67,6 +73,9 @@
   @include phoneLarge {
     height: 195px;
     margin-bottom: 0.25rem;
+  }
+  @include phoneMedium {
+    height: 175px;
   }
 
   &:hover {
