@@ -41,12 +41,7 @@ const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
       <>
         <Link href={href} passHref>
           <a target="_blank">
-            <Image
-              src={src}
-              alt={alt}
-              width={smallScreen ? 50 : 100}
-              height={smallScreen ? 50 : 100}
-            />
+            <Image src={src} alt={alt} layout="fill" objectFitj="cover" />
           </a>
         </Link>
       </>

@@ -11,7 +11,7 @@ import useScreenSize from '../../hooks/useScreenWidth';
 
 const Nav = () => {
   const [{ user, menuOpen }, dispatch] = useAppStateValue();
-  const { smallScreen } = useScreenSize(430);
+  const { smallScreen } = useScreenSize(810);
 
   const stop = () => {
     Howler.stop();

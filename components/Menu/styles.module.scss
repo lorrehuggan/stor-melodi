@@ -3,6 +3,9 @@
 .container {
   width: 380px;
   height: calc(100vh - 8rem);
+  @include iPadPortrait {
+    width: 720px;
+  }
   @include phoneMedium {
     width: 330px;
   }

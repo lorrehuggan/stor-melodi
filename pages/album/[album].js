@@ -20,7 +20,7 @@ import useScreenSize from '../../hooks/useScreenWidth';
 const Album = ({ album, artist, features, recommendations }) => {
   const [{ userToken }, dispatch] = useAppStateValue();
   const [albumSaved, setAlbumSaved] = useState(false);
-  const { smallScreen } = useScreenSize(430);
+  const { smallScreen } = useScreenSize(810);
 
   useEffect(() => {
     axios
