@@ -18,6 +18,10 @@
     margin-right: 0.5rem;
     border-radius: 50%;
     box-shadow: 0px 0px 0px $light;
+    @include phoneLarge {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
     .number {
       color: $light;
       font-size: 0.75rem;
@@ -25,6 +29,9 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      @include phoneLarge {
+        font-size: 0.6rem;
+      }
     }
   }
 }
@@ -35,9 +42,15 @@
   p {
     font-size: 1.25rem;
     margin-top: 0.125rem;
+    @include phoneLarge {
+      font-size: 1rem;
+    }
   }
   span {
     font-size: 1rem;
+    @include phoneLarge {
+      font-size: 0.75rem;
+    }
   }
   .songName {
     cursor: pointer;
@@ -77,6 +90,9 @@
     margin-right: 0.5rem;
     cursor: pointer;
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    @include phoneLarge {
+      font-size: 0.6rem;
+    }
     &:hover {
       color: $primary;
     }
@@ -103,10 +119,16 @@
   .acousticBar {
     background: $acoustic;
   }
+  @include phoneLarge {
+    width: 60px;
+  }
 }
 .container {
   @include flex(row, left, left);
   margin-bottom: 1rem;
+  @include phoneLarge {
+    @include flex(row, center, center);
+  }
   .featureIdx {
     @include flex(column, center, center);
     margin-right: 0.5rem;
@@ -115,6 +137,10 @@
       width: 1rem;
       margin-bottom: 0.5rem;
       border-radius: 50%;
+      @include phoneLarge {
+        height: 0.75rem;
+        width: 0.75rem;
+      }
     }
     .dancePin {
       background: $dance;
