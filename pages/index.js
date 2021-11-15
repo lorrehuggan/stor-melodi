@@ -498,6 +498,6 @@ export async function getStaticProps() {
       popGenre,
       hipHopGenre,
     },
-    revalidate: 900,
+    revalidate: 86400,
   };
 }

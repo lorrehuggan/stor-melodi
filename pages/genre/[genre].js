@@ -106,6 +106,6 @@ export async function getStaticProps({ params }) {
 
   return {
     props: { genre: params.genre, tracks: data },
-    revalidate: 900,
+    revalidate: 86400,
   };
 }
