@@ -37,9 +37,12 @@
 }
 
 .trackInfo {
-  @include flex(column, left, center);
+  @include flex(column, left, space-between);
+  height: 30px;
+  .titleAndTime {
+    @include flex(row, left, space-between);
+  }
 }
-
 .track {
   @include flex(row, center, left);
 
@@ -53,7 +56,7 @@
   span {
     font-size: 1rem;
     @include phoneLarge {
-      font-size: 0.75rem;
+      font-size: 0.6rem;
     }
   }
   .songName {
@@ -133,7 +136,7 @@
 .container {
   @include flex(row, left, left);
   margin-bottom: 1rem;
-  @include phoneLarge {
+  @include iPadPortrait {
     @include flex(row, center, center);
   }
 
