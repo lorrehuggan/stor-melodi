@@ -156,18 +156,6 @@ export async function getServerSideProps({ params }) {
     .then((res) => res.data)
     .catch((error) => console.log(error));
 
-  // Get Album Saved State
-  // const albumSaved = await axios(
-  //   `${CHECK_ALBUM_SAVED_ENDPOINT}?ids=32iAEBstCjauDhyKpGjTuq`,
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }
-  // )
-  //   .then((res) => console.log(res))
-  //   .catch((error) => console.log(error))
-
   return {
     props: {
       album,

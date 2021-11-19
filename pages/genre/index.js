@@ -9,6 +9,7 @@ import useScreenSize from '../../hooks/useScreenWidth';
 
 export default function Genre({ genres }) {
   const { width, smallScreen } = useScreenSize(430);
+
   //set genres to meta tags
   let tags = [];
   genres.map((genre) => {

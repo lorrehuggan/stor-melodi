@@ -40,8 +40,8 @@ const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
     return artist ? (
       <>
         <Link href={href} passHref>
-          <a target="_blank">
-            <Image src={src} alt={alt} layout="fill" objectFitj="cover" />
+          <a target="_blank" className={`${styles.avatar} ${songPlaying}`}>
+            <Image src={src} alt={alt} layout="fill" objectFit="cover" />
           </a>
         </Link>
       </>
@@ -56,7 +56,7 @@ const AlbumHeading = ({ artist, album, name, title, href, src, alt }) => {
       animate="visible"
       className={styles.heading}
     >
-      <div className={`${styles.avatar} ${songPlaying}`}>{renderAvatar()}</div>
+      <div>{renderAvatar()}</div>
       <div className={styles.headingText}>{renderHeading()}</div>
     </motion.section>
   );
