@@ -57,7 +57,9 @@ const FeaturedAlbum = ({
     return (
       <>
         <span className={styles.recommended}>recommended</span>
-        <motion.h1>{artist}</motion.h1>
+        <motion.h1>{`${artist.substring(0, 15)}${
+          artist.length > 15 ? '...' : ''
+        }`}</motion.h1>
         {artist ? (
           <motion.h4>
             <span>{`${intToString(followers)}`}</span> Followers
