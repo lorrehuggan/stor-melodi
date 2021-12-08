@@ -11,6 +11,7 @@ import {
   GET_USER_ENDPOINT,
   GET_USER_PLAYLISTS_ENDPOINT,
   GET_USER_TOP_TRACKS,
+  GET_USER_TOP_ARTIST,
   BROWSE_CATEGORIES_ENDPOINT,
 } from '../lib/spotify';
 import axios from 'axios';
@@ -104,6 +105,24 @@ export default function Home({
           dispatch({
             type: types.SET_USER_TOP_TRACKS,
             userTopTracks: res.data.items,
+          })
+        )
+        .catch((err) => console.log(err));
+    }
+  }, [user, userToken, dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${GET_USER_TOP_ARTIST}?limit=20&time_range=long_term`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        })
+        .then((res) =>
+          dispatch({
+            type: types.SET_USER_TOP_ARTIST,
+            userTopArtist: res.data.items,
           })
         )
         .catch((err) => console.log(err));

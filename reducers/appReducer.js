@@ -13,6 +13,8 @@ export const types = {
   SET_USER_TOKEN: 'SET_USER_TOKEN',
   SET_USER_PLAYLISTS: 'SET_USER_PLAYLISTS',
   SET_USER_TOP_TRACKS: 'SET_USER_TOP_TRACKS',
+  SET_USER_FOLLOWED_ARTIST: 'SET_USER_FOLLOWED_ARTIST',
+  SET_USER_TOP_ARTIST: 'SET_USER_TOP_ARTIST',
   SET_PLAYING: 'SET_PLAYING',
   SET_ITEM_PLAYING: 'SET_ITEM_PLAYING',
   SET_MENU_OPEN: 'SET_MENU_OPEN',
@@ -35,6 +37,11 @@ const appReducer = (state, action) => {
         ...state,
         itemPlaying: action.itemPlaying,
       };
+    case 'SET_MENU_OPEN':
+      return {
+        ...state,
+        menuOpen: action.menuOpen,
+      };
     case 'SET_USER_TOKEN':
       return {
         ...state,
@@ -50,10 +57,15 @@ const appReducer = (state, action) => {
         ...state,
         userTopTracks: action.userTopTracks,
       };
-    case 'SET_MENU_OPEN':
+    case 'SET_USER_FOLLOWED_ARTIST':
       return {
         ...state,
-        menuOpen: action.menuOpen,
+        userFollowedArtist: action.userFollowedArtist,
+      };
+    case 'SET_USER_TOP_ARTIST':
+      return {
+        ...state,
+        userTopArtist: action.userTopArtist,
       };
     default:
       return state;

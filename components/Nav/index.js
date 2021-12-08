@@ -25,8 +25,6 @@ const Nav = () => {
     transform: menuOpen ? 'rotate(-90deg)' : '',
   };
 
-  const btnContainer = {};
-
   const buttonHandler = () => {
     dispatch({
       type: types.SET_MENU_OPEN,
@@ -77,7 +75,7 @@ const Nav = () => {
               <li>Pop</li>
             </Link>
             {user ? (
-              <Link href={user?.external_urls.spotify} passHref>
+              <Link href="/user" passHref>
                 <li className={styles.userName}>
                   <span>
                     <FaUserCircle />
