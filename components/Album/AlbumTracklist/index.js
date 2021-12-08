@@ -254,7 +254,9 @@ const AlbumTracklist = ({ album, copyright, features }) => {
           <span>Acoustic-ness</span>
         </div>
       </motion.div>
+      {/*TRACKS*/}
       <motion.div>{renderTracks()}</motion.div>
+
       <span className={styles.copyright}>{copyright}</span>
     </>
   );
