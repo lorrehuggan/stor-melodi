@@ -7,7 +7,15 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import axios from 'axios';
 import { SAVE_ALBUM_ENDPOINT } from '../../../lib/spotify';
 
-const AlbumArt = ({ href, src, alt, albumSaved, user, albumId }) => {
+const AlbumArt = ({
+  href,
+  src,
+  alt,
+  albumSaved,
+  setAlbumSaved,
+  user,
+  albumId,
+}) => {
   //animation
   const animations = {
     mainImage: {
@@ -35,16 +43,17 @@ const AlbumArt = ({ href, src, alt, albumSaved, user, albumId }) => {
   };
 
   const saveAlbum = async () => {
-    axios
-      .put(`${SAVE_ALBUM_ENDPOINT}`, {
-        headers: {
-          Authorization: `Bearer ${user}`,
-          ids: [`"${albumId}"`],
-        },
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-    return;
+    // axios
+    //   .put(`${SAVE_ALBUM_ENDPOINT}`, {
+    //     headers: {
+    //       Authorization: `Bearer ${user}`,
+    //       ids: [`"${albumId}"`],
+    //     },
+    //   })
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+    // return;
+    setAlbumSaved(!albumSaved);
   };
 
   return (
@@ -76,7 +85,13 @@ const AlbumArt = ({ href, src, alt, albumSaved, user, albumId }) => {
       >
         <div className={`${styles.gradient} ${styles.gradientTop}`} />
         <div className={`${styles.gradient} ${styles.gradientBottom}`} />
-
+        <div className={styles.likeButtonContainer}>
+          {albumSaved ? (
+            <AiFillHeart onClick={saveAlbum} />
+          ) : (
+            <AiFillHeart onClick={saveAlbum} style={{ color: 'lightGrey' }} />
+          )}
+        </div>
         <Image
           className={styles.blurredImage}
           src={src}

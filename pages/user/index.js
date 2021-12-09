@@ -10,12 +10,8 @@ import { types } from '../../reducers/appReducer';
 
 const User = () => {
   // Get users data
-  const [
-    { userToken, user, userPlaylists, userTopTracks, userTopArtist },
-    dispatch,
-  ] = useAppStateValue();
-
-  console.log(userTopArtist);
+  const [{ user, userPlaylists, userTopTracks, userTopArtist }, dispatch] =
+    useAppStateValue();
 
   const renderUserTopTracks = () => {
     return userTopTracks?.slice(0, 4).map((top, idx) => {
@@ -43,6 +39,36 @@ const User = () => {
           title={top?.name}
           name={top?.album.artists[0].name}
           href={`/album/${top?.album.id}`}
+        />
+      );
+    });
+  };
+  const renderUserTopPlaylists = () => {
+    return userPlaylists?.slice(0, 4).map((top, idx) => {
+      return (
+        <SmallAlbumCard
+          idx={idx}
+          src={top?.images[0]?.url}
+          alt={top?.name}
+          key={top?.id}
+          title={top?.name}
+          name={top?.description}
+          href={`/album/${top?.id}`}
+        />
+      );
+    });
+  };
+  const renderUserTopPlaylists2 = () => {
+    return userPlaylists?.slice(4, 8).map((top, idx) => {
+      return (
+        <SmallAlbumCard
+          idx={idx}
+          src={top?.images[0]?.url}
+          alt={top?.name}
+          key={top?.id}
+          title={top?.name}
+          name={top?.description}
+          href={`/album/${top?.id}`}
         />
       );
     });
@@ -104,6 +130,14 @@ const User = () => {
             <h2>My Top Tracks</h2>
             <div className={styles.grid}>{renderUserTopTracks()}</div>
             <div className={styles.grid}>{renderUserTopTracks2()}</div>
+          </section>
+        </section>
+        {/*user top playlists*/}
+        <section className={styles.innerContainer}>
+          <section className={styles.albums}>
+            <h2>My Top Playlists</h2>
+            <div className={styles.grid}>{renderUserTopPlaylists()}</div>
+            <div className={styles.grid}>{renderUserTopPlaylists2()}</div>
           </section>
         </section>
       </section>

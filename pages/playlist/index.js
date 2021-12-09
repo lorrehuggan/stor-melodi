@@ -25,14 +25,15 @@ const Playlist = ({ playlists }) => {
   const renderPlaylists = () => {
     return playlists?.map((playlist) => {
       return (
-        <SmallAlbumCard
-          src={playlist?.images[0].url}
-          alt={playlist?.name}
-          key={playlist?.id}
-          title={playlist?.name}
-          name={playlist?.description}
-          href={`/playlist/${playlist?.id}`}
-        />
+        <div key={playlist?.id} className={styles.grid}>
+          <SmallAlbumCard
+            src={playlist?.images[0].url}
+            alt={playlist?.name}
+            title={playlist?.name}
+            name={playlist?.description}
+            href={`/playlist/${playlist?.id}`}
+          />
+        </div>
       );
     });
   };
@@ -61,8 +62,8 @@ const Playlist = ({ playlists }) => {
                         src={playlist?.images[0].url}
                         alt={playlist?.name}
                         layout="responsive"
-                        width={254}
-                        height={280}
+                        width={260}
+                        height={260}
                       />
                     </a>
                   </Link>

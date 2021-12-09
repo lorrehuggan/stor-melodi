@@ -50,8 +50,8 @@
   @include phoneLarge {
     margin-right: 0.5rem;
     border-width: 2px;
-    height: 50px;
-    width: 50px;
+    height: 45px;
+    width: 45px;
   }
 
   img {
@@ -100,6 +100,12 @@
 
 .topArtist {
   @include flex(column, center, center);
+}
+
+.topArtistName {
+  @include phoneLarge {
+    font-size: 0.5rem;
+  }
 }
 
 .grid {

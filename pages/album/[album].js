@@ -83,6 +83,7 @@ const Album = ({ album, artist, features, recommendations }) => {
             src={album?.images[0].url}
             alt={album?.name}
             albumSaved={albumSaved}
+            setAlbumSaved={setAlbumSaved}
             user={userToken}
             albumId={album?.id}
           />

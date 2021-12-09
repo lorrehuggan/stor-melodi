@@ -78,18 +78,24 @@
   }
 }
 
-.saved {
+.likeButtonContainer {
   position: absolute;
-  bottom: -40px;
-  z-index: 99;
-  span {
+  height: 50px;
+  width: 50px;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  @include flex(row, center, center);
+  @include phoneLarge {
+    height: 18px;
+    width: 18px;
+    top: -2px;
+    left: 0;
+  }
+
+  svg {
     font-size: 3rem;
     color: $primary;
     cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
-      color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-    &:hover {
-      color: $primary-alt;
-    }
   }
 }
