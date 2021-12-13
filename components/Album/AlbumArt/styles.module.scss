@@ -82,8 +82,8 @@
   position: absolute;
   height: 50px;
   width: 50px;
-  top: 0;
-  right: 0;
+  top: 0px;
+  left: 0rem;
   z-index: 999;
   @include flex(row, center, center);
   @include phoneLarge {

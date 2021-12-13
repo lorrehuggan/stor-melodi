@@ -320,7 +320,7 @@ export default function Home({
                 initial="hidden"
                 animate="visible"
               >
-                Your Recent Top Songs
+                My Recent Top Songs
               </motion.h2>
               <div className={styles.grid}>{renderUserTopTracks()}</div>
             </motion.section>
@@ -358,7 +358,7 @@ export default function Home({
                 initial="hidden"
                 animate="visible"
               >
-                Your Top Playlists
+                My Top Playlists
               </motion.h2>
               <div className={styles.grid}>{renderUserPlaylists()}</div>
             </section>

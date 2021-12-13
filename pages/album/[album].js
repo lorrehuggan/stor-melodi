@@ -22,16 +22,16 @@ const Album = ({ album, artist, features, recommendations }) => {
   const [albumSaved, setAlbumSaved] = useState(false);
   const { smallScreen } = useScreenSize(810);
 
-  useEffect(() => {
-    axios
-      .get(`${CHECK_ALBUM_SAVED_ENDPOINT}?ids=${album?.id}`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      })
-      .then((res) => setAlbumSaved(res.data[0]))
-      .catch((error) => console.log(error));
-  }, [userToken, album]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${CHECK_ALBUM_SAVED_ENDPOINT}?ids=${album?.id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${userToken}`,
+  //       },
+  //     })
+  //     .then((res) => setAlbumSaved(res.data[0]))
+  //     .catch((error) => console.log(error));
+  // }, [userToken, album]);
 
   let tags = [];
   album?.tracks.items.map((song) => {

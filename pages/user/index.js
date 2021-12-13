@@ -12,6 +12,7 @@ const User = () => {
   // Get users data
   const [{ user, userPlaylists, userTopTracks, userTopArtist }, dispatch] =
     useAppStateValue();
+  console.log(userPlaylists);
 
   const renderUserTopTracks = () => {
     return userTopTracks?.slice(0, 4).map((top, idx) => {
@@ -53,7 +54,7 @@ const User = () => {
           key={top?.id}
           title={top?.name}
           name={top?.description}
-          href={`/album/${top?.id}`}
+          href={`/playlist/${top?.id}`}
         />
       );
     });
@@ -68,7 +69,7 @@ const User = () => {
           key={top?.id}
           title={top?.name}
           name={top?.description}
-          href={`/album/${top?.id}`}
+          href={`/playlist/${top?.id}`}
         />
       );
     });
@@ -97,50 +98,55 @@ const User = () => {
 
   return (
     <section className={styles.container}>
-      <section className={styles.innerContainer}></section>
-      <section className={styles.innerContainer}>
-        <div className={styles.userContainer}>
-          {/*user information*/}
-          {user?.images ? (
-            <Link href={user?.external_urls.spotify} passHref>
-              <a target="_blank" className={`${styles.avatar}`}>
-                <Image
-                  src={user?.images[0].url}
-                  alt="user-image"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </a>
-            </Link>
-          ) : (
-            ''
-          )}
-          <h2 className={styles.userName}>{user?.display_name}</h2>
-          <span className={styles.product}>{user?.product}</span>
-        </div>
-        {/*user top artist*/}
-        <div className={styles.topArtistHeading}>
-          <h2>My All Time Top Artist</h2>
-        </div>
-        <div className={styles.topArtistContainer}>{renderUserTopArtist()}</div>
+      {!user ? (
+        <section className={styles.innerContainer}>User not logged in</section>
+      ) : (
+        <section className={styles.innerContainer}>
+          <div className={styles.userContainer}>
+            {/*user information*/}
+            {user?.images ? (
+              <Link href={user?.external_urls.spotify} passHref>
+                <a target="_blank" className={`${styles.avatar}`}>
+                  <Image
+                    src={user?.images[0].url}
+                    alt="user-image"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </a>
+              </Link>
+            ) : (
+              ''
+            )}
+            <h2 className={styles.userName}>{user?.display_name}</h2>
+            <span className={styles.product}>{user?.product}</span>
+          </div>
+          {/*user top artist*/}
+          <div className={styles.topArtistHeading}>
+            <h2>My All Time Top Artist</h2>
+          </div>
+          <div className={styles.topArtistContainer}>
+            {renderUserTopArtist()}
+          </div>
 
-        {/*user top tracks*/}
-        <section className={styles.innerContainer}>
-          <section className={styles.albums}>
-            <h2>My Top Tracks</h2>
-            <div className={styles.grid}>{renderUserTopTracks()}</div>
-            <div className={styles.grid}>{renderUserTopTracks2()}</div>
+          {/*user top tracks*/}
+          <section className={styles.innerContainer}>
+            <section className={styles.albums}>
+              <h2>My Recent Top Tracks</h2>
+              <div className={styles.grid}>{renderUserTopTracks()}</div>
+              <div className={styles.grid}>{renderUserTopTracks2()}</div>
+            </section>
+          </section>
+          {/*user top playlists*/}
+          <section className={styles.innerContainer}>
+            <section className={styles.albums}>
+              <h2>My Top Playlists</h2>
+              <div className={styles.grid}>{renderUserTopPlaylists()}</div>
+              <div className={styles.grid}>{renderUserTopPlaylists2()}</div>
+            </section>
           </section>
         </section>
-        {/*user top playlists*/}
-        <section className={styles.innerContainer}>
-          <section className={styles.albums}>
-            <h2>My Top Playlists</h2>
-            <div className={styles.grid}>{renderUserTopPlaylists()}</div>
-            <div className={styles.grid}>{renderUserTopPlaylists2()}</div>
-          </section>
-        </section>
-      </section>
+      )}
     </section>
   );
 };
