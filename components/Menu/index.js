@@ -43,13 +43,8 @@ const Menu = () => {
           </Link>
 
           {user ? (
-            <Link href={user?.external_urls.spotify} passHref>
-              <li className={styles.userName}>
-                <span>
-                  <FaUserCircle />
-                </span>
-                {user?.display_name}
-              </li>
+            <Link href="/user" passHref>
+              <li>My Account</li>
             </Link>
           ) : (
             <Link href={AUTHENTICATION_ENDPOINT} passHref>

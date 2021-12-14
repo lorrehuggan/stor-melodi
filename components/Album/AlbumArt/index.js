@@ -84,13 +84,13 @@ const AlbumArt = ({
       >
         <div className={`${styles.gradient} ${styles.gradientTop}`} />
         <div className={`${styles.gradient} ${styles.gradientBottom}`} />
-        <div className={styles.likeButtonContainer}>
+        {/* <div className={styles.likeButtonContainer}>
           {albumSaved ? (
             <AiFillHeart onClick={saveAlbum} />
           ) : (
             <AiFillHeart onClick={saveAlbum} style={{ color: 'lightGrey' }} />
           )}
-        </div>
+        </div> */}
         <Image
           className={styles.blurredImage}
           src={src}

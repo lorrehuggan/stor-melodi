@@ -41,7 +41,11 @@ const Nav = () => {
           </Link>
         </div>
         {user ? (
-          <div className={styles.mobileUser}>{user?.display_name}</div>
+          <div className={styles.mobileUser}>
+            <Link href="/user" passHref>
+              My Profile
+            </Link>
+          </div>
         ) : (
           ''
         )}

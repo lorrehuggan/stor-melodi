@@ -13,8 +13,9 @@
 .mobileUser {
   display: none;
   position: absolute;
+  color: $warning;
   top: 2rem;
-  left: 50%;
+  left: 72%;
   transform: translate(-50%, -50%);
   font-weight: 900;
   @include phoneLarge {
