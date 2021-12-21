@@ -146,6 +146,9 @@
 
 .details {
   @include phoneLarge {
+    margin-top: 6.5rem;
+  }
+  @include phoneMedium {
     margin-top: 5.5rem;
   }
 }
