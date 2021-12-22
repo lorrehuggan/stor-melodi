@@ -5,14 +5,17 @@ import { useAppStateValue } from '../../../../context/AppProvider';
 
 const SmallAlbumDetails = ({ title, name }) => {
   const [{ windowSize }, dispatch] = useAppStateValue();
-  const [string, setString] = useState(19);
+  const [aName, setAName] = useState(19);
+  const [aTitle, setATitle] = useState(19);
 
   // set album string length based on window size
   useEffect(() => {
     if (windowSize <= 430) {
-      setString(10);
+      setATitle(10);
+      setAName(14);
     } else {
-      setString(19);
+      setAName(19);
+      setATitle(19);
     }
     return;
   }, [windowSize]);
@@ -20,10 +23,10 @@ const SmallAlbumDetails = ({ title, name }) => {
   return (
     <div className={styles.albumInfo}>
       <p className={styles.albumName}>
-        {`${title.substring(0, string)}${title.length > string ? '...' : ''}`}
+        {`${title.substring(0, aTitle)}${title.length > aTitle ? '...' : ''}`}
       </p>
       <p className={styles.albumArtist}>
-        {`${name.substring(0, string)}${name.length > string ? '...' : ''}`}
+        {`${name.substring(0, aName)}${name.length > aName ? '...' : ''}`}
       </p>
     </div>
   );
