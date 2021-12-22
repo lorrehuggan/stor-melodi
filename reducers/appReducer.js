@@ -6,6 +6,7 @@ export const initialState = {
   playing: false,
   itemPlaying: null,
   menuOpen: false,
+  windowSize: null,
 };
 
 export const types = {
@@ -18,6 +19,7 @@ export const types = {
   SET_PLAYING: 'SET_PLAYING',
   SET_ITEM_PLAYING: 'SET_ITEM_PLAYING',
   SET_MENU_OPEN: 'SET_MENU_OPEN',
+  SET_WINDOW_SIZE: 'SET_WINDOW_SIZE',
 };
 
 const appReducer = (state, action) => {
@@ -66,6 +68,11 @@ const appReducer = (state, action) => {
       return {
         ...state,
         userTopArtist: action.userTopArtist,
+      };
+    case 'SET_WINDOW_SIZE':
+      return {
+        ...state,
+        windowSize: action.windowSize,
       };
     default:
       return state;

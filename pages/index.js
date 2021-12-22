@@ -1,6 +1,6 @@
 import styles from '../styles/styles.module.scss';
 import HeadTag from '../components/Head';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   NEW_RELEASES_ENDPOINT,
   GET_ACCESS_TOKEN,
@@ -34,9 +34,31 @@ export default function Home({
   featuredArtist3,
   featuredArtist4,
 }) {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [width, setWidth] = useState('');
+  const [
+    { userToken, user, userPlaylists, userTopTracks, windowSize },
+    dispatch,
+  ] = useAppStateValue();
+
+  // set screen size
+
+  useEffect(() => {
+    dispatch({
+      type: types.SET_WINDOW_SIZE,
+      windowSize: width,
+    });
+  }, [width, dispatch]);
+
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateDimensions);
+  });
+
   // Get users data
-  const [{ userToken, user, userPlaylists, userTopTracks }, dispatch] =
-    useAppStateValue();
 
   //Get url response token from url
 
