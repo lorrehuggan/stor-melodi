@@ -12,7 +12,7 @@ const SmallAlbumDetails = ({ title, name }) => {
   useEffect(() => {
     if (windowSize <= 430) {
       setATitle(10);
-      setAName(14);
+      setAName(13);
     } else {
       setAName(19);
       setATitle(19);

@@ -43,15 +43,11 @@ export default function Home({
 
   // set screen size
 
-  useEffect(() => {
+  const updateDimensions = () => {
     dispatch({
       type: types.SET_WINDOW_SIZE,
-      windowSize: width,
+      windowSize: window.innerWidth,
     });
-  }, [width, dispatch]);
-
-  const updateDimensions = () => {
-    setWidth(window.innerWidth);
   };
 
   useEffect(() => {
@@ -59,7 +55,6 @@ export default function Home({
   });
 
   // Get users data
-
   //Get url response token from url
 
   useEffect(() => {
