@@ -22,17 +22,6 @@ const Album = ({ album, artist, features, recommendations }) => {
   const [albumSaved, setAlbumSaved] = useState(false);
   const { smallScreen } = useScreenSize(810);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${CHECK_ALBUM_SAVED_ENDPOINT}?ids=${album?.id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${userToken}`,
-  //       },
-  //     })
-  //     .then((res) => setAlbumSaved(res.data[0]))
-  //     .catch((error) => console.log(error));
-  // }, [userToken, album]);
-
   let tags = [];
   album?.tracks.items.map((song) => {
     return tags.push(song.name);
@@ -114,48 +103,40 @@ const Album = ({ album, artist, features, recommendations }) => {
 export default Album;
 
 export async function getServerSideProps({ params }) {
-  const token = await GET_ACCESS_TOKEN();
+  let token = await GET_ACCESS_TOKEN();
+
+  const getData = async (url) => {
+    try {
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.data;
+      return data;
+    } catch (error) {
+      console.log({ error: error.message });
+    }
+  };
   // Fetch albums
-  const album = await axios(`${ALBUM_ENDPOINT}${params.album}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.data)
-    .catch((error) => console.log(error));
+  const album = await getData(`${ALBUM_ENDPOINT}${params.album}`);
   // Fetch artist with album data
-  const artist = await axios(`${ARTIST_ENDPOINT}${await album.artists[0].id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => res.data)
-    .catch((error) => console.log(error));
+  const artist = await getData(
+    `${ARTIST_ENDPOINT}${await album.artists[0].id}`
+  );
+
   // ----->
   // get track features = dance ability, key, energy...
   const ids = album.tracks.items.map((m) => m.id);
-  const features = await axios(
-    `${GET_TRACK_FEATURES_ENDPOINT}?ids=${ids.join(',')}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-    .then((res) => res.data.audio_features)
-    .catch((error) => console.log(error));
+  const featuresData = await getData(
+    `${GET_TRACK_FEATURES_ENDPOINT}?ids=${ids.join(',')}`
+  );
+  const features = await featuresData.audio_features;
   //----->
   //get recommendations base on artist
-  const recommendations = await axios(
-    `${RECOMMENDATIONS_ENDPOINT}?seed_artists=${artist?.id}&limit=4`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-    .then((res) => res.data)
-    .catch((error) => console.log(error));
+  const recommendations = await getData(
+    `${RECOMMENDATIONS_ENDPOINT}?seed_artists=${artist?.id}&limit=4`
+  );
 
   return {
     props: {
