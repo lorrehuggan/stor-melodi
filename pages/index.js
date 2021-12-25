@@ -433,51 +433,95 @@ export default function Home({
 }
 export async function getStaticProps() {
   let token = await GET_ACCESS_TOKEN();
-
-  const getData = async (url) => {
-    const res = await axios.get(url, {
+  //------>
+  // get top 4 new releases
+  let newReleases = await axios(`${NEW_RELEASES_ENDPOINT}?limit=8`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.data.albums.items)
+    .catch((error) => console.log(error));
+  //------>
+  //get featured 1 artist
+  let featuredArtist1 = await axios(
+    `${ARTIST_ENDPOINT}${newReleases[0].artists[0].id}`,
+    {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    });
-    const data = await res.data;
-    return data;
-  };
+    }
+  )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
   //------>
-  let newReleasesData = await getData(`${NEW_RELEASES_ENDPOINT}?limit=8`);
-  let newReleases = await newReleasesData.albums.items;
-  // ------>
+  //get featured 2 artist
+  let featuredArtist2 = await axios(
+    `${ARTIST_ENDPOINT}${newReleases[1].artists[0].id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
 
-  let featuredArtist1 = await getData(
-    `${ARTIST_ENDPOINT}${newReleases[0].artists[0].id}`
-  );
-
-  let featuredArtist2 = await getData(
-    `${ARTIST_ENDPOINT}${newReleases[1].artists[0].id}`
-  );
-
-  let featuredArtist3 = await getData(
-    `${ARTIST_ENDPOINT}${newReleases[2].artists[0].id}`
-  );
-
-  let featuredArtist4 = await getData(
-    `${ARTIST_ENDPOINT}${newReleases[3].artists[0].id}`
-  );
-
-  let playlistsData = await getData(`${FEATURED_PLAYLIST_ENDPOINT}&limit=4`);
-  let playlists = await playlistsData.playlists.items;
+  //get featured 3 artist
+  let featuredArtist3 = await axios(
+    `${ARTIST_ENDPOINT}${newReleases[2].artists[0].id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+  //get featured 4 artist
+  let featuredArtist4 = await axios(
+    `${ARTIST_ENDPOINT}${newReleases[3].artists[0].id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data)
+    .catch((error) => console.log(error));
+  //------>
+  //get featured playlist
+  let playlists = await axios(`${FEATURED_PLAYLIST_ENDPOINT}&limit=4`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.data.playlists.items)
+    .catch((error) => console.log(error));
   //------->
   //get pop category picks
-  let popGenreData = await axios(
-    `${RECOMMENDATIONS_ENDPOINT}?seed_genres=pop&limit=4`
-  );
-  let popGenre = await popGenreData.tracks;
+  let popGenre = await axios(
+    `${RECOMMENDATIONS_ENDPOINT}?seed_genres=pop&limit=4`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data.tracks)
+    .catch((error) => console.log(error));
   //------->
   //get hip-hop category picks
-  let hipHopGenreData = await axios(
-    `${RECOMMENDATIONS_ENDPOINT}?seed_genres=hip-hop&limit=4`
-  );
-  let hipHopGenre = await hipHopGenreData.tracks;
+  let hipHopGenre = await axios(
+    `${RECOMMENDATIONS_ENDPOINT}?seed_genres=hip-hop&limit=4`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((res) => res.data.tracks)
+    .catch((error) => console.log(error));
 
   return {
     props: {
