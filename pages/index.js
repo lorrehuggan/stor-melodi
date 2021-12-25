@@ -435,13 +435,17 @@ export async function getStaticProps() {
   let token = await GET_ACCESS_TOKEN();
 
   const getData = async (url) => {
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await res.data;
-    return data;
+    try {
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.data;
+      return data;
+    } catch (error) {
+      console.log({ error: error.message });
+    }
   };
   //------>
   let newReleasesData = await getData(`${NEW_RELEASES_ENDPOINT}?limit=8`);
@@ -468,13 +472,13 @@ export async function getStaticProps() {
   let playlists = await playlistsData.playlists.items;
   //------->
   //get pop category picks
-  let popGenreData = await axios(
+  let popGenreData = await getData(
     `${RECOMMENDATIONS_ENDPOINT}?seed_genres=pop&limit=4`
   );
   let popGenre = await popGenreData.tracks;
   //------->
   //get hip-hop category picks
-  let hipHopGenreData = await axios(
+  let hipHopGenreData = await getData(
     `${RECOMMENDATIONS_ENDPOINT}?seed_genres=hip-hop&limit=4`
   );
   let hipHopGenre = await hipHopGenreData.tracks;
