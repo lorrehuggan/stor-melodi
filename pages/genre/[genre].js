@@ -82,7 +82,7 @@ export async function getStaticPaths() {
     .catch((error) => console.log(error));
 
   const paths = genres.map((genre) => {
-    return { params: { genre } };
+    return { params: { genre: genre } };
   });
 
   return {

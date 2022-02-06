@@ -12,7 +12,6 @@ import {
   GET_USER_PLAYLISTS_ENDPOINT,
   GET_USER_TOP_TRACKS,
   GET_USER_TOP_ARTIST,
-  BROWSE_CATEGORIES_ENDPOINT,
 } from '../lib/spotify';
 import axios from 'axios';
 import SmallAlbumCard from '../components/Album/SmallAlbumCard';
@@ -85,28 +84,12 @@ export default function Home({
             user: res.data,
           })
         )
-
         .catch((err) => console.log(err));
     }
   }, [userToken, dispatch]);
 
   useEffect(() => {
     if (user) {
-      axios
-        .get(GET_USER_PLAYLISTS_ENDPOINT(user.id), {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        })
-        .then(
-          (res) =>
-            dispatch({
-              type: types.SET_USER_PLAYLISTS,
-              userPlaylists: res.data.items,
-            })
-          // console.log(res.data.items)
-        )
-        .catch((err) => console.log(err));
     }
   }, [userToken, user, dispatch]);
 
@@ -288,7 +271,6 @@ export default function Home({
         description={head.description}
         tags={head.tags}
       />
-
       <section className={styles.container}>
         <section className={styles.innerContainer}>
           {/* Home Page Heading  */}

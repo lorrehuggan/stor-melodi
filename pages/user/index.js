@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import styles from './styles.module.scss';
-import { GET_USER_TOP_ARTIST } from '../../lib/spotify';
 import { useAppStateValue } from '../../context/AppProvider';
 import Link from 'next/link';
 import Image from 'next/image';
