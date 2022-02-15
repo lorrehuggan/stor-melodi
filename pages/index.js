@@ -139,7 +139,7 @@ export default function Home({
     return tags.push(release.artists[0].name);
   });
   const head = {
-    title: 'Chune',
+    title: 'StoreMelodi',
     description: 'The Music Discovery App To Find The Best CHUNES!',
     tags: tags,
   };

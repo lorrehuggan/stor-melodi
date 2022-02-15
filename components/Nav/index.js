@@ -37,7 +37,7 @@ const Nav = () => {
       <section className={styles.container}>
         <div className={styles.innerContainer}>
           <Link href="/" passHref>
-            <span className={styles.logo}>Chune</span>
+            <span className={styles.logo}>StorMelodi</span>
           </Link>
         </div>
         {user ? (
