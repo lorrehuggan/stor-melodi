@@ -50,13 +50,6 @@ export default function Home({
   };
 
   useEffect(() => {
-    window.addEventListener('resize', updateDimensions);
-  });
-
-  // Get users data
-  //Get url response token from url
-
-  useEffect(() => {
     const hash = GET_URL_RESPONSE_TOKEN();
     const _token = hash.access_token;
     window.location.hash = '';
@@ -68,9 +61,6 @@ export default function Home({
     } else {
       return;
     }
-  }, [dispatch]);
-
-  useEffect(() => {
     if (userToken) {
       axios
         .get(GET_USER_ENDPOINT, {
@@ -86,14 +76,6 @@ export default function Home({
         )
         .catch((err) => console.log(err));
     }
-  }, [userToken, dispatch]);
-
-  useEffect(() => {
-    if (user) {
-    }
-  }, [userToken, user, dispatch]);
-
-  useEffect(() => {
     if (user) {
       axios
         .get(`${GET_USER_TOP_TRACKS}?limit=20&time_range=short_term`, {
@@ -108,11 +90,6 @@ export default function Home({
           })
         )
         .catch((err) => console.log(err));
-    }
-  }, [user, userToken, dispatch]);
-
-  useEffect(() => {
-    if (user) {
       axios
         .get(`${GET_USER_TOP_ARTIST}?limit=20&time_range=long_term`, {
           headers: {
