@@ -22,6 +22,28 @@ import ReactRotatingText from 'react-rotating-text';
 import Image from 'next/image';
 import vinylShop from '../public/images/vinylShop.jpg';
 
+const animations = {
+  headers: {
+    hidden: { opacity: 0, y: 35 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: 'easeOut',
+      },
+    },
+  },
+  headingImage: {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: 0.5, duration: 1, ease: 'easeOut' },
+    },
+  },
+};
+
 export default function Home({
   newReleases,
   featuredArtist1,
@@ -111,119 +133,6 @@ export default function Home({
   const featuredItem3 = 2;
   const featuredItem4 = 3;
 
-  const renderUserTopTracks = () => {
-    return userTopTracks.slice(0, 4)?.map((track, idx) => {
-      return (
-        <SmallAlbumCard
-          idx={idx}
-          src={track?.album.images[1]?.url}
-          alt={track?.name}
-          key={track?.id}
-          title={track?.album.name}
-          name={track?.album.artists[0].name}
-          href={`/album/${track?.album.id}`}
-        />
-      );
-    });
-  };
-  const renderUserPlaylists = () => {
-    return userPlaylists.slice(0, 4)?.map((playlist, idx) => {
-      return (
-        <SmallAlbumCard
-          idx={idx}
-          src={playlist?.images[0]?.url}
-          alt={playlist?.name}
-          key={playlist?.id}
-          title={playlist?.name}
-          name={playlist?.description ? playlist?.description : playlist?.name}
-          href={`/playlist/${playlist?.id}`}
-        />
-      );
-    });
-  };
-  const renderNewReleases = () => {
-    return newReleases?.slice(4, 8).map((release, idx) => {
-      return (
-        <SmallAlbumCard
-          idx={idx}
-          src={release?.images[1]?.url}
-          alt={release?.name}
-          key={release?.id}
-          title={release?.name}
-          name={release?.artists[0].name}
-          href={`/album/${release?.id}`}
-        />
-      );
-    });
-  };
-  const renderPlaylists = () => {
-    return playlists?.map((playlist, idx) => {
-      return (
-        <SmallAlbumCard
-          idx={idx}
-          src={playlist?.images[0]?.url}
-          alt={playlist?.name}
-          key={playlist?.id}
-          title={playlist?.name}
-          name={playlist?.description}
-          href={`/playlist/${playlist?.id}`}
-        />
-      );
-    });
-  };
-  const renderPopGenre = () => {
-    return popGenre?.map((pop, idx) => {
-      return (
-        <SmallAlbumCard
-          idx={idx}
-          src={pop?.album.images[1]?.url}
-          alt={pop?.name}
-          key={pop?.id}
-          title={pop?.album.name}
-          name={pop?.album.artists[0].name}
-          href={`/album/${pop?.album.id}`}
-        />
-      );
-    });
-  };
-  const renderHipHopGenre = () => {
-    return hipHopGenre?.map((hipHop, idx) => {
-      return (
-        <SmallAlbumCard
-          idx={idx}
-          src={hipHop?.album.images[1]?.url}
-          alt={hipHop?.name}
-          key={hipHop?.id}
-          title={hipHop?.album.name}
-          name={hipHop?.album.artists[0].name}
-          href={`/album/${hipHop?.album.id}`}
-        />
-      );
-    });
-  };
-
-  const animations = {
-    headers: {
-      hidden: { opacity: 0, y: 35 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.3,
-          ease: 'easeOut',
-        },
-      },
-    },
-    headingImage: {
-      hidden: { opacity: 0, y: 20 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: { delay: 0.5, duration: 1, ease: 'easeOut' },
-      },
-    },
-  };
-
   return (
     <>
       <HeadTag
@@ -234,7 +143,7 @@ export default function Home({
       <section className={styles.container}>
         <section className={styles.innerContainer}>
           {/* Home Page Heading  */}
-          <div className={styles.headingContainer}>
+          <section className={styles.headingContainer}>
             <motion.div
               variants={animations.headingImage}
               initial="hidden"
@@ -257,8 +166,7 @@ export default function Home({
                 deletingInterval={130}
               />
             </div>
-          </div>
-          {/* Featured Album */}
+          </section>
           <FeaturedAlbum
             layout
             link={newReleases[featuredItem]?.id}
@@ -270,35 +178,9 @@ export default function Home({
             href={newReleases[featuredItem]?.external_urls.spotify}
             newAlbum
           />
-
           {/* User Top Tracks */}
-          {userPlaylists ? (
-            <motion.section className={styles.newReleases}>
-              <motion.h2
-                variants={animations.headers}
-                initial="hidden"
-                animate="visible"
-              >
-                My Recent Top Songs
-              </motion.h2>
-              <div className={styles.grid}>{renderUserTopTracks()}</div>
-            </motion.section>
-          ) : (
-            ''
-          )}
-          {/* New Releases */}
-          <motion.section className={styles.newReleases}>
-            <motion.h2
-              variants={animations.headers}
-              initial="hidden"
-              animate="visible"
-            >
-              New Releases
-            </motion.h2>
-            <div className={styles.grid}>{renderNewReleases()}</div>
-          </motion.section>
-          {/* Featured Album */}
-
+          {userPlaylists && <UserTopTracks userTopTracks={userTopTracks} />}
+          <NewReleases newReleases={newReleases} />
           <FeaturedAlbum
             link={newReleases[featuredItem2]?.id}
             image={newReleases[featuredItem2]?.images[0]?.url}
@@ -310,33 +192,8 @@ export default function Home({
             newAlbum
           />
           {/* User Playlists */}
-          {userPlaylists ? (
-            <section className={styles.newReleases}>
-              <motion.h2
-                variants={animations.headers}
-                initial="hidden"
-                animate="visible"
-              >
-                My Top Playlists
-              </motion.h2>
-              <div className={styles.grid}>{renderUserPlaylists()}</div>
-            </section>
-          ) : (
-            ''
-          )}
-
-          {/* Featured Playlist */}
-          <section className={styles.newReleases}>
-            <motion.h2
-              variants={animations.headers}
-              initial="hidden"
-              animate="visible"
-            >
-              Featured Playlist
-            </motion.h2>
-            <div className={styles.grid}>{renderPlaylists()}</div>
-          </section>
-          {/* Featured Album */}
+          {userPlaylists && <UserPlaylists userPlaylists={userPlaylists} />}
+          <FeaturedPlaylists playlists={playlists} />
           <FeaturedAlbum
             layout
             link={newReleases[featuredItem3]?.id}
@@ -348,15 +205,8 @@ export default function Home({
             href={newReleases[featuredItem3]?.external_urls.spotify}
             newAlbum
           />
-          <section className={styles.newReleases}>
-            <h2>Editors Pop Album Picks</h2>
-            <div className={styles.grid}>{renderPopGenre()}</div>
-          </section>
-          <section className={styles.newReleases}>
-            <h2>Editors Hip Hop Album Picks</h2>
-            <div className={styles.grid}>{renderHipHopGenre()}</div>
-          </section>
-          {/* Featured Album */}
+          <FeaturedGenre genre={popGenre} name="Pop" />
+          <FeaturedGenre genre={hipHopGenre} name="Hip-Hop" />
           <FeaturedAlbum
             layout
             link={newReleases[featuredItem4]?.id}
@@ -439,3 +289,138 @@ export async function getStaticProps() {
     revalidate: 86400,
   };
 }
+
+const NewReleases = ({ newReleases }) => {
+  return (
+    <motion.section className={styles.newReleases}>
+      <motion.h2
+        variants={animations.headers}
+        initial="hidden"
+        animate="visible"
+      >
+        New Releases
+      </motion.h2>
+      <div className={styles.grid}>
+        {newReleases?.slice(4, 8).map((release, idx) => {
+          return (
+            <SmallAlbumCard
+              idx={idx}
+              src={release?.images[1]?.url}
+              alt={release?.name}
+              key={release?.id}
+              title={release?.name}
+              name={release?.artists[0].name}
+              href={`/album/${release?.id}`}
+            />
+          );
+        })}
+      </div>
+    </motion.section>
+  );
+};
+
+const FeaturedPlaylists = ({ playlists }) => {
+  return (
+    <section className={styles.newReleases}>
+      <motion.h2
+        variants={animations.headers}
+        initial="hidden"
+        animate="visible"
+      >
+        Featured Playlist
+      </motion.h2>
+      <div className={styles.grid}>
+        {playlists?.map((playlist, idx) => {
+          return (
+            <SmallAlbumCard
+              idx={idx}
+              src={playlist?.images[0]?.url}
+              alt={playlist?.name}
+              key={playlist?.id}
+              title={playlist?.name}
+              name={playlist?.description}
+              href={`/playlist/${playlist?.id}`}
+            />
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
+const FeaturedGenre = ({ genre, name }) => {
+  return (
+    <section className={styles.newReleases}>
+      <h2>{`Editors ${name} Album Picks`}</h2>
+      <div className={styles.grid}>
+        {genre?.map((x, idx) => {
+          return (
+            <SmallAlbumCard
+              idx={idx}
+              src={x?.album.images[1]?.url}
+              alt={x?.name}
+              key={x?.id}
+              title={x?.album.name}
+              name={x?.album.artists[0].name}
+              href={`/album/${x?.album.id}`}
+            />
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
+const UserTopTracks = ({ userTopTracks }) => {
+  return (
+    <motion.section className={styles.newReleases}>
+      <motion.h2
+        variants={animations.headers}
+        initial="hidden"
+        animate="visible"
+      >
+        My Recent Top Songs
+      </motion.h2>
+      <div className={styles.grid}>
+        {userTopTracks.slice(0, 4)?.map((track, idx) => {
+          return (
+            <SmallAlbumCard
+              idx={idx}
+              src={track?.album.images[1]?.url}
+              alt={track?.name}
+              key={track?.id}
+              title={track?.album.name}
+              name={track?.album.artists[0].name}
+              href={`/album/${track?.album.id}`}
+            />
+          );
+        })}
+      </div>
+    </motion.section>
+  );
+};
+
+const UserPlaylists = ({ userPlaylists }) => {
+  <section className={styles.newReleases}>
+    <motion.h2 variants={animations.headers} initial="hidden" animate="visible">
+      My Top Playlists
+    </motion.h2>
+    <div className={styles.grid}>
+      {userPlaylists.slice(0, 4)?.map((playlist, idx) => {
+        return (
+          <SmallAlbumCard
+            idx={idx}
+            src={playlist?.images[0]?.url}
+            alt={playlist?.name}
+            key={playlist?.id}
+            title={playlist?.name}
+            name={
+              playlist?.description ? playlist?.description : playlist?.name
+            }
+            href={`/playlist/${playlist?.id}`}
+          />
+        );
+      })}
+    </div>
+  </section>;
+};

@@ -24,28 +24,6 @@ const Genre = ({ genre, tracks }) => {
     tags: tags,
   };
 
-  const renderAlbums = () => {
-    return tracks?.map((track, idx) => {
-      return (
-        <div key={track?.id} className={styles.album}>
-          <SmallAlbumImage
-            alt={track?.name}
-            idx={idx}
-            src={track?.album.images[0]?.url}
-            href={`/album/${track?.album.id}`}
-            name={track?.artists[0].name}
-          />
-          <div className={styles.details}>
-            <SmallAlbumDetails
-              name={track?.artists[0].name}
-              title={track?.album.name}
-            />
-          </div>
-        </div>
-      );
-    });
-  };
-
   return (
     <>
       <HeadTag
@@ -61,9 +39,7 @@ const Genre = ({ genre, tracks }) => {
             A curated selection of {genre} albums.
           </span>
         </section>
-        <section className={styles.gridContainer}>
-          <div className={styles.grid}>{renderAlbums()}</div>
-        </section>
+        <Albums tracks={tracks} />
       </section>
     </>
   );
@@ -109,3 +85,31 @@ export async function getStaticProps({ params }) {
     revalidate: 86400,
   };
 }
+
+const Albums = ({ tracks }) => {
+  return (
+    <section className={styles.gridContainer}>
+      <div className={styles.grid}>
+        {tracks?.map((track, idx) => {
+          return (
+            <div key={track?.id} className={styles.album}>
+              <SmallAlbumImage
+                alt={track?.name}
+                idx={idx}
+                src={track?.album.images[0]?.url}
+                href={`/album/${track?.album.id}`}
+                name={track?.artists[0].name}
+              />
+              <div className={styles.details}>
+                <SmallAlbumDetails
+                  name={track?.artists[0].name}
+                  title={track?.album.name}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};

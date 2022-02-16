@@ -7,6 +7,7 @@
 .innerContainer {
   @include flex(column, left, left);
   width: 1024px;
+
   @include iPadLandscape {
     width: 950px;
   }
