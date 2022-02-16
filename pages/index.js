@@ -1,6 +1,6 @@
 import styles from '../styles/styles.module.scss';
 import HeadTag from '../components/Head';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   NEW_RELEASES_ENDPOINT,
   GET_ACCESS_TOKEN,
@@ -9,7 +9,6 @@ import {
   RECOMMENDATIONS_ENDPOINT,
   GET_URL_RESPONSE_TOKEN,
   GET_USER_ENDPOINT,
-  GET_USER_PLAYLISTS_ENDPOINT,
   GET_USER_TOP_TRACKS,
   GET_USER_TOP_ARTIST,
 } from '../lib/spotify';
@@ -33,21 +32,8 @@ export default function Home({
   featuredArtist3,
   featuredArtist4,
 }) {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [width, setWidth] = useState('');
-  const [
-    { userToken, user, userPlaylists, userTopTracks, windowSize },
-    dispatch,
-  ] = useAppStateValue();
-
-  // set screen size
-
-  const updateDimensions = () => {
-    dispatch({
-      type: types.SET_WINDOW_SIZE,
-      windowSize: window.innerWidth,
-    });
-  };
+  const [{ userToken, user, userPlaylists, userTopTracks }, dispatch] =
+    useAppStateValue();
 
   useEffect(() => {
     const hash = GET_URL_RESPONSE_TOKEN();
@@ -106,8 +92,6 @@ export default function Home({
     }
   }, [user, userToken, dispatch]);
 
-  //------>
-  //set meta tags
   let tags = [];
   newReleases.map((release) => {
     return tags.push(release.name);
@@ -115,6 +99,7 @@ export default function Home({
   newReleases.map((release) => {
     return tags.push(release.artists[0].name);
   });
+
   const head = {
     title: 'StoreMelodi',
     description: 'The Music Discovery App To Find The Best CHUNES!',
@@ -216,8 +201,6 @@ export default function Home({
       );
     });
   };
-  //------->
-  //Animation
 
   const animations = {
     headers: {
