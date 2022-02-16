@@ -3,16 +3,16 @@
 .trackContainer {
   margin-bottom: 0.75rem;
   .circlePlaying {
-    transition: box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-    box-shadow: 0px 0px 2px $light;
     animation-name: playing;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
   }
+
   .numberCircle {
     position: relative;
     width: 2rem;
+    overflow: hidden;
     height: 2rem;
     border: 1px solid $light;
     margin-right: 0.5rem;
@@ -32,6 +32,19 @@
       @include phoneLarge {
         font-size: 0.6rem;
       }
+    }
+  }
+
+  .playButton {
+    margin-right: 0.5rem;
+    svg {
+      font-size: 2.1rem;
+      color: white;
+    }
+  }
+  .playButtonPlaying {
+    svg {
+      color: $primary;
     }
   }
 }
@@ -172,15 +185,15 @@
 
 @keyframes playing {
   0% {
-    box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
+    // box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
     transform: rotate(0deg);
   }
   50% {
-    box-shadow: 0px 0px 8px $light, inset 0px 0px 6px $light;
+    // box-shadow: 0px 0px 8px $light, inset 0px 0px 6px $light;
     transform: rotate(180deg);
   }
   100% {
-    box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
+    // box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
     transform: rotate(360deg);
   }
 }

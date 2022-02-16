@@ -79,6 +79,7 @@ const Album = ({ album, artist, features, recommendations }) => {
         </section>
         <section className={styles.innerContainer}>
           <AlbumTracklist
+            src={album?.images[0].url}
             album={album}
             copyright={album?.copyrights[0].text}
             type="Tracklist"

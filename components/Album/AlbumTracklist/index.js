@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './styles.module.scss';
 import { useAppStateValue } from '../../../context/AppProvider';
 import { types } from '../../../reducers/appReducer';
 import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
 import { Howler, Howl } from 'howler';
 import { motion } from 'framer-motion';
+import { BsPlayCircle, BsStopCircle } from 'react-icons/bs';
 
-const AlbumTracklist = ({ album, copyright, features }) => {
+const AlbumTracklist = ({ album, copyright, features, src }) => {
   return (
     <>
       <motion.div className={styles.container}>
@@ -26,7 +28,7 @@ const AlbumTracklist = ({ album, copyright, features }) => {
       </motion.div>
       {/*TRACKS*/}
       <motion.div>
-        <Tracks album={album} features={features} />
+        <Tracks album={album} features={features} src={src} />
       </motion.div>
       <span className={styles.copyright}>{copyright}</span>
     </>
@@ -35,8 +37,14 @@ const AlbumTracklist = ({ album, copyright, features }) => {
 
 export default AlbumTracklist;
 
-const Tracks = ({ album, features }) => {
+const Tracks = ({ album, features, src }) => {
+  const [winSize, setWinSize] = useState(null);
   const [{ playing, itemPlaying }, dispatch] = useAppStateValue();
+
+  useEffect(() => {
+    setWinSize(window.innerWidth);
+  }, []);
+
   return album?.tracks.items.map((song, idx) => {
     const trackFeatures = features.filter((feature) => {
       return feature?.id === song?.id;
@@ -152,6 +160,14 @@ const Tracks = ({ album, features }) => {
       });
     };
 
+    const windowSize = () => {
+      if (winSize <= 820) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
     return (
       <motion.section
         variants={animations.trackVariant}
@@ -161,14 +177,40 @@ const Tracks = ({ album, features }) => {
         className={styles.trackContainer}
       >
         <div className={styles.track}>
-          {song?.id === itemPlaying?.id && song.preview_url ? (
-            <div className={`${styles.numberCircle} ${styles.circlePlaying}`}>
-              <div className={styles.number}>{idx + 1}</div>
-            </div>
-          ) : (
-            <div className={styles.numberCircle}>
-              <div className={styles.number}>{idx + 1}</div>
-            </div>
+          {/* Track Number */}
+          <div>
+            {song?.id === itemPlaying?.id && song.preview_url ? (
+              <div className={`${styles.numberCircle} ${styles.circlePlaying}`}>
+                <Image
+                  src={src}
+                  alt={album?.title}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+            ) : (
+              <div className={styles.numberCircle}>
+                <div className={styles.number}>{idx + 1}</div>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Play Button  */}
+          {windowSize() && (
+            <>
+              {!playing ? (
+                <div className={styles.playButton} onClick={handlePlay}>
+                  <BsPlayCircle />
+                </div>
+              ) : (
+                <div
+                  className={`${styles.playButton} ${styles.playButtonPlaying}`}
+                  onClick={handleStop}
+                >
+                  <BsStopCircle />
+                </div>
+              )}
+            </>
           )}
 
           {/*song features*/}
@@ -204,6 +246,7 @@ const Tracks = ({ album, features }) => {
               }}
             ></motion.div>
           </div>
+
           {/* Track Information */}
           <div className={styles.trackInfo}>
             <div className={styles.trackTitle}>
