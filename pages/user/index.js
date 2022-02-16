@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styles from './styles.module.scss';
 import { useAppStateValue } from '../../context/AppProvider';
 import Link from 'next/link';
 import Image from 'next/image';
 import SmallAlbumCard from '../../components/Album/SmallAlbumCard';
-import { types } from '../../reducers/appReducer';
 
 const User = () => {
   // Get users data
@@ -151,7 +149,3 @@ const User = () => {
 };
 
 export default User;
-
-// export async function getServerSideProps() {
-//   const token = await GET_ACCESS_TOKEN();
-// }

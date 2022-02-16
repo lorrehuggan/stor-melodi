@@ -274,7 +274,7 @@ const Tracks = ({ album, features, src }) => {
             <div className={styles.trackTitle}>
               <div className={styles.titleAndTime}>
                 <Link href={song?.track.external_urls.spotify} passHref>
-                  <span style={styles.songName}>
+                  <span className={styles.songName}>
                     {`${song?.track.name.substring(0, isPhone)}${
                       song?.track.name.length > isPhone ? '...' : ''
                     }`}

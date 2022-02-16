@@ -8,6 +8,7 @@ import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
 import { Howler, Howl } from 'howler';
 import { motion } from 'framer-motion';
 import { BsPlayCircle, BsStopCircle } from 'react-icons/bs';
+import { AiOutlineClose } from 'react-icons/ai';
 
 const AlbumTracklist = ({ album, copyright, features, src }) => {
   return (
@@ -225,7 +226,9 @@ const Tracks = ({ album, features, src }) => {
                   <BsPlayCircle />
                 </div>
               ) : (
-                ''
+                <div className={styles.playButton}>
+                  <AiOutlineClose />
+                </div>
               )}
             </>
           </div>
