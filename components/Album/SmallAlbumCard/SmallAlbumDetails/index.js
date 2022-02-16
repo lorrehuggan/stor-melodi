@@ -8,10 +8,10 @@ const SmallAlbumDetails = ({ title, name }) => {
   // set album string length based on window size
   useEffect(() => {
     if (window.innerWidth <= 430) {
-      setATitle(10);
-      setAName(13);
+      setATitle(9);
+      setAName(10);
     } else {
-      setAName(19);
+      setAName(26);
       setATitle(19);
     }
     return;

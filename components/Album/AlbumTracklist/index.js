@@ -8,6 +8,7 @@ import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
 import { Howler, Howl } from 'howler';
 import { motion } from 'framer-motion';
 import { BsPlayCircle, BsStopCircle } from 'react-icons/bs';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const AlbumTracklist = ({ album, copyright, features, src }) => {
   return (
@@ -38,11 +39,27 @@ const AlbumTracklist = ({ album, copyright, features, src }) => {
 export default AlbumTracklist;
 
 const Tracks = ({ album, features, src }) => {
-  const [winSize, setWinSize] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPhone, setIsPhone] = useState(200);
+  const [noPreview, setNoPreview] = useState(false);
   const [{ playing, itemPlaying }, dispatch] = useAppStateValue();
 
   useEffect(() => {
-    setWinSize(window.innerWidth);
+    if (window.innerWidth < 820) {
+      return setIsMobile(true);
+    } else {
+      return setIsMobile(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth < 500) {
+      console.log('phone...');
+      setIsPhone(30);
+      return;
+    } else {
+      return setIsPhone(200);
+    }
   }, []);
 
   return album?.tracks.items.map((song, idx) => {
@@ -142,6 +159,12 @@ const Tracks = ({ album, features, src }) => {
     });
 
     const handlePlay = () => {
+      if (!song.preview_url) {
+        setNoPreview(true);
+      }
+      if (itemPlaying) {
+        return handleStop();
+      }
       if (song.preview_url) {
         player.play();
       } else {
@@ -160,14 +183,6 @@ const Tracks = ({ album, features, src }) => {
       });
     };
 
-    const windowSize = () => {
-      if (winSize <= 820) {
-        return true;
-      } else {
-        return false;
-      }
-    };
-
     return (
       <motion.section
         variants={animations.trackVariant}
@@ -177,41 +192,49 @@ const Tracks = ({ album, features, src }) => {
         className={styles.trackContainer}
       >
         <div className={styles.track}>
-          {/* Track Number */}
-          <div>
-            {song?.id === itemPlaying?.id && song.preview_url ? (
-              <div className={`${styles.numberCircle} ${styles.circlePlaying}`}>
-                <Image
-                  src={src}
-                  alt={album?.title}
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-            ) : (
-              <div className={styles.numberCircle}>
-                <div className={styles.number}>{idx + 1}</div>
-              </div>
-            )}
-          </div>
-
-          {/* Mobile Play Button  */}
-          {windowSize() && (
-            <>
-              {!playing ? (
-                <div className={styles.playButton} onClick={handlePlay}>
-                  <BsPlayCircle />
+          <div className={styles.numAndPlay}>
+            {/* Track Number */}
+            <div>
+              {song?.id === itemPlaying?.id && song.preview_url ? (
+                <div
+                  className={`${styles.numberCircle} ${styles.circlePlaying}`}
+                >
+                  <Image
+                    src={src}
+                    alt={album?.title}
+                    layout="fill"
+                    objectFit="cover"
+                  />
                 </div>
               ) : (
-                <div
-                  className={`${styles.playButton} ${styles.playButtonPlaying}`}
-                  onClick={handleStop}
-                >
-                  <BsStopCircle />
+                <div className={styles.numberCircle}>
+                  <div className={styles.number}>{idx + 1}</div>
                 </div>
               )}
-            </>
-          )}
+            </div>
+
+            {/* Mobile Play Button  */}
+            {isMobile && (
+              <>
+                {song?.id === itemPlaying?.id ? (
+                  <div
+                    className={`${styles.playButton} ${styles.playButtonPlaying}`}
+                    onClick={handleStop}
+                  >
+                    <BsStopCircle />
+                  </div>
+                ) : song.preview_url ? (
+                  <div className={styles.playButton} onClick={handlePlay}>
+                    <BsPlayCircle />
+                  </div>
+                ) : (
+                  <div className={`${styles.playButton}`} onClick={handlePlay}>
+                    <AiOutlineCloseCircle />
+                  </div>
+                )}
+              </>
+            )}
+          </div>
 
           {/*song features*/}
           <div className={styles.featureContainer}>
@@ -258,7 +281,9 @@ const Tracks = ({ album, features, src }) => {
                       onMouseOver={handlePlay}
                       onMouseLeave={handleStop}
                     >
-                      {song?.name}
+                      {`${song?.name.substring(0, isPhone)}${
+                        song?.name.length > isPhone ? '...' : ''
+                      }`}
                     </span>
                   </Link>
                   <span className={styles.ms}>
@@ -268,13 +293,23 @@ const Tracks = ({ album, features, src }) => {
               ) : (
                 <div className={styles.titleAndTime}>
                   <Link href={song?.external_urls.spotify} passHref>
-                    <span
-                      className={styles.noPreview}
-                      onMouseOver={handlePlay}
-                      onMouseLeave={handleStop}
-                    >
-                      {song?.name}
-                    </span>
+                    {isMobile ? (
+                      <span className={styles.noPreview}>
+                        {`${song?.name.substring(0, isPhone)}${
+                          song?.name.length > isPhone ? '...' : ''
+                        }`}
+                      </span>
+                    ) : (
+                      <span
+                        className={styles.noPreview}
+                        onMouseOver={handlePlay}
+                        onMouseLeave={handleStop}
+                      >
+                        {`${song?.name.substring(0, isPhone)}${
+                          song?.name.length > isPhone ? '...' : ''
+                        }`}
+                      </span>
+                    )}
                   </Link>
 
                   <span className={styles.ms}>

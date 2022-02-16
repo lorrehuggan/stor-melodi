@@ -244,7 +244,7 @@ export default function Home({
                 src={vinylShop}
                 alt="vinyl-shop"
                 width={1024}
-                height={480}
+                height={500}
                 objectFit="cover"
               />
             </motion.div>

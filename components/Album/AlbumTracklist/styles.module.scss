@@ -34,30 +34,55 @@
       }
     }
   }
-
-  .playButton {
-    margin-right: 0.5rem;
-    svg {
-      font-size: 2.1rem;
-      color: white;
-    }
-  }
-  .playButtonPlaying {
-    svg {
-      color: $primary;
-    }
-  }
 }
 
 .trackInfo {
-  @include flex(column, left, space-between);
+  @include flex(column, left, left);
   height: 30px;
   .titleAndTime {
-    @include flex(row, left, space-between);
+    @include flex(row, left, left);
   }
 }
 .track {
   @include flex(row, center, left);
+
+  .numAndPlay {
+    @include flex(row, center, left);
+  }
+
+  .playButton {
+    margin-right: 0.5rem;
+    svg {
+      @include flex(row, center, center);
+      width: 100%;
+      padding-right: 0.5rem;
+      font-size: 2.1rem;
+      color: white;
+      @include phoneLarge {
+        font-size: 1.35rem;
+      }
+    }
+  }
+  .playButtonPlaying {
+    transition: color 0.3s ease;
+    svg {
+      color: $primary;
+    }
+  }
+
+  .noPreviewButton {
+    @include flex(row, center, center);
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    svg {
+      width: 100%;
+      padding-right: 0.5rem;
+      color: red;
+      @include phoneLarge {
+        font-size: 1.35rem;
+      }
+    }
+  }
 
   p {
     font-size: 1.25rem;
@@ -69,7 +94,7 @@
   span {
     font-size: 1rem;
     @include phoneLarge {
-      font-size: 0.6rem;
+      font-size: 0.7rem;
     }
   }
   .songName {
@@ -123,13 +148,13 @@
 }
 
 .featureContainer {
-  @include flex(column, left, space-between);
+  @include flex(column, left, space-around);
   width: 100px;
   height: 30px;
   margin-right: 0.25rem;
 
   .bar {
-    height: 15%;
+    height: 10%;
     border-radius: 12px;
   }
 
@@ -143,7 +168,7 @@
     background: $acoustic;
   }
   @include phoneLarge {
-    width: 60px;
+    width: 50px;
   }
 }
 .container {
@@ -180,6 +205,24 @@
       font-size: 0.5rem;
       letter-spacing: 2px;
     }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+  0% {
+    transform: translateX(0px);
   }
 }
 
