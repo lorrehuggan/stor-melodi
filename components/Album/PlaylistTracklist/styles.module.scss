@@ -3,16 +3,16 @@
 .trackContainer {
   margin-bottom: 0.75rem;
   .circlePlaying {
-    transition: box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-    box-shadow: 0px 0px 2px $light;
     animation-name: playing;
-    animation-duration: 1s;
+    animation-duration: 2.5s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
   }
+
   .numberCircle {
     position: relative;
     width: 2rem;
+    overflow: hidden;
     height: 2rem;
     border: 1px solid $light;
     margin-right: 0.5rem;
@@ -36,8 +36,55 @@
   }
 }
 
+.trackInfo {
+  @include flex(column, left, left);
+  height: 30px;
+  .titleAndTime {
+    @include flex(row, left, left);
+  }
+}
 .track {
   @include flex(row, center, left);
+
+  .numAndPlay {
+    @include flex(row, center, left);
+  }
+
+  .playButton {
+    margin-right: 0.5rem;
+    svg {
+      cursor: pointer;
+      @include flex(row, center, center);
+      width: 100%;
+      padding-right: 0.5rem;
+      font-size: 2.1rem;
+      color: white;
+      @include phoneLarge {
+        font-size: 1.35rem;
+      }
+    }
+  }
+  .playButtonPlaying {
+    transition: color 0.3s ease;
+    svg {
+      cursor: pointer;
+      color: $primary;
+    }
+  }
+
+  .noPreviewButton {
+    @include flex(row, center, center);
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    svg {
+      width: 100%;
+      padding-right: 0.5rem;
+      color: red;
+      @include phoneLarge {
+        font-size: 1.35rem;
+      }
+    }
+  }
 
   p {
     font-size: 1.25rem;
@@ -49,7 +96,7 @@
   span {
     font-size: 1rem;
     @include phoneLarge {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
     }
   }
   .songName {
@@ -71,6 +118,9 @@
 .copyright {
   font-size: 0.8rem;
   margin-top: 1rem;
+  @include phoneLarge {
+    font-size: 0.6rem;
+  }
 }
 
 .trackList {
@@ -100,13 +150,13 @@
 }
 
 .featureContainer {
-  @include flex(column, left, space-between);
+  @include flex(column, left, space-around);
   width: 100px;
   height: 30px;
   margin-right: 0.25rem;
 
   .bar {
-    height: 15%;
+    height: 10%;
     border-radius: 12px;
   }
 
@@ -120,21 +170,22 @@
     background: $acoustic;
   }
   @include phoneLarge {
-    width: 60px;
+    width: 50px;
   }
 }
 .container {
-  @include flex(row, left, left);
+  @include flex(row, center, center);
   margin-bottom: 1rem;
-  @include phoneLarge {
+  @include iPadPortrait {
     @include flex(row, center, center);
   }
+
   .featureIdx {
     @include flex(column, center, center);
     margin-right: 0.5rem;
     .pin {
-      height: 1rem;
-      width: 1rem;
+      height: 1.5rem;
+      width: 1.5rem;
       margin-bottom: 0.5rem;
       border-radius: 50%;
       @include phoneLarge {
@@ -159,17 +210,35 @@
   }
 }
 
+@keyframes shake {
+  0% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+  0% {
+    transform: translateX(0px);
+  }
+}
+
 @keyframes playing {
   0% {
-    box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
+    // box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
     transform: rotate(0deg);
   }
   50% {
-    box-shadow: 0px 0px 8px $light, inset 0px 0px 6px $light;
+    // box-shadow: 0px 0px 8px $light, inset 0px 0px 6px $light;
     transform: rotate(180deg);
   }
   100% {
-    box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
+    // box-shadow: 0px 0px 2px $light, inset 0px 0px 2px $light;
     transform: rotate(360deg);
   }
 }

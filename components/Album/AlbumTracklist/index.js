@@ -8,7 +8,6 @@ import { MsToMinsAndSeconds } from '../../../utils/MsToMins';
 import { Howler, Howl } from 'howler';
 import { motion } from 'framer-motion';
 import { BsPlayCircle, BsStopCircle } from 'react-icons/bs';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const AlbumTracklist = ({ album, copyright, features, src }) => {
   return (
@@ -212,28 +211,23 @@ const Tracks = ({ album, features, src }) => {
                 </div>
               )}
             </div>
-
             {/* Mobile Play Button  */}
-            {isMobile && (
-              <>
-                {song?.id === itemPlaying?.id ? (
-                  <div
-                    className={`${styles.playButton} ${styles.playButtonPlaying}`}
-                    onClick={handleStop}
-                  >
-                    <BsStopCircle />
-                  </div>
-                ) : song.preview_url ? (
-                  <div className={styles.playButton} onClick={handlePlay}>
-                    <BsPlayCircle />
-                  </div>
-                ) : (
-                  <div className={`${styles.playButton}`} onClick={handlePlay}>
-                    <AiOutlineCloseCircle />
-                  </div>
-                )}
-              </>
-            )}
+            <>
+              {song?.id === itemPlaying?.id ? (
+                <div
+                  className={`${styles.playButton} ${styles.playButtonPlaying}`}
+                  onClick={handleStop}
+                >
+                  <BsStopCircle />
+                </div>
+              ) : song.preview_url ? (
+                <div className={styles.playButton} onClick={handlePlay}>
+                  <BsPlayCircle />
+                </div>
+              ) : (
+                ''
+              )}
+            </>
           </div>
 
           {/*song features*/}
@@ -273,53 +267,22 @@ const Tracks = ({ album, features, src }) => {
           {/* Track Information */}
           <div className={styles.trackInfo}>
             <div className={styles.trackTitle}>
-              {song?.id === itemPlaying?.id && song?.preview_url ? (
-                <div className={styles.titleAndTime}>
-                  <Link href={song?.external_urls.spotify} passHref>
-                    <span
-                      className={styles.songName}
-                      onMouseOver={handlePlay}
-                      onMouseLeave={handleStop}
-                    >
-                      {`${song?.name.substring(0, isPhone)}${
-                        song?.name.length > isPhone ? '...' : ''
-                      }`}
-                    </span>
-                  </Link>
-                  <span className={styles.ms}>
-                    {MsToMinsAndSeconds(song?.duration_ms)}
+              <div className={styles.titleAndTime}>
+                <Link href={song?.external_urls.spotify} passHref>
+                  <span className={styles.songName}>
+                    {`${song?.name.substring(0, isPhone)}${
+                      song?.name.length > isPhone ? '...' : ''
+                    }`}
                   </span>
-                </div>
-              ) : (
-                <div className={styles.titleAndTime}>
-                  <Link href={song?.external_urls.spotify} passHref>
-                    {isMobile ? (
-                      <span className={styles.noPreview}>
-                        {`${song?.name.substring(0, isPhone)}${
-                          song?.name.length > isPhone ? '...' : ''
-                        }`}
-                      </span>
-                    ) : (
-                      <span
-                        className={styles.noPreview}
-                        onMouseOver={handlePlay}
-                        onMouseLeave={handleStop}
-                      >
-                        {`${song?.name.substring(0, isPhone)}${
-                          song?.name.length > isPhone ? '...' : ''
-                        }`}
-                      </span>
-                    )}
-                  </Link>
+                </Link>
 
-                  <span className={styles.ms}>
-                    {MsToMinsAndSeconds(song?.duration_ms)}
-                  </span>
-                </div>
-              )}
+                <span className={styles.ms}>
+                  {MsToMinsAndSeconds(song?.duration_ms)}
+                </span>
+              </div>
             </div>
             <div className={styles.meta}>
-              {song?.artists.map((artist) => {
+              {song?.artists.slice(0, 3).map((artist) => {
                 return (
                   <Link
                     key={artist?.id}
@@ -327,9 +290,7 @@ const Tracks = ({ album, features, src }) => {
                     passHref
                   >
                     <a target="_blank">
-                      <p key={artist?.id}>{`${artist?.name}${
-                        song?.artists.length > 1 ? ',' : ''
-                      }`}</p>
+                      <p key={artist?.id}>{artist?.name}</p>
                     </a>
                   </Link>
                 );

@@ -53,6 +53,7 @@
   .playButton {
     margin-right: 0.5rem;
     svg {
+      cursor: pointer;
       @include flex(row, center, center);
       width: 100%;
       padding-right: 0.5rem;
@@ -67,6 +68,7 @@
     transition: color 0.3s ease;
     svg {
       color: $primary;
+      cursor: pointer;
     }
   }
 
@@ -117,7 +119,7 @@
   font-size: 0.8rem;
   margin-top: 1rem;
   @include phoneLarge {
-    font-size: 0.5rem;
+    font-size: 0.6rem;
   }
 }
 

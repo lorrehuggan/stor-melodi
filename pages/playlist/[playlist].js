@@ -50,6 +50,7 @@ const Playlist = ({ playlist, features }) => {
               copyright={playlist.description}
               type="Playlist"
               features={features}
+              src={playlist.images[0].url}
             />
           </section>
         </section>
