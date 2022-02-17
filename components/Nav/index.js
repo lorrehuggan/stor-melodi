@@ -10,11 +10,20 @@ import { types } from '../../reducers/appReducer';
 import useScreenSize from '../../hooks/useScreenWidth';
 
 const Nav = () => {
-  const [{ user, menuOpen }, dispatch] = useAppStateValue();
+  const [{ user, menuOpen, playing, itemPlaying }, dispatch] =
+    useAppStateValue();
   const { smallScreen } = useScreenSize(810);
 
   const stop = () => {
     Howler.stop();
+    dispatch({
+      type: types.SET_ITEM_PLAYING,
+      itemPlaying: null,
+    });
+    dispatch({
+      type: types.SET_PLAYING,
+      playing: false,
+    });
   };
 
   const lines = {
@@ -34,6 +43,7 @@ const Nav = () => {
 
   return (
     <nav className={styles.nav}>
+      {itemPlaying && <div className={styles.playingBar} onClick={stop}></div>}
       <section className={styles.container}>
         <div className={styles.innerContainer}>
           <Link href="/" passHref>

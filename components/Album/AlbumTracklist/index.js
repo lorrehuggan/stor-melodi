@@ -198,6 +198,11 @@ const Tracks = ({ album, features, src }) => {
               {song?.id === itemPlaying?.id && song.preview_url ? (
                 <div
                   className={`${styles.numberCircle} ${styles.circlePlaying}`}
+                  style={{
+                    animationDuration: `${Math.floor(
+                      trackFeatures[0]?.tempo * 12
+                    )}ms`,
+                  }}
                 >
                   <Image
                     src={src}

@@ -182,6 +182,7 @@ const Tracks = ({ album, features, src }) => {
         itemPlaying: null,
       });
     };
+    const dancingFeatures = playing ? styles.dancingFeatures : '';
 
     return (
       <motion.section
@@ -198,6 +199,11 @@ const Tracks = ({ album, features, src }) => {
               {song?.track.id === itemPlaying?.id && song.track.preview_url ? (
                 <div
                   className={`${styles.numberCircle} ${styles.circlePlaying}`}
+                  style={{
+                    animationDuration: `${Math.floor(
+                      trackFeatures[0]?.tempo * 12
+                    )}ms`,
+                  }}
                 >
                   <Image
                     src={src}
@@ -242,7 +248,7 @@ const Tracks = ({ album, features, src }) => {
               variants={animations.danceVariant}
               initial="hidden"
               animate="visible"
-              className={`${styles.danceBar} ${styles.bar}`}
+              className={`${styles.danceBar} ${styles.bar} ${dancingFeatures}`}
               style={{
                 width: `${Math.floor(trackFeatures[0]?.danceability * 100)}%`,
               }}
@@ -252,7 +258,7 @@ const Tracks = ({ album, features, src }) => {
               variants={animations.energyVariant}
               initial="hidden"
               animate="visible"
-              className={`${styles.energyBar} ${styles.bar}`}
+              className={`${styles.energyBar} ${styles.bar} ${dancingFeatures}`}
               style={{
                 width: `${Math.floor(trackFeatures[0]?.energy * 100)}%`,
               }}
@@ -262,7 +268,7 @@ const Tracks = ({ album, features, src }) => {
               variants={animations.acousticVariant}
               initial="hidden"
               animate="visible"
-              className={`${styles.acousticBar} ${styles.bar}`}
+              className={`${styles.acousticBar} ${styles.bar} ${dancingFeatures}`}
               style={{
                 width: `${Math.floor(trackFeatures[0]?.acousticness * 100)}%`,
               }}
