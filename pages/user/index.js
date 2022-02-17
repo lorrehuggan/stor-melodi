@@ -135,13 +135,13 @@ const User = () => {
             </section>
           </section>
           {/*user top playlists*/}
-          <section className={styles.innerContainer}>
+          {/* <section className={styles.innerContainer}>
             <section className={styles.albums}>
               <h2>My Top Playlists</h2>
               <div className={styles.grid}>{renderUserTopPlaylists()}</div>
               <div className={styles.grid}>{renderUserTopPlaylists2()}</div>
             </section>
-          </section>
+          </section> */}
         </section>
       )}
     </section>

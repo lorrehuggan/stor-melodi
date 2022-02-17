@@ -11,6 +11,7 @@ import {
   GET_USER_ENDPOINT,
   GET_USER_TOP_TRACKS,
   GET_USER_TOP_ARTIST,
+  GET_USER_PLAYLISTS_ENDPOINT,
 } from '../lib/spotify';
 import axios from 'axios';
 import SmallAlbumCard from '../components/Album/SmallAlbumCard';
@@ -66,9 +67,10 @@ export default function Home({
         type: types.SET_USER_TOKEN,
         userToken: _token,
       });
-    } else {
-      return;
     }
+  }, [dispatch]);
+
+  useEffect(() => {
     if (userToken) {
       axios
         .get(GET_USER_ENDPOINT, {
@@ -82,8 +84,33 @@ export default function Home({
             user: res.data,
           })
         )
+
         .catch((err) => console.log(err));
     }
+    return;
+  }, [userToken, dispatch]);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     axios
+  //       .get(GET_USER_PLAYLISTS_ENDPOINT(user.id), {
+  //         headers: {
+  //           Authorization: `Bearer ${userToken}`,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         console.log(res);
+  //         dispatch({
+  //           type: types.SET_USER_PLAYLISTS,
+  //           userPlaylists: res.data.items,
+  //         });
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  //   return;
+  // }, [userToken, user, dispatch]);
+
+  useEffect(() => {
     if (user) {
       axios
         .get(`${GET_USER_TOP_TRACKS}?limit=20&time_range=short_term`, {
@@ -98,6 +125,11 @@ export default function Home({
           })
         )
         .catch((err) => console.log(err));
+    }
+  }, [user, userToken, dispatch]);
+
+  useEffect(() => {
+    if (user) {
       axios
         .get(`${GET_USER_TOP_ARTIST}?limit=20&time_range=long_term`, {
           headers: {
